@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATouch</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon"
+          type="image/svg+xml"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z'/%3E%3C/svg%3E" />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+  <link href="../assets/css/global.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/homeview.css" />
+  <link rel="stylesheet" href="../assets/css/navbar.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <div class="container-fluid">
+            <img src="../assets/images/logo.png" alt="Logo" height="50px" class="ps-5" />
+            <a class="navbar-brand px-2" href="../index.html">
+              <h2>LATouch</h2>
+            </a>
+      
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+              aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavId">
+
+
+                <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                    <div class="mx-3">
+                        <img src="../assets/images/vietnam.png" alt="Vietnam Flag" style="width:25px" />
+                        <span>VIE</span>
+                    </div>
+                    <div class="mx-3">
+                        <i class="bi bi-envelope fs-4 align-middle"></i>
+                    </div>
+                    <div class="mx-3">
+                        <i class="bi bi-question-circle fs-4 align-middle"></i>
+                    </div>
+
+                    <div class="mx-3 nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-person-circle fs-4 align-middle"></i>
+                          Hi, Phong
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownAccountId"  style="color: black;">
+                            <a class="dropdown-item" href="profile.html">
+                                <img src="/assets/images/profile.jpg" alt="Profile" class="sidebar-icon"> Profile
+                            </a>
+                            <a class="dropdown-item" href="settings.html">
+                                <img src="/assets/images/settings.jpg" alt="Settings" class="sidebar-icon"> Settings
+                            </a>
+                            <a class="dropdown-item" href="help.html">
+                                <img src="/assets/images/help.jpg" alt="Help" class="sidebar-icon"> Help
+                            </a>
+                            <a class="dropdown-item" href="display.html">
+                                <img src="/assets/images/access.jpg" alt="Display & Accessibility" class="sidebar-icon"> Accessibility
+                            </a>
+                            <a class="dropdown-item" href="feedback.html">
+                                <img src="/assets/images/feedback.jpg" alt="Feedback" class="sidebar-icon"> Feedback
+                            </a>
+                            <a class="dropdown-item" href="/index.html">
+                                <img src="/assets/images/logout.jpg" alt="Logout" class="sidebar-icon"> Logout
+                            </a>
+                        </div>
+                  </div>
+
+
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
+
+    
+      <main>
+        <!-- Page hiện tại -->
+        <div class="container-fluid">
+            <d class="row">
+            <!-- Side bar -->
+                <div class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1">
+                <div class="text-center">
+                    <ul class="nav nav-pills flex-column mt-5">
+                    <li class="nav-item py-2">
+                        <a href="#" class="nav-link text-dark" aria-current="page">
+                        <i class="bi bi-speedometer2 fs-5"></i> <br />
+                        Dashboard</a
+                        >
+                    </li>
+    
+                    <li class="nav-item py-2">
+                        <a
+                        href="../project/project-list.html"
+                        class="nav-link text-dark"
+                        >
+                        <i class="bi bi-backpack4 fs-5"></i> <br/>
+                        Project List</a
+                        >
+                    </li>
+    
+                    <li class="nav-item py-3">
+                        <a href="../board/board.html" class="nav-link text-dark">
+                        <i class="bi bi-clipboard fs-5"></i><br/>
+                                            Board</a
+                        >
+                    </li>
+    
+                    <li class="nav-item py-3">
+                        <a href="../board/board.html" class="nav-link text-dark">
+                            <i class="bi bi-gear fs-5"></i> <br />
+                            Setting</a
+                        >
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+            <!-- Main content -->
+            <div class="col-md-11 col-lg-11 col-md-11 mx-auto px-4">
+              
+                <div class="content-box mt-3">
+                    <div class="greeting p-5" id="greeting">
+                        <h2 class="fw-bold mx-2">Hi, Tran Minh Hoang</h2>
+                        <p class="mx-2" style="font-size: 20px">Welcome to "LATouch"</p>
+                        <div class="d-flex mx-2">
+                            <i class="bi bi-graph-up-arrow fs-5 text-success"></i>
+                            <p class="mx-2 text-success fw-semibold">1.2% up from yesterday</p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="block d-flex justify-content-center">
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="../assets/images/test.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Test cases</h2>
+                            <p>20/100</p>
+                        </div>
+                        
+                
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="../assets/images/project-management.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>All projects</h2>
+                            <p>5/10</p>
+                        </div>
+
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="../assets/images/web.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Test runs</h2>
+                            <p>1/25</p>
+                        </div>
+
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="../assets/images/team.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Users</h2>
+                            <p>5/100</p>
+                        </div>
+
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="../assets/images/problem-solving.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Issues</h2>
+                            <p>20/100</p>
+                        </div>
+
+                    </div>
+            
+                    <div class="graph p-5" id="graph">
+                        <h4 class="mb-3">This is a graph showing your activation time :</h4>
+                        <img src="/assets/images/graph.png" alt="Graph" class="graph-img mt-3" style="width : 1100px; height : 400px;">
+                    </div>
+            
+                
+        </div>
+    
+  
+      </main>
+
+
+
+    
+
+    
+
+
+    <script>
+        document.getElementById('dashboard-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'block';
+            document.getElementById('graph').style.display = 'block';
+            document.getElementById('content-block1').style.display = 'block';
+            document.getElementById('content-block2').style.display = 'block';
+            document.getElementById('content-block3').style.display = 'block';
+            document.getElementById('content-block4').style.display = 'block';
+
+            var projectListContent = document.querySelector('.content-box .content-project');
+            if (projectListContent) {
+                projectListContent.style.display = 'none';
+            }
+        });
+
+        document.getElementById('project-list-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+
+            var projectListContent = document.querySelector('.content-box .content-project');
+            if (projectListContent) {
+                projectListContent.style.display = 'block';
+            }
+        });
+
+        document.getElementById('administration-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+        });
+
+        document.getElementById('team-report-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+        });
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATouch</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon"
+          type="image/svg+xml"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z'/%3E%3C/svg%3E" />
+    <link href="/assets/css/pm.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="container-fluid custom-bg" style="margin-left: 200px; padding: 0; height: 50px;">
+        <nav class="navbar navbar-expand-lg custom-bg justify-content-between" style="margin: 0; height: 50px;">
+            <div class="container" style="margin: 0;">
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation" style="color: black;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavId" style="color: black;">
+                    <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                        <div class="mx-3">
+                            <img src="../assets/images/vietnam.png" alt="Vietnam Flag" style="width: 25px" />
+                            <span>VIE</span>
+                        </div>
+                        <div class="mx-3">
+                            <i class="bi bi-envelope fs-4 align-middle"></i>
+                           
+                        </div>
+                        <div class="mx-3 nav-item dropdown " style="">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">
+                              
+                                <img src="/assets/images/avatar.png" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;" />
+                                <span style="font-weight: bold; color: black;">Hi, Phong</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownAccountId" style="color: black;">
+                                <a class="dropdown-item" href="profile.html">
+                                    <img src="/assets/images/profile.jpg" alt="Profile" class="sidebar-icon"> Profile
+                                </a>
+                                <a class="dropdown-item" href="settings.html">
+                                    <img src="/assets/images/settings.jpg" alt="Settings" class="sidebar-icon"> Settings
+                                </a>
+                                <a class="dropdown-item" href="help.html">
+                                    <img src="/assets/images/help.jpg" alt="Help" class="sidebar-icon"> Help
+                                </a>
+                                <a class="dropdown-item" href="display.html">
+                                    <img src="/assets/images/access.jpg" alt="Display & Accessibility" class="sidebar-icon"> Accessibility
+                                </a>
+                                <a class="dropdown-item" href="feedback.html">
+                                    <img src="/assets/images/feedback.jpg" alt="Feedback" class="sidebar-icon"> Feedback
+                                </a>
+                                <a class="dropdown-item" href="/index.html">
+                                    <img src="/assets/images/logout.jpg" alt="Logout" class="sidebar-icon"> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+    <!-- Left Sidebar -->
+    <div class="sidebar-left">
+        <a class="navbar-brand align-items-center" href="#">
+            <img src="/assets/images/logo.png" alt="Logo" class="logo">
+            LATouch
+        </a>
+        <hr class="sidebar-divider">
+        <a href="#" id="dashboard-link">Dashboard</a>
+        <a href="#" id="project-list-link">Project List</a>
+        <a href="#" id="administration-link">Administration</a>
+        <a href="#" id="team-report-link">Team Report</a>
+        <hr class="sidebar-divider">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr class="sidebar-divider">
+        <div class="info-box">
+            <a href="#">(84) 1247593024</a>
+            <a href="#">hehe@gmail.com</a>
+            <a href="#">227 Nguyen Van Cu, District 5, Ho Chi Minh City</a>
+        </div>
+        <hr class="sidebar-divider">
+    </div>
+
+    <div class="content-box">
+        <div class="greeting" id="greeting">
+            <h1>Hi, Ho va Ten</h1>
+            <a>Welcome to "LATouch"</a>
+        </div>
+
+        <div class="graph" id="graph">
+            <a>This is a graph showing your activation time :</a>
+            <img src="/assets/images/graph.png" alt="Graph" class="graph-img" style="width : 1100px; height : 400px;">
+        </div>
+
+        <div class="content-block" id="content-block1">
+            <h2>Content Block 1</h2>
+            <p>This is the content of the first block.</p>
+        </div>
+
+        <div class="content-block" id="content-block2">
+            <h2>Content Block 2</h2>
+            <p>This is the content of the second block.</p>
+        </div>
+
+        <div class="content-block" id="content-block3">
+            <h2>Content Block 3</h2>
+            <p>This is the content of the third block.</p>
+        </div>
+
+        <div class="content-block" id="content-block4">
+            <h2>Content Block 4</h2>
+            <p>This is the content of the fourth block.</p>
+        </div>
+        <!-- Project List Content - Start -->
+        <div class="content-project">
+            <div class="row">
+                <div class="search-container">
+                    <input type="text"
+                           class="search-input"
+                           name=""
+                           id=""
+                           aria-describedby="helpId"
+                           placeholder="Search by project name" />
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div class="mr-3">
+                        <div role="group" class="form-group mb-0 sort-container">
+                            <label for="sort-by-select"
+                                   class="d-block text-sm-right sort-label text-center">Sort</label>
+                            <div class="bv-no-focus-ring sort-input-group">
+                                <div role="group" class="input-group">
+                                    <select id="sort-by-select"
+                                            class="custom-select"
+                                            label="name"
+                                            reduce="function(t){return t.id}">
+                                        <option value="created_at">Created Date</option>
+                                        <option value="project_name">Project Name</option>
+                                    </select>
+                                    <select class="custom-select" id="__BVID__150">
+                                        <option value="false">Asc</option>
+                                        <option value="true">Desc</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="project-row">
+                <div class="project-col">
+                    <div class="project-container">
+                        <a href="projectView.html" class="custom-link">
+                            <div class="card create-p-card">
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                    <img src="/assets/images/plus.jpg" class="projectlogo" style="width: 80px; height: 80px" />
+                                    <h4 class="card-title mt-3 mb-0">Create Project</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-col">
+                    <div class="project-container">
+                        <a href="projectView.html" class="custom-link">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/assets/images/project-list.svg" class="projectlogo" />
+                                            <div class="p-2">
+                                                <h4 class="card-title">Project 1</h4>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created on March 30, 2024
+                                                </p>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created by <b>Nguyến Tuấn Phong</b>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-7 justify-content-end">
+                                                        <div class="card-text">Project Key</div>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <div class="card-text center-content">ABCD1</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <i class="bi bi-pencil-square"></i>
+                                            <i class="bi bi-trash"></i>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-7 d-flex align-items-center">
+                                            <div class="card-text">
+                                                <img src="/assets/images/email.svg" class="sidebar-icon" alt="" />
+                                                1 Ticket Pending!
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="card-text center-content">
+                                                5 hours ago...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-col">
+                    <div class="project-container">
+                        <a href="projectView.html" class="custom-link">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/assets/images/project-list.svg" class="projectLogo" />
+                                            <div class="p-2">
+                                                <h4 class="card-title">Project 2</h4>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created on March 16, 2024
+                                                </p>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created by <b>Trần Minh Hoàng</b>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-7 justify-content-end">
+                                                        <div class="card-text">Project Key</div>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <div class="card-text center-content">FE5D2</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <i class="bi bi-pencil-square"></i>
+                                            <i class="bi bi-trash"></i>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-7 d-flex align-items-center">
+                                            <div class="card-text">
+                                                <img src="/assets/images/email.svg" class="sidebar-icon" alt="" />
+                                                0 Ticket Pending!
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="card-text center-content">
+                                                12 days ago...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-col">
+                    <div class="project-container">
+                        <a href="projectView.html" class="custom-link">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/assets/images/project-list.svg" class="projectlogo" />
+                                            <div class="p-2">
+                                                <h4 class="card-title">Project 3</h4>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created on March 1, 2024
+                                                </p>
+                                                <p class="card-text" style="font-size: 1rem">
+                                                    Created by <b>Trần Kỳ Thanh</b>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-7 justify-content-end">
+                                                        <div class="card-text">Project Key</div>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <div class="card-text center-content">FE5D2</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <i class="bi bi-pencil-square"></i>
+                                            <i class="bi bi-trash"></i>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-7 d-flex align-items-center">
+                                            <div class="card-text">
+                                                <img src="/assets/images/email.svg" class="sidebar-icon" alt="" />
+                                                0 Ticket Pending!
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="card-text center-content">
+                                                27 days ago...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Add more project cards here -->
+            </div>
+        </div>
+        <!-- Project List Content - End -->
+    </div>
+
+
+    <script>
+        document.getElementById('dashboard-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'block';
+            document.getElementById('graph').style.display = 'block';
+            document.getElementById('content-block1').style.display = 'block';
+            document.getElementById('content-block2').style.display = 'block';
+            document.getElementById('content-block3').style.display = 'block';
+            document.getElementById('content-block4').style.display = 'block';
+
+            var projectListContent = document.querySelector('.content-box .content-project');
+            if (projectListContent) {
+                projectListContent.style.display = 'none';
+            }
+        });
+
+        document.getElementById('project-list-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+
+            var projectListContent = document.querySelector('.content-box .content-project');
+            if (projectListContent) {
+                projectListContent.style.display = 'block';
+            }
+        });
+
+        document.getElementById('administration-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+        });
+
+        document.getElementById('team-report-link').addEventListener('click', function () {
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('content-block1').style.display = 'none';
+            document.getElementById('content-block2').style.display = 'none';
+            document.getElementById('content-block3').style.display = 'none';
+            document.getElementById('content-block4').style.display = 'none';
+        });
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

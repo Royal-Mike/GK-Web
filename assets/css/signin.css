@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 *{
 	margin: 0;
@@ -7,7 +6,7 @@
 	outline: none;
 	list-style: none;
 	text-decoration: none;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Quicksand', sans-serif;
 }
 
 body{

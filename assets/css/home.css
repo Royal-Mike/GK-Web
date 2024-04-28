@@ -2,6 +2,7 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
+
 .dropdown-menu ul {
     list-style: none;
     padding: 0;
@@ -18,8 +19,9 @@ body {
   
   .nav-item:hover .dropdown-menu {
     display: flex;
-    left: 10%;
     width: 80%;
+    flex-direction: column;
+    text-align: center;
   }
   
   footer {

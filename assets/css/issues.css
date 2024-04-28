@@ -44,3 +44,9 @@
     width: 75%;
     display: none; /* Ẩn ban đầu */ 
 }
+
+@media (max-width: 768px) {
+    .align-items-center.d-flex.mt-2 {
+      flex-wrap: wrap;
+    }
+  }

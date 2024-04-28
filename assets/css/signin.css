@@ -21,6 +21,10 @@ body{
 	margin: 0 auto 35px;
 }
 
+.wrapper .header {
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
 .wrapper .header .form .input_field{
 	margin-bottom: 5px;
 }
@@ -58,6 +62,10 @@ body{
 	align-items: center;
 	height: 15px;
 	margin: 15px 0 20px;
+}
+
+.signin {
+    background-image: linear-gradient(to right, #d3efd5, #7ce388e3); /* Gradient màu từ vàng đến cam */
 }
 
 .line{
@@ -103,11 +111,6 @@ body{
 }
 
 
-.wrapper .apps a img{
-	width: 135px;
-	height: 40px;
-	margin: 0 5px;
-}
 
 .footer{
 	max-width: 935px;
@@ -130,14 +133,5 @@ body{
 
 .footer .copyright{
 	color: #999;	
-}
-
-.overlay {
-    position: absolute;
-	top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ 50% */
 }
 

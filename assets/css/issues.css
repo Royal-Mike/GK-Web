@@ -19,7 +19,10 @@
 .bg-cancel-btn {
     background-color: #FF7878;
 }
-
+.ed {
+    color: #0d6895;
+    font-weight: 500;
+}
 .overlay {
     position: fixed;
     top: 0;

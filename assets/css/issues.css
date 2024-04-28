@@ -19,6 +19,7 @@
 .bg-cancel-btn {
     background-color: #FF7878;
 }
+
 .overlay {
     position: fixed;
     top: 0;
@@ -29,6 +30,7 @@
     z-index: 999; /* Đảm bảo lớp overlay hiển thị trên cùng */
     display: none; /* Ẩn ban đầu */
 }
+
 .add-issue-table {
     position: fixed;
     top: 50%;

@@ -14,4 +14,10 @@ $(document).ready(function () {
     $("#cancel-issue-btn").click(function () {
         $(".overlay, .add-issue-table").hide(); // ẩn overlay và add issue table
     });
+    
+    // Function để đóng bảng thêm vấn đề
+    $("#close-issue-btn").click(function () {
+        $(".overlay, .add-issue-table").hide(); // ẩn overlay và add issue table
+    });
+    
 });

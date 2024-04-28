@@ -200,10 +200,15 @@
                   <div class="mx-3">
                     <i class="bi bi-archive">Archived</i>
                   </div>
-
                   <div class="mx-3">
-                    <i class="bi bi-cloud-download"></i>
-                    Export
+                    <i class="bi bi-search">Search</i>
+                  </div>
+                  <div class="mx-3">
+                    <i class="bi bi-cloud-upload"></i>
+                    Import
+                  </div>
+                  <div class="mx-3">
+                    <i class="bi bi-three-dots-vertical"></i>
                   </div>
                 </div>
                 <div class="d-inline-block me-3">
@@ -213,224 +218,322 @@
                   >
                     <div class="me-2 p-1">
                       <i class="bi bi-plus"></i>
-                      Add Test Run
+                      Add
+                    </div>
+                  </div>
+                </div>
+                <div class="d-inline-block me-3">
+                  <div
+                    id="add-issue-btn"
+                    class="mx-4 my-3 d-flex btn custom-bold-btn"
+                  >
+                    <div class="me-2 p-1">
+                      <i class="bi bi-plus"></i>
+                      Add testcase
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="container-fluid bg-light mt-4 py-2 rounded-3">
-              <div class="align-items-center d-flex mt-2">
-                <h5 class="ms-4 my-3">Show</h5>
-                <div class="ms-2">
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle p-1"
-                      type="button"
-                      id="dropdownMenu1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      style="min-width: 100px"
-                    >
-                      5
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li>
-                        <button class="dropdown-item" type="button">5</button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item" type="button">15</button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item" type="button">20</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="ms-auto" style="min-width: 50%">
-                  <div class="input-group rounded">
-                    <input
-                      type="search"
-                      class="form-control rounded"
-                      placeholder="Search by Test Run"
-                      aria-label="Search"
-                      aria-describedby="search-addon"
-                    />
-                    <span class="input-group-text border-0" id="search-addon">
-                      <i class="fas fa-search"></i>
-                    </span>
-                  </div>
-                </div>
-
-                <div class="col d-flex align-items-center">
-                  <button
-                    class="border-0 rounded-circle p-2 text-muted ms-auto"
-                  >
-                    <i class="bi bi-chevron-double-left"></i>
-                  </button>
-                  <div
-                    class="d-flex justify-content-center align-items-center mx-3"
-                    style="width: 50px; height: 50px"
-                  >
-                    <h2 class="mb-0">1</h2>
-                  </div>
-                  <button class="border-0 rounded-circle p-2 text-muted me-3">
-                    <i class="bi bi-chevron-double-right"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="container-fluid bg-light py-3">
-              <div class="row">
-                <div class="col fw-bold">Case Code</div>
-                <div class="col fw-bold">Title</div>
-                <div class="col fw-bold">Steps</div>
-                <div class="col fw-bold">Created by</div>
-                <div class="col fw-bold">Created At</div>
-                <div class="col fw-bold">Action</div>
-              </div>
-            </div>
-            <div class="container-fluid bg-light py-3 mb-3 rounded-3">
-              <div class="row">
-                <div class="col">tc1</div>
-                <div class="col">Test Case Number 1</div>
-                <div class="col">3</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col">tc2</div>
-                <div class="col">Test Case Number 2</div>
-                <div class="col">3</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col">tc3</div>
-                <div class="col">Test Case Number 3</div>
-                <div class="col">3</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col">tc4</div>
-                <div class="col">Test Case Number 4</div>
-                <div class="col">3</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col">tc5</div>
-                <div class="col">Test Case Number 5</div>
-                <div class="col">5</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-
-              <div class="row mt-5 align-content-center">
-                <div class="col">
-                  <h4>Showing 1 to 5 of 5 Issue</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="overlay"></div>
-      <div class="add-issue-table">
-        <div class="container">
-          <div class="d-flex align-item-center justify-content-between p-3">
-            <h3 class="mx-auto">Add issue</h3>
-            <button
-              type="button"
-              class="btn-close"
-              id="close-issue-btn"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="row p-3">
-            <div class="col">
-              <p>Issue title <span class="text-danger">*</span></p>
-              <input
-                type="text"
-                class="form-control"
-                placeholder=""
-                aria-label="title"
-              />
-              <p>Status <span class="text-danger">*</span></p>
-              <input
-                type="text"
-                class="form-control"
-                placeholder=""
-                aria-label="status"
-              />
-              <p>Priority <span class="text-danger">*</span></p>
-              <input
-                type="text"
-                class="form-control"
-                placeholder=""
-                aria-label="priority"
-              />
-            </div>
-            <div class="col d-flex flex-column">
-              <p>Description</p>
-              <textarea class="form-control flex-grow-1"></textarea>
-            </div>
-          </div>
-
-          <div class="justify-content-center">
-            <div class="text-center">
-              <button
-                class="btn custom-bold-btn rounded-3 me-3"
-                id="save-issue-btn"
-              >
-                Save
-              </button>
-              <button class="btn border rounded-3" id="cancel-issue-btn">
-                Cancel
-              </button>
-            </div>
-            <div class="text-center mt-3">
-              <p>
-                <strong>Note:</strong>
-                <em
-                  >Please do not hesitate to provide a detailed title and
-                  description for the issue. Ensure to select the appropriate
-                  status, priority, and assignee. Attach any necessary files if
-                  required before saving and completing the process.</em
+            <div class="min-h-50 row gx-3 d-flex justify-content-between">
+              <div class="col-4">
+                <div
+                  class="h-100 d-flex flex-column p-3 bg-semi-grey semi-rounded"
                 >
-              </p>
+                  <div class="d-flex">
+                    <div class="flex-fill">Module</div>
+                    <div class="d-flex flex-fill ml-2 justify-content-end">
+                      <i class="col-2 bi bi-arrows-angle-expand"></i>
+                      <i class="col-2 bi bi-plus"></i>
+                      <i class="bi bi-arrow-right"></i>
+                    </div>
+                  </div>
+
+                  <hr />
+                  <div class="p-3">
+                    <input
+                      class="w-100 p-3 pt-1 pb-1"
+                      type="text"
+                      placeholder="Type to Fliter Module"
+                    />
+                  </div>
+                  <div id="modulesContainer" class="d-flex flex-column">
+                    <div
+                      id="module1"
+                      class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold"
+                    >
+                      <i class="col-2 bi bi-folder" style="color: blue"></i>
+                      <h6 class="col-3">Home Page</h6>
+                      <h6 class="col-3">(10)</h6>
+                      <i class="col-1 bi bi-usb-symbol"></i>
+                      <i class="col-1 bi bi-plus"></i>
+                      <i class="bi bi-usb-drive-fill"></i>
+                    </div>
+                    <div
+                      id="module2"
+                      class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold"
+                    >
+                      <i class="col-2 bi bi-folder" style="color: blue"></i>
+                      <h6 class="col-3">Home Page</h6>
+                      <h6 class="col-3">(10)</h6>
+                      <i class="col-1 bi bi-usb-symbol"></i>
+                      <i class="col-1 bi bi-plus"></i>
+                      <i class="bi bi-usb-drive-fill"></i>
+                    </div>
+                    <div
+                      id="module3"
+                      class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold"
+                    >
+                      <i class="col-2 bi bi-folder" style="color: blue"></i>
+                      <h6 class="col-3">Home Page</h6>
+                      <h6 class="col-3">(10)</h6>
+                      <i class="col-1 bi bi-usb-symbol"></i>
+                      <i class="col-1 bi bi-plus"></i>
+                      <i class="bi bi-usb-drive-fill"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- right side of main -->
+              <div class="col-8">
+                <div class="h-100 flex bg-semi-grey semi-rounded p-3">
+                  <!-- action bar -->
+                  <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+                    <div class="align-items-center d-flex mt-2">
+                      <h5 class="ms-4 my-3">Show</h5>
+                      <div class="ms-2">
+                        <div class="dropdown">
+                          <button
+                            class="btn dropdown-toggle p-1"
+                            type="button"
+                            id="dropdownMenu1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="min-width: 100px"
+                          >
+                            5
+                          </button>
+                          <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenu1"
+                          >
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                5
+                              </button>
+                            </li>
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                15
+                              </button>
+                            </li>
+                            <li>
+                              <button class="dropdown-item" type="button">
+                                20
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div>entries</div>
+                      <div class="col-md-6 d-flex justify-content-end">
+                        <div class="mr-3">
+                          <style>
+                            /* Custom styling for select elements */
+                            .custom-select {
+                              border: 1px solid #ced4da;
+                              border-radius: 4px;
+                              padding: 8px 12px;
+                              width: auto;
+                            }
+                            .sort-label {
+                              font-weight: bold;
+                            }
+
+                            /* Styling for sort input group */
+                            .sort-input-group {
+                              display: flex;
+                              justify-content: space-between;
+                            }
+
+                            /* Styling for sort button */
+                            .sort-button {
+                              cursor: pointer;
+
+                              color: #fff;
+                              border: none;
+                              border-radius: 4px;
+                              padding: 8px 12px;
+                              transition: background-color 0.3s ease;
+                            }
+                          </style>
+
+                          <div
+                            role="group"
+                            class="form-group mb-0 sort-container"
+                          >
+                            <label
+                              for="sort-by-select"
+                              class="d-block text-sm-right sort-label text-center"
+                              >Sort</label
+                            >
+                            <div class="bv-no-focus-ring sort-input-group">
+                              <div role="group" class="input-group">
+                                <select
+                                  id="sort-by-select"
+                                  class="custom-select"
+                                  label="name"
+                                  reduce="function(t){return t.id}"
+                                >
+                                  <option value="created_at">
+                                    Created Date
+                                  </option>
+                                  <option value="project_name">
+                                    Project Name
+                                  </option>
+                                </select>
+                                <select class="custom-select" id="__BVID__150">
+                                  <option value="false">Asc</option>
+                                  <option value="true">Desc</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <script>
+                            // JavaScript for sorting functionality
+                            function sortItems() {
+                              const sortBySelect =
+                                document.getElementById("sort-by-select");
+                              const sortOrderSelect =
+                                document.getElementById("__BVID__150");
+                              const sortBy = sortBySelect.value;
+                              const sortOrder =
+                                sortOrderSelect.value === "true"
+                                  ? "desc"
+                                  : "asc";
+
+                              console.log("Sort by:", sortBy);
+                              console.log("Sort order:", sortOrder);
+                            }
+                          </script>
+                        </div>
+                      </div>
+                      <div class="col d-flex align-items-center">
+                        <button
+                          class="border-0 rounded-circle p-2 text-muted ms-auto"
+                        >
+                          <i class="bi bi-chevron-double-left"></i>
+                        </button>
+                        <div
+                          class="d-flex justify-content-center align-items-center mx-3"
+                          style="width: 50px; height: 50px"
+                        >
+                          <h2 class="mb-0">1</h2>
+                        </div>
+                        <button
+                          class="border-0 rounded-circle p-2 text-muted me-3"
+                        >
+                          <i class="bi bi-chevron-double-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- table -->
+                  <table class="table mt-4 me-2">
+                    <thead>
+                      <tr class="semi-rounded blur-green-theme">
+                        <th scope="col">Case Code</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Steps</th>
+                        <th scope="col">Created By</th>
+
+                        <th
+                          scope="col"
+                          style="
+                            max-width: 100px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                        >
+                          Created At
+                        </th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="testcasesContainer">
+                      <tr>
+                        <th scope="row">TC001</th>
+                        <td>Test Case Number 01</td>
+                        <td><i class="bi bi-file-earmark-fill"></i></td>
+
+                        <td>Hoàng Trần</td>
+
+                        <td style="max-width: 100px" class="eclipsis-overflow">
+                          10h51m 34 10h51m 34 10h51m 34 10h51m 34 10h51m 34
+                        </td>
+
+                        <td class="ps-0">
+                          <div
+                            class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end"
+                          >
+                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-archive"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">TC002</th>
+                        <td>Test Case Number 02</td>
+                        <td><i class="bi bi-file-earmark-fill"></i></td>
+
+                        <td>Hoàng Trần</td>
+
+                        <td style="max-width: 100px" class="eclipsis-overflow">
+                          10h51m 34 10h51m 34 10h51m 34 10h51m 34 10h51m 34
+                          10h51m 34
+                        </td>
+
+                        <td class="ps-0">
+                          <div
+                            class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end"
+                          >
+                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-archive"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">TC003</th>
+                        <td>Test Case Number 03</td>
+                        <td><i class="bi bi-file-earmark-fill"></i></td>
+
+                        <td>Hoàng Trần</td>
+
+                        <td style="max-width: 100px" class="eclipsis-overflow">
+                          10h51m 34 10h51m 34 10h51m 34 10h51m 34 10h51m 34
+                        </td>
+
+                        <td class="ps-0">
+                          <div
+                            class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end"
+                          >
+                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-archive"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!-- pagination -->
+                  <div class="d-flex justify-content-between p-3">
+                    <span> Showing 1 of 3 entries </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

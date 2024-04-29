@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const linkedPopup = $('#customAddTestCase');
+    const linkedPopup = $('#customAddTestRun');
     const addTestRunBtn = $('#add-testrun-btn');
     const saveBtn = $('.save-btn');
     const cancelBtn = $('.cancel-btn');

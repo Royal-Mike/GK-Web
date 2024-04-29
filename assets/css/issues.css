@@ -19,14 +19,10 @@
 .bg-cancel-btn {
     background-color: #FF7878;
 }
-<<<<<<< HEAD
 .ed {
     color: #0d6895;
     font-weight: 500;
 }
-=======
-
->>>>>>> a1f65627c0b8b39060c87a848641614d30f1db78
 .overlay {
     position: fixed;
     top: 0;
@@ -50,7 +46,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 75%;
     display: none; /* Ẩn ban đầu */ 
-<<<<<<< HEAD
 }
 
 @media (max-width: 768px) {
@@ -58,6 +53,3 @@
       flex-wrap: wrap;
     }
   }
-=======
-}
->>>>>>> a1f65627c0b8b39060c87a848641614d30f1db78

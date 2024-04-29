@@ -73,7 +73,7 @@
               <div class="mx-3">
                 <i class="bi bi-question-circle fs-4 align-middle"></i>
               </div>
-              
+
               <div class="mx-3 nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -105,17 +105,18 @@
             <div class="text-center">
               <ul class="nav nav-pills flex-column mt-5">
                 <li class="nav-item py-2">
-                  <a href="../UserPage/homeView.html" class="nav-link text-dark" aria-current="page">
+                  <a
+                    href="../UserPage/homeView.html"
+                    class="nav-link text-dark"
+                    aria-current="page"
+                  >
                     <i class="bi bi-speedometer2 fs-5"></i> <br />
                     Dashboard</a
                   >
                 </li>
 
                 <li class="nav-item py-2">
-                  <a
-                    href="#"
-                    class="nav-link text-dark bg-active-blue-color"
-                  >
+                  <a href="#" class="nav-link text-dark bg-active-blue-color">
                     <i class="bi bi-backpack4 fs-5"></i> <br />
                     Project List</a
                   >
@@ -138,745 +139,774 @@
             </div>
           </div>
 
-          
           <div class="col-xl-11 bg-grey px-4 mx-auto">
-
-            <div class="container-fluid bg-white mt-4 py-2 rounded-3 mx-auto ">
+            <div class="container-fluid bg-white mt-4 py-2 rounded-3 mx-auto">
               <div class="row align-items-center mx-auto bg-white">
-
                 <div class="col-auto d-flex align-self-center">
-        
                   <div class="col-auto d-flex align-self-center">
                     <h5 class="my-3 align-self-center">Sort</h5>
                     <div class="dropdown ms-3 align-self-center">
-                        <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Created Date
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li>
-                                <button class="dropdown-item" type="button">Priority</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">Code</button>
-                            </li>
-                        </ul>
+                      <button
+                        class="btn dropdown-toggle border"
+                        type="button"
+                        id="dropdownMenu1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Created Date
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li>
+                          <button class="dropdown-item" type="button">
+                            Priority
+                          </button>
+                        </li>
+                        <li>
+                          <button class="dropdown-item" type="button">
+                            Code
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                
+
                     <div class="dropdown ms-3 me-1 align-self-center">
-                        <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Desc
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li>
-                                <button class="dropdown-item" type="button">Asc</button>
-                            </li>
-                        </ul>
+                      <button
+                        class="btn dropdown-toggle border"
+                        type="button"
+                        id="dropdownMenu1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Desc
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li>
+                          <button class="dropdown-item" type="button">
+                            Asc
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                </div>
-                
-          
-                  <div class="col-12 d-flex align-self-center mx-2">
-                      <div class="input-group rounded">
-                          <input type="search" class="form-control rounded" placeholder="Search by project name" aria-label="Search" aria-describedby="search-addon" />
-                          <span class="input-group-text border-0" id="search-addon">
-                              <i class="fas fa-search"></i>
-                          </span>
-                      </div>
                   </div>
-          
 
-                <div
-                  id="add-project"
-                  class="col-auto d-flex btn custom-bold-btn align-self-center"
-                  onclick="showDialog()">
-                  <div>Add project</div>
+                  <div class="col-12 d-flex align-self-center mx-2">
+                    <div class="input-group rounded">
+                      <input
+                        type="search"
+                        class="form-control rounded"
+                        placeholder="Search by project name"
+                        aria-label="Search"
+                        aria-describedby="search-addon"
+                      />
+                      <span class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    id="add-project"
+                    class="col-auto d-flex btn custom-bold-btn align-self-center"
+                    onclick="showDialog()"
+                  >
+                    <div>Add project</div>
+                  </div>
+
+                  <div class="col-auto d-flex mx-4 align-self-center">
+                    <i class="bi bi-book fs-5"></i>
+                    <span class="fw-semibold mx-1 align-self-center"
+                      >Guide</span
+                    >
+                  </div>
                 </div>
-
-                <div class="col-auto d-flex mx-4 align-self-center">
-                  <i class="bi bi-book fs-5"></i>
-                  <span class="fw-semibold mx-1 align-self-center">Guide</span>
-                </div>
-
-
               </div>
+
+              <div class="container bg-white">
+                <div class="row p-5">
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a
+                      href="../UserPage/project-detail.html"
+                      class="nav-link text-dark"
+                      aria-current="page"
+                    >
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <a href="#" class="nav-link text-dark" aria-current="page">
+                      <div class="bg-white">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div
+                                class="d-inline-flex align-items-center justify-content-start"
+                              >
+                                <img
+                                  src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
+                                  width="30px"
+                                  height="30px"
+                                />
+                                <div class="p-2">
+                                  <h4 class="card-title">Project 1</h4>
+                                  <p style="font-size: 0.75rem">
+                                    Created on March 16, 2024
+                                  </p>
+                                  <p style="font-size: 0.75rem">
+                                    Created by <b>Hoàng</b>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div>
+                                <i class="bi bi-three-dots"></i>
+                              </div>
+                            </div>
+                            <style>
+                              .enc-id-con {
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #f2f8ff;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                              }
+                              .key {
+                                box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                text-align: left;
+                                border-radius: 30px;
+                                background: #f2f0ff;
+
+                                padding: 2px 25px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                              }
+                            </style>
+                            <div class="enc-id-con">
+                              <p>Project Key</p>
+                              <p class="key" style="color: rgb(77, 0, 174)">
+                                Mglx
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="row">
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Cases
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Test Runs
+                                <br />
+                                1
+                              </div>
+                              <div class="col" style="font-size: 0.8rem">
+                                Issues
+                                <br />
+                                1
+                              </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-end">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                style="background-color: #034f75"
+                              >
+                                <i class="bi bi-person-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-
-            
-            <div class="container bg-white">
-              <div class="row p-5">
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="../UserPage/project-detail.html" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
+        </div>
+        <div
+          id="customProjectPopup"
+          class="position-fixed overlay top-0 bottom-0 start-0 end-0"
+        >
+          <div
+            class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0"
+          >
+            <div class="w-25 shadow bg-white rounded-4">
+              <div class="m-2 mt-2 bg-white semi-rounded">
+                <div class="container p-4 position-relative">
+                  <img
+                    class="closePopup position-absolute top-0 end-0 pointer-cursor"
+                    width="30px"
+                    src="../../../public/icons/clarity_remove-line.svg"
+                    alt=""
+                  />
+                  <h6 class="text-left fs-4">Create Project</h6>
+                  <div class="d-flex justify-content-between gap-5 mb-4">
+                    <div class="flex-fill">
+                      <span class="fs-6 font-weight-semibold"
+                        >Name<span class="text-danger">*</span></span
+                      >
+                      <div class="input-group w-100 mb-4 mt-2">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Project Name"
+                          aria-label="Project name"
+                          name="project-name"
+                        />
                       </div>
                     </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="ps-3 pe-3 ms-4 d-flex btn save-btn"
+                      id="customCreateProject"
+                    >
+                      Create
                     </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                    <div
+                      class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn"
+                    >
+                      Cancel
                     </div>
-                  </a>
+                  </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                  <a href="#" class="nav-link text-dark" aria-current="page">
-                    <div class="bg-white">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div
-                              class="d-inline-flex align-items-center justify-content-start"
-                            >
-                              <img
-                                src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png"
-                                width="30px"
-                                height="30px"
-                              />
-                              <div class="p-2">
-                                <h4 class="card-title">Project 1</h4>
-                                <p style="font-size: 0.75rem">
-                                  Created on March 16, 2024
-                                </p>
-                                <p style="font-size: 0.75rem">
-                                  Created by <b>Hoàng</b>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <i class="bi bi-three-dots"></i>
-                            </div>
-                          </div>
-                          <style>
-                            .enc-id-con {
-                              padding-bottom: 15px;
-                              border-bottom: 1px solid #f2f8ff;
-                              display: inline-flex;
-                              align-items: center;
-                              justify-content: space-between;
-                              width: 100%;
-                            }
-                            .key {
-                              box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                              text-align: left;
-                              border-radius: 30px;
-                              background: #f2f0ff;
-
-                              padding: 2px 25px;
-                              font-size: 0.75rem;
-                              font-weight: 500;
-                            }
-                          </style>
-                          <div class="enc-id-con">
-                            <p>Project Key</p>
-                            <p class="key" style="color: rgb(77, 0, 174)">
-                              Mglx
-                            </p>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Cases
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Test Runs
-                              <br />
-                              1
-                            </div>
-                            <div class="col" style="font-size: 0.8rem">
-                              Issues
-                              <br />
-                              1
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              style="background-color: #034f75"
-                            >
-                              <i class="bi bi-person-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+                <hr />
               </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        id="customProjectPopup"
-        class="position-fixed overlay top-0 bottom-0 start-0 end-0"
+        class="alert alert-success position-fixed top-0 end-0 mt-3 me-3"
+        id="successMessage"
+        style="display: none"
       >
-        <div
-          class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0"
-        >
-          <div class="w-25 shadow bg-white rounded-4">
-            <div class="m-2 mt-2 bg-white semi-rounded">
-              <div class="container p-4 position-relative">
-                <img
-                  class="closePopup position-absolute top-0 end-0 pointer-cursor"
-                  width="30px"
-                  src="../../../public/icons/clarity_remove-line.svg"
-                  alt=""
-                />
-                <h6 class="text-left fs-4">Create Project</h6>
-                <div class="d-flex justify-content-between gap-5 mb-4">
-                  <div class="flex-fill">
-                    <span class="fs-6 font-weight-semibold"
-                      >Name<span class="text-danger">*</span></span
-                    >
-                    <div class="input-group w-100 mb-4 mt-2">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Project Name"
-                        aria-label="Project name"
-                        name="project-name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div
-                    class="ps-3 pe-3 ms-4 d-flex btn save-btn"
-                    id="customCreateProject"
-                  >
-                    Create
-                  </div>
-                  <div
-                    class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn"
-                  >
-                    Cancel
-                  </div>
-                </div>
-              </div>
-              <hr />
-            </div>
-          </div>
-        </div>
+        Saved successfully!
       </div>
     </main>
     <script

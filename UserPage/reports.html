@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reports</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link href="../assets/css/global.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/report.css" />
+    <link rel="stylesheet" href="../assets/css/navbar.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <div class="container-fluid">
+            <img src="../assets/images/logo.png" alt="Logo" height="50px" class="ps-5" />
+            <a class="navbar-brand px-2" href="../index.html">
+              <h2>LATouch</h2>
+            </a>
+      
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+              aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavId">
+
+
+                <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                    <div class="mx-3">
+                        <img src="../assets/images/vietnam.png" alt="Vietnam Flag" style="width:25px" />
+                        <span>VIE</span>
+                    </div>
+                    <div class="mx-3">
+                        <i class="bi bi-envelope fs-4 align-middle"></i>
+                    </div>
+                    <div class="mx-3">
+                        <i class="bi bi-question-circle fs-4 align-middle"></i>
+                    </div>
+
+                    <div class="mx-3 nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-person-circle fs-4 align-middle"></i>
+                          Hi, Phong
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownAccountId">
+                          <a class="dropdown-item" href="#">Profile</a>
+                          <a class="dropdown-item" href="#">Log out</a>
+                        </div>
+                  </div>
+
+
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
+      <main>
+        <!-- Page hiện tại -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Side bar -->
+            <div
+              class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1"
+            >
+              <div class="text-center">
+                <ul class="nav nav-pills flex-column mt-5">
+                  <li class="nav-item py-2">
+                    <a href="homeView.html" class="nav-link text-dark" aria-current="page">
+                      <i class="bi bi-speedometer2 fs-5"></i> <br />
+                      Dashboard</a
+                    >
+                  </li>
+  
+                  <li class="nav-item py-2">
+                    <a
+                      href="../project/project-list.html"
+                      class="nav-link text-dark bg-active-blue-color"
+                    >
+                    <i class="bi bi-backpack4 fs-5"></i> <br/>
+                      Project List</a
+                    >
+                  </li>
+  
+                  <li class="nav-item py-3">
+                    <a href="../board/board.html" class="nav-link text-dark">
+                      <i class="bi bi-clipboard fs-5"></i><br/>
+                                          Board</a
+                    >
+                  </li>
+  
+                  <li class="nav-item py-3">
+                      <a href="../board/board.html" class="nav-link text-dark">
+                          <i class="bi bi-gear fs-5"></i> <br />
+                        Setting</a
+                      >
+                    </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Main content -->
+            <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
+              
+                <nav class="navbar navbar-expand navbar-light">
+                    <ul class="nav navbar-nav" id="navbar-in-project">
+                        <li class="nav-item">
+                            <a class="nav-link" href="project-detail.html">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"
+                              >Requirements</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#"
+                              >Attachments</a
+                            >
+                          </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Releases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Modules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../tester/test-case.html">Test Cases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../tester/test-run.html">Test Runs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../developer/issues.html">Issues</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="reports.html">Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Activity log</a>
+                        </li>
+                    </ul>
+                </nav>
+
+              <div class="container-fluid bg-light rounded-3">
+                  <div class="align-items-center d-flex">
+                    <div class="d-inline-block">
+                      <h5 class="ms-4 my-3">Reports - Project 1</h5>
+                    </div>
+                
+                    <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                      <div class="mx-3">
+                        <i class="bi bi-share"></i>
+                        Share
+                      </div>
+                    </div>
+                
+                    <div class="d-inline-block me-3">
+                      <div
+                        id="add-report-btn"
+                        class="mx-4 my-3 d-flex btn custom-bold-btn"
+                      >
+                        <div class="me-2 p-1">
+                          <i class="bi bi-plus"></i>
+                          Add report
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="mx-3">
+                      <i class="bi bi-book"></i>
+                      <span class="fw-bold">Guide</span>
+                    </div>
+                  </div>
+                </div>
+                
+  
+                <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+                  <div class="row align-items-center">
+  
+                    <div class="col-auto d-flex">
+                      <h5 class="ms-4 my-3 align-self-center">Show</h5>
+            
+                      <div class="dropdown ms-3 align-self-center">
+                          <div class="dropdown">
+                              <button class="btn dropdown-toggle p-1 border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 50px">
+                                  5
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                  <li>
+                                      <button class="dropdown-item" type="button">5</button>
+                                  </li>
+                                  <li>
+                                      <button class="dropdown-item" type="button">15</button>
+                                  </li>
+                                  <li>
+                                      <button class="dropdown-item" type="button">20</button>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                      </div>
+              
+                      <div class="col-auto d-flex">
+                        <h5 class="my-3 align-self-center">Sort</h5>
+                        <div class="dropdown ms-3 align-self-center">
+                            <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Created Date
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li>
+                                    <button class="dropdown-item" type="button">Priority</button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" type="button">Code</button>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                        <div class="dropdown ms-3 me-1 align-self-center">
+                            <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Desc
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li>
+                                    <button class="dropdown-item" type="button">Asc</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+              
+                      <div class="col-5">
+                          <div class="input-group rounded">
+                              <input type="search" class="form-control rounded" placeholder="Search by ID/Title reports" aria-label="Search" aria-describedby="search-addon" />
+                              <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                              </span>
+                          </div>
+                      </div>
+              
+                      <div class="col-2 d-flex align-items-center">
+                          <button class="border-0 rounded-circle p-2 text-muted ms-auto">
+                              <i class="bi bi-chevron-double-left"></i>
+                          </button>
+                          <div class="d-flex justify-content-center align-items-center mx-3" style="width: 50px; height: 50px">
+                              <h2 class="mb-0">1</h2>
+                          </div>
+                          <button class="border-0 rounded-circle p-2 text-muted me-3">
+                              <i class="bi bi-chevron-double-right"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              
+              
+  
+  
+  
+  
+
+  
+              <div class="container-fluid bg-light mb-5 p-3 rounded-3">
+                  
+                <div class="row d-flex align-items-center justify-content-center">
+                  <div class="col-1 d-flex p-3">
+                    <div class="bg-active-blue-color p-2 rounded-3 text-center" style="width: 40px;">AS</div>
+                </div>
+
+                  <div class="col-5">
+                    <h6>Activity Summary - March</h6>
+                    <p class="fs-8rem">Mar-01-2023 - Jun-02-2023</p>
+                    </div>
+                  <div class="col-auto d-flex">
+                    <i class="bi bi-pencil-square"></i>
+                    <p class="mx-2">Edit</p>
+                  </div>
+                  <div class="col-auto d-flex">
+                    <i class="bi bi-binoculars"></i>
+                    <p class="mx-2">View</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-cloud-arrow-down"></i>
+                    <p class="mx-2">CSV</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-cloud-arrow-down"></i>
+                    <p class="mx-2">PDF</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-envelope"></i>
+                    <p class="mx-2">Share by email</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-trash"></i>
+                    <p class="mx-2">Delete</p></div>
+
+                </div>
+                <hr />
+  
+  
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-1 d-flex p-3">
+                        <div class="bg-active-blue-color p-2 rounded-3 text-center" style="width: 40px;">IS</div>
+                    </div>
+  
+                    <div class="col-5">
+                      <h6>Case Traceability Summary</h6>
+                      <p class="fs-8rem">Mar-01-2023 - Jun-02-2023</p>
+                      </div>
+                    <div class="col-auto d-flex">
+                      <i class="bi bi-pencil-square"></i>
+                      <p class="mx-2">Edit</p>
+                    </div>
+                    <div class="col-auto d-flex">
+                      <i class="bi bi-binoculars"></i>
+                      <p class="mx-2">View</p></div>
+  
+                      <div class="col-auto d-flex">
+                          <i class="bi bi-cloud-arrow-down"></i>
+                      <p class="mx-2">CSV</p></div>
+  
+                      <div class="col-auto d-flex">
+                          <i class="bi bi-cloud-arrow-down"></i>
+                      <p class="mx-2">PDF</p></div>
+  
+                      <div class="col-auto d-flex">
+                          <i class="bi bi-envelope"></i>
+                      <p class="mx-2">Share by email</p></div>
+  
+                      <div class="col-auto d-flex">
+                          <i class="bi bi-trash"></i>
+                      <p class="mx-2">Delete</p></div>
+  
+                  </div>
+                  <hr />
+
+               <div class="row d-flex align-items-center justify-content-center">
+                  <div class="col-1 d-flex p-3">
+                    <div class="bg-active-blue-color p-2 rounded-3 text-center" style="width: 40px;">RES</div>
+                </div>
+
+                  <div class="col-5">
+                    <h6>Requirements Summary</h6>
+                    <p class="fs-8rem">Mar-01-2023 - Jun-02-2023</p>
+                    </div>
+                  <div class="col-auto d-flex">
+                    <i class="bi bi-pencil-square"></i>
+                    <p class="mx-2">Edit</p>
+                  </div>
+                  <div class="col-auto d-flex">
+                    <i class="bi bi-binoculars"></i>
+                    <p class="mx-2">View</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-cloud-arrow-down"></i>
+                    <p class="mx-2">CSV</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-cloud-arrow-down"></i>
+                    <p class="mx-2">PDF</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-envelope"></i>
+                    <p class="mx-2">Share by email</p></div>
+
+                    <div class="col-auto d-flex">
+                        <i class="bi bi-trash"></i>
+                    <p class="mx-2">Delete</p></div>
+
+                </div>
+        
+  
+  
+                <div class="row mt-5 align-content-center">
+                  <div class="col">
+                    <h4>Showing 1 to 5 of 5 Reports</h4>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Overlay -->
+        <div class="overlay"></div>
+        <div class="add-report-table">
+          <div class="container">
+  
+            <div class="d-flex align-item-center justify-content-between p-3">
+              <h3 class="mx-auto">Add report</h3>
+              <button 
+              type="button" 
+              class="btn-close"
+              id="close-report-btn"
+              aria-label="Close"></button>
+          </div>
+  
+          <div class="row p-3">
+            <div class="col">
+                <p>Report title <span class="text-danger">*</span></p>
+                <input
+                    type="text"
+                    class="form-control mb-2"
+                    placeholder=""
+                    aria-label="title"
+                />
+                <p>Type <span class="text-danger">*</span></p>
+                <input
+                    type="text"
+                    class="form-control mb-2"
+                    placeholder=""
+                    aria-label="status"
+                />
+                <p>Duration <span class="text-danger">*</span></p>
+                <input
+                    type="date"
+                    class="form-control"
+                    placeholder=""
+                    aria-label="duration"
+                />
+            </div>
+            <div class="col d-flex flex-column">
+                <p>Description</p>
+                <textarea class="form-control flex-grow-1 mb-3"></textarea>
+                <div class="d-flex">
+                        <p>Accessing & Scheduling</p>
+                    <div class="form-check form-switch mx-2">
+                        <input class="form-check-input" type="checkbox" id="accessing-scheduling-switch">
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <p><strong>Note:</strong> <em>Switching this ON will allow you to enable scheduled Email Report and Accessing Controls.</em></p>
+                </div>
+            </div>
+        </div>
+        
+  
+            <div class="justify-content-center"> 
+              <div class="text-center">
+                  <button
+                      class="btn custom-bold-btn rounded-3 me-3"
+                      id="save-report-btn"
+                  >
+                      Save
+                  </button>
+                  <button
+                      class="btn border rounded-3"
+                      id="cancel-report-btn"
+                  >
+                      Cancel
+                  </button>
+              </div>
+              
+          </div>
+          
+  
+          
+          
+        </div>
+  
+  
+      </main>
+     
+      <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+  
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="../assets/js/add-report.js"></script>
+  
+    
+</body>
+</html>

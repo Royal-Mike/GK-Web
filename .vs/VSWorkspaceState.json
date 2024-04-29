@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\icons",
-    "\\tester"
+    "\\UserPage"
   ],
-  "SelectedNode": "\\assets\\icons\\email.svg",
+  "SelectedNode": "\\assets\\css",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,201 @@
+body {
+    background-color :#e0e0e0 ;
+}
+
+.custom-bg {
+    background-color: #0ea13fd3;
+}
+
+.profile-container {
+    top: 5px;
+    position: absolute;
+    margin-bottom: 0;
+    
+    
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    background-color: #fff;
+}
+
+.sidebar {
+    z-index: 3;
+    position: absolute;
+    margin-top: 5px;
+    margin-bottom: 0;
+    top: 100%;
+    left: 0;
+    width: 170px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+}
+
+    .sidebar a {
+        display: block;
+        text-decoration: none;
+        color: #333; 
+        padding: 10px 15px;
+    }
+
+.profile-container:hover .sidebar {
+    display: block;
+}
+
+.sidebar-icon {
+    width: 20px; 
+    height: 20px;
+}
+
+.sidebar-left {
+    position: fixed;
+    left: 0;
+    top: 0; 
+    height: 100%;
+    width: 200px; 
+    background-color: #333; 
+    padding-top: 20px;
+    color: #fff;
+}
+
+    .sidebar-left a {
+        display: block;
+        color: #fff;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+        .sidebar-left a:hover {
+            background-color: #555; 
+        }
+
+.sidebar-divider {
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.content-box {
+    background-color: #e0e0e0;
+    margin-top: 0px;
+    margin-left: 200px;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    overflow: auto;
+
+}
+
+.white-container {
+    border-radius : 20px;
+    padding : 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.account-settings h2 {
+    text-align: center;
+}
+
+.avatar-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px; 
+    display: block;
+}
+
+.icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.nav li {
+    border-bottom: none;
+}
+
+.nav a {
+    text-decoration : none;
+    color : black;
+}
+
+.nav li:hover {
+    border-bottom: 1px solid limegreen; 
+
+}
+
+.nav.nav-tabs {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+    .nav.nav-tabs li {
+        margin: 10px; 
+    }
+    .nav.nav-tabs .nav-link {
+        margin: 10px;
+    }
+
+
+
+label {
+    width: 150px; 
+    display: inline-block;
+    text-align: right;
+    margin-right: 10px; 
+}
+
+input[type="text"],
+select {
+    width: 800px;
+    border: none;
+    border-bottom: 1px solid #ccc; 
+    outline: none;
+    height: 40px;
+}
+
+form {
+    margin : 20px;
+    text-align: center;
+}
+    form > * {
+        margin-bottom: 10px;
+    }
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    width : 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .save-button:hover {
+        background-color: #45a049;
+    }

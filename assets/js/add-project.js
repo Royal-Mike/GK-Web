@@ -1,26 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     const projectPopup = document.getElementById("customProjectPopup");
     const createBtn = document.getElementById("customCreateProject");
     const cancelBtn = projectPopup.querySelector(".cancel-btn");
     const addProjectBtn = document.getElementById("add-project");
+    const successMessage = document.getElementById("successMessage");
 
 
-    createBtn.addEventListener("click", function () {
-
-        const projectName = projectPopup.querySelector('input[name="project-name"]').value;
-
-
-
-
-        alert("Dự án đã được tạo thành công: " + projectName);
-
-
-        closePopup();
-    });
 
     cancelBtn.addEventListener("click", function () {
-        // Đóng popup
         closePopup();
     });
 
@@ -36,4 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function showPopup() {
         projectPopup.style.display = "block";
     }
+
+    const saveBtn = document.querySelector('.save-btn');
+    saveBtn.addEventListener("click", function () {
+        projectPopup.style.display = "none";
+        successMessage.style.display = "block";
+        setTimeout(function () {
+            successMessage.style.display = "none";
+        }, 3000);
+    });
 });

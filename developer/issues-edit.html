@@ -190,33 +190,33 @@
 
               <div class="col-8">
                 <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Status :</th>
-                            <td><input type="text" class="form-control" placeholder="New" value="New"></td>
-                            <th>Priority :</th>
-                            <td><input type="text" class="form-control" placeholder="Show_stopper" value="Show_stopper"></td>
-                        </tr>
-                        <tr>
-                            <th>Severity :</th>
-                            <td><input type="text" class="form-control" placeholder="Select"></td>
-                            <th></th>  
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th>Issue type :</th>
-                            <td><input type="text" class="form-control" placeholder="Not Applicable"></td>
-                            <th>Environment :</th>
-                            <td><input type="text" class="form-control" placeholder="QA"></td>
-                        </tr>
-                        <tr>
-                            <th>Assigned to :</th>
-                            <td><input type="text" class="form-control" placeholder="Selected"></td>
-                            <th>Operating systems :</th>
-                            <th></th>
-                        </tr>
-                    </tbody>
-                </table>
+                  <tbody>
+                      <tr>
+                          <th>Status :</th>
+                          <td><input id="status" type="text" class="form-control" placeholder="New" value="New"></td>
+                          <th>Priority :</th>
+                          <td><input id="priority" type="text" class="form-control" placeholder="Show_stopper" value="Show_stopper"></td>
+                      </tr>
+                      <tr>
+                          <th>Severity :</th>
+                          <td><input id="severity" type="text" class="form-control" placeholder="Select"></td>
+                          <th></th>  
+                          <th></th>
+                      </tr>
+                      <tr>
+                          <th>Issue type :</th>
+                          <td><input id="issueType" type="text" class="form-control" placeholder="Not Applicable"></td>
+                          <th>Environment :</th>
+                          <td><input id="environment" type="text" class="form-control" placeholder="QA"></td>
+                      </tr>
+                      <tr>
+                          <th>Assigned to :</th>
+                          <td><input id="assignedTo" type="text" class="form-control" placeholder="Selected"></td>
+                          <th>Operating systems :</th>
+                          <th></th>
+                      </tr>
+                  </tbody>
+              </table>
 
                 <div class="container mt-4">
                     <div class="row align-items-center">
@@ -330,7 +330,7 @@
 
             <div class="justify-content-center mb-5"> 
                 <div class="text-center">
-                    <a href="issues-detail.html" class="btn custom-bold-btn rounded-3 me-3 py-2" style="width: 200px;">
+                    <a href="issues-detail.html" id="saveButton" class="btn custom-bold-btn rounded-3 me-3 py-2" style="width: 200px;">
                         Save
                     </a>
                     <a href="issues-detail.html" class="btn border rounded-3 py-2" style="width: 200px;">
@@ -359,6 +359,7 @@ crossorigin="anonymous"
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="../assets/js/add-issue.js"></script>
 
+<script> src="../assets/js/edit-issue.js"</script>
 
 </body>
 </html>

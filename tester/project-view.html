@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Issues</title>
+    <title>Project List</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -136,108 +136,72 @@
               </ul>
             </div>
           </div>
-          <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
-            <div class="row">
-              <div class="col-md-6 p-5"><h1>Project</h1></div>
-              <div class="col-md-6 d-flex justify-content-end"></div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="m-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder="Search by project name"
-                  />
-                </div>
-              </div>
-              <div class="col-md-6 d-flex justify-content-end">
-                <div class="mr-3">
-                  <style>
-                    /* Custom styling for select elements */
-                    .custom-select {
-                      border: 1px solid #ced4da;
-                      border-radius: 4px;
-                      padding: 8px 12px;
-                      width: auto;
-                    }
-                    .sort-label {
-                      font-weight: bold;
-                    }
 
-                    /* Styling for sort input group */
-                    .sort-input-group {
-                      display: flex;
-                      justify-content: space-between;
-                    }
+          
+          <div class="col-xl-11 bg-grey px-4 mx-auto">
 
-                    /* Styling for sort button */
-                    .sort-button {
-                      cursor: pointer;
+            <div class="container-fluid bg-white mt-4 py-2 rounded-3 mx-auto ">
+              <div class="row align-items-center mx-auto bg-white">
 
-                      color: #fff;
-                      border: none;
-                      border-radius: 4px;
-                      padding: 8px 12px;
-                      transition: background-color 0.3s ease;
-                    }
-                  </style>
-
-                  <div role="group" class="form-group mb-0 sort-container">
-                    <label
-                      for="sort-by-select"
-                      class="d-block text-sm-right sort-label text-center"
-                      >Sort</label
-                    >
-                    <div class="bv-no-focus-ring sort-input-group">
-                      <div role="group" class="input-group">
-                        <select
-                          id="sort-by-select"
-                          class="custom-select"
-                          label="name"
-                          reduce="function(t){return t.id}"
-                        >
-                          <option value="created_at">Created Date</option>
-                          <option value="project_name">Project Name</option>
-                        </select>
-                        <select class="custom-select" id="__BVID__150">
-                          <option value="false">Asc</option>
-                          <option value="true">Desc</option>
-                        </select>
-                      </div>
+                <div class="col-auto d-flex align-self-center">
+        
+                  <div class="col-auto d-flex align-self-center">
+                    <h5 class="my-3 align-self-center">Sort</h5>
+                    <div class="dropdown ms-3 align-self-center">
+                        <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Created Date
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <button class="dropdown-item" type="button">Priority</button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button">Code</button>
+                            </li>
+                        </ul>
                     </div>
-                  </div>
-
-                  <script>
-                    // JavaScript for sorting functionality
-                    function sortItems() {
-                      const sortBySelect =
-                        document.getElementById("sort-by-select");
-                      const sortOrderSelect =
-                        document.getElementById("__BVID__150");
-                      const sortBy = sortBySelect.value;
-                      const sortOrder =
-                        sortOrderSelect.value === "true" ? "desc" : "asc";
-
-                      console.log("Sort by:", sortBy);
-                      console.log("Sort order:", sortOrder);
-                    }
-                  </script>
+                
+                    <div class="dropdown ms-3 me-1 align-self-center">
+                        <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Desc
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <button class="dropdown-item" type="button">Asc</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                
+          
+                  <div class="col-12 d-flex align-self-center mx-2">
+                      <div class="input-group rounded">
+                          <input type="search" class="form-control rounded" placeholder="Search by project name" aria-label="Search" aria-describedby="search-addon" />
+                          <span class="input-group-text border-0" id="search-addon">
+                              <i class="fas fa-search"></i>
+                          </span>
+                      </div>
+                  </div>
+          
 
                 <div
                   id="add-project"
-                  class="mx-4 my-3 d-flex btn custom-bold-btn"
-                  onclick="showDialog()"
-                >
-                  <div class="me-2 p-1">Add project</div>
+                  class="col-auto d-flex btn custom-bold-btn align-self-center"
+                  onclick="showDialog()">
+                  <div>Add project</div>
                 </div>
-              </div>
-            </div>
 
+                <div class="col-auto d-flex mx-4 align-self-center">
+                  <i class="bi bi-book fs-5"></i>
+                  <span class="fw-semibold mx-1 align-self-center">Guide</span>
+                </div>
+
+
+              </div>
+          </div>
+
+
+            
             <div class="container bg-white">
               <div class="row p-5">
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-3">

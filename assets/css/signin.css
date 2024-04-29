@@ -32,7 +32,7 @@ body{
 	width: 100%;
 	background: #fafafa;
 	border: 1px solid #efefef;
-	font-size: 12px;
+	font-size: 14px;
 	border-radius: 3px;
 	color: #262626;
 	padding: 10px;
@@ -91,7 +91,7 @@ body{
 
 .forgot {
 	color: #003569;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .savedpassword{

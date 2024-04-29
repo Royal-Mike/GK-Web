@@ -18,8 +18,9 @@ body {
   
   .nav-item:hover .dropdown-menu {
     display: flex;
-    left: 10%;
     width: 80%;
+    flex-direction: column;
+    text-align: center;
   }
   
   footer {
@@ -59,7 +60,7 @@ body {
     display: inline-block;
     font-size: 22px;
     color: #d6d6d6;
-    margin-right: 17px;
+    margin-right: 10px;
     transition: all 0.4s ease;
   }
   
@@ -84,7 +85,7 @@ body {
 }
 
 .discount{
-  background-color: #e2d669;
+  background-color: #a4f59b;
   margin-left: 80px;
   margin-right: 80px;
   padding: 50px;

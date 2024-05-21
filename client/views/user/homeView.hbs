@@ -1,0 +1,127 @@
+<main>
+    <!-- Page hiện tại -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Side bar -->
+            <div class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1">
+                <div class="text-center">
+                    <ul class="nav nav-pills flex-column mt-5">
+                        <li class="nav-item py-2">
+                            <a href="#" class="nav-link text-dark" style="background-color: #05b658;">
+                                <i class="bi bi-speedometer2 fs-5"></i> <br />
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="../tester/project-view.html" class="nav-link text-dark">
+                                <i class="bi bi-backpack4 fs-5"></i> <br />
+                                Project List
+                            </a>
+                        </li>
+                        <li class="nav-item py-3">
+                            <a href="../board/board.html" class="nav-link text-dark">
+                                <i class="bi bi-clipboard fs-5"></i><br />
+                                Board
+                            </a>
+                        </li>
+                        <li class="nav-item py-3">
+                            <a href="../board/board.html" class="nav-link text-dark">
+                                <i class="bi bi-gear fs-5"></i> <br />
+                                Setting
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Main content -->
+            <div class="col-md-11 col-lg-11 col-md-11 mx-auto px-4">
+                <div class="content-box mt-3">
+                    <div class="greeting p-5" id="greeting">
+                        <h2 class="fw-bold mx-2">Hi, Tran Minh Hoang</h2>
+                        <p class="mx-2" style="font-size: 20px">Welcome to "LATouch"</p>
+                        <div class="d-flex mx-2">
+                            <i class="bi bi-graph-up-arrow fs-5 text-success"></i>
+                            <p class="mx-2 text-success fw-semibold">1.2% up from yesterday</p>
+                        </div>
+                    </div>
+                    <div class="block d-flex justify-content-center">
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="/images/test.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Test cases</h2>
+                            <p>20/100</p>
+                        </div>
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="/images/project-management.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>All projects</h2>
+                            <p>5/10</p>
+                        </div>
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="/images/web.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Test runs</h2>
+                            <p>1/25</p>
+                        </div>
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="/images/team.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Users</h2>
+                            <p>5/100</p>
+                        </div>
+                        <div class="content-block mx-auto text-center d-flex flex-column justify-content-center align-items-center" id="content-block1">
+                            <img src="/images/problem-solving.png" alt="test case" height="50px" class="mb-3" />
+                            <h2>Issues</h2>
+                            <p>20/100</p>
+                        </div>
+                    </div>
+                    <div class="graph p-5" id="graph">
+                        <h4 class="mb-3">This is a graph showing your activation time :</h4>
+                        <img src="/images/graph.png" alt="Graph" class="graph-img mt-3" style="width: 1100px; height: 400px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    document.getElementById('dashboard-link').addEventListener('click', function () {
+        document.getElementById('greeting').style.display = 'block';
+        document.getElementById('graph').style.display = 'block';
+        document.getElementById('content-block1').style.display = 'block';
+        document.getElementById('content-block2').style.display = 'block';
+        document.getElementById('content-block3').style.display = 'block';
+        document.getElementById('content-block4').style.display = 'block';
+        var projectListContent = document.querySelector('.content-box .content-project');
+        if (projectListContent) {
+            projectListContent.style.display = 'none';
+        }
+    });
+
+    document.getElementById('project-list-link').addEventListener('click', function () {
+        document.getElementById('greeting').style.display = 'none';
+        document.getElementById('graph').style.display = 'none';
+        document.getElementById('content-block1').style.display = 'none';
+        document.getElementById('content-block2').style.display = 'none';
+        document.getElementById('content-block3').style.display = 'none';
+        document.getElementById('content-block4').style.display = 'none';
+        var projectListContent = document.querySelector('.content-box .content-project');
+        if (projectListContent) {
+            projectListContent.style.display = 'block';
+        }
+    });
+
+    document.getElementById('administration-link').addEventListener('click', function () {
+        document.getElementById('greeting').style.display = 'none';
+        document.getElementById('graph').style.display = 'none';
+        document.getElementById('content-block1').style.display = 'none';
+        document.getElementById('content-block2').style.display = 'none';
+        document.getElementById('content-block3').style.display = 'none';
+        document.getElementById('content-block4').style.display = 'none';
+    });
+
+    document.getElementById('team-report-link').addEventListener('click', function () {
+        document.getElementById('greeting').style.display = 'none';
+        document.getElementById('graph').style.display = 'none';
+        document.getElementById('content-block1').style.display = 'none';
+        document.getElementById('content-block2').style.display = 'none';
+        document.getElementById('content-block3').style.display = 'none';
+        document.getElementById('content-block4').style.display = 'none';
+    });
+</script>

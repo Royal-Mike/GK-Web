@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "latouch",
-    "host": "127.0.0.1",
+    "username": "postgres.pnmygnamnotzjbenfaaa",
+    "password": "Sp/9BNwV8*K%4H-",
+    "database": "postgres",
+    "host": "aws-0-ap-southeast-1.pooler.supabase.com",
     "dialect": "postgres"
   },
   "test": {

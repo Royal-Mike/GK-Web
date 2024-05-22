@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
                 // Xử lý phản hồi từ máy chủ khi đăng nhập thành công
                 showToast("Login success!!!"); // Hiển thị toast "Login success!!!"
-                console.log(accessToken);
                 setTimeout(function() {
                     window.location.href = "/home"; // Navigate đến trang homeView.html sau 2 giây
                 }, 2000);

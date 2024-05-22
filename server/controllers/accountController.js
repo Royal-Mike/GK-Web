@@ -1,21 +1,21 @@
 const controller = {}
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const { where } = require('sequelize');
 const models = require('../models');
 
-const createToken = async (userId, email, token, expiredTime) => {
-    try {
-        await models.Token.create({
-            userId: userId,
-            email: email,
-            code: token,
-            created_time: new Date(),
-            expired_time: expiredTime
-        });
-    } catch (error) {
-        console.error("Error creating token:", error);
-    }
-};
+// const createToken = async (userId, email, token, expiredTime) => {
+//     try {
+//         await models.Token.create({
+//             userId: userId,
+//             email: email,
+//             code: token,
+//             created_time: new Date(),
+//             expired_time: expiredTime
+//         });
+//     } catch (error) {
+//         console.error("Error creating token:", error);
+//     }
+// };
 
 //xử lý cho trang chủ
 controller.loginPage = async (req, res) => {
@@ -38,15 +38,15 @@ controller.loginControl = async (req, res, next) => {
         // Kiểm tra xem người dùng có tồn tại và mật khẩu có khớp không
         if (user && user.password === password) {
             // Tạo token
-            const accessToken = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET);
-            const tokenExpiry = new Date();
-            tokenExpiry.setHours(tokenExpiry.getHours() + 48); // Token hết hạn sau 48 giờ
+            // const accessToken = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET);
+            // const tokenExpiry = new Date();
+            // tokenExpiry.setHours(tokenExpiry.getHours() + 48); // Token hết hạn sau 48 giờ
 
-            // Lưu token vào cơ sở dữ liệu
-            await createToken(user.id,email, accessToken, tokenExpiry);
+            // // Lưu token vào cơ sở dữ liệu
+            // await createToken(user.id,email, accessToken, tokenExpiry);
 
             // Đăng nhập thành công, gửi token về cho người dùng
-            res.status(200).json({ message: "Login successful", accessToken: accessToken });
+            res.status(200).json({ message: "Login successful"});
         } else {
             // Đăng nhập thất bại
             res.status(401).json({ message: "Invalid email or password" });

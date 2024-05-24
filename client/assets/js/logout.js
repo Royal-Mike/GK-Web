@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
             url: "/logout",
             method: "GET",
             success: function() {
-                window.location.href = "/account";
+                window.location.href = "/";
             },
             error: function(xhr, status, error) {
                 console.error("Failed to logout:", error);

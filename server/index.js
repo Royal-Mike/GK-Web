@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const port = process.env.port || 5000;
 const expressHbs = require('express-handlebars');
 const { createPagination } = require('express-handlebars-paginate');
+const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 
 // Sử dụng middleware body-parser để phân tích các yêu cầu có nội dung dưới dạng JSON
 app.use(bodyParser.json());
@@ -37,14 +38,13 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../client/views'));
 
 // trang chu
-app.get("/", (req, res) => {
+app.get("/", redirectIfAuthenticated, (req, res) => {
     res.render("index", { layout: false }); // Chỉ định không sử dụng layout
 });
 app.use("/", require('./routes/authRoute'));
 
 // login register ...
 app.use("/account", require('./routes/accountRoute'));
-
 
 // homeView when user login success
 app.use('/home', require('./routes/homeRoute'));

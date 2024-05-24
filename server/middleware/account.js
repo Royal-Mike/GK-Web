@@ -1,24 +1,17 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.header("Authorization");
+    const token = req.cookies.token; // Lấy token từ cookie
+    if (!token)
+        return res.status(401).json({ success: false, message: "Access token not found" });
 
-  const token = authHeader && authHeader.split(" ")[1];
-  // console.log("token: ", token);
-  if (!token)
-    return res
-      .status(401)
-      .json({ success: false, message: "Access token not found" });
-
-  try {
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    // req.userid = decoded.userid;
-    next();
-  } catch (error) {
-    console.log(error);
-    console.log("error: ", token);
-    res.status(403).json({ success: false, message: "Invalid token" });
-  }
-};
+    try {
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        req.userid = decoded.userid;
+        next();
+    } catch (error) {
+        res.status(403).json({ success: false, message: "Invalid token" });
+    }
+};  
 
 module.exports = verifyToken;

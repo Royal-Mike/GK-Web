@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const app = express();
+const https = require('https');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const port = process.env.port || 5000;
@@ -59,7 +61,16 @@ app.use((err, req, res, next) => {
     res.status(500).render('error', { message: 'Server error!' });
 });
 
+// app.get('/config', (req, res) => {
+//     res.json({ facebookAppId: process.env.FACEBOOK_APP_ID });
+//   });
 
+// const serverOptions = {
+//     key: fs.readFileSync('./certs/cert.key'),
+//     cert: fs.readFileSync('./certs/cert.crt')
+//   };
+  
+// const server = https.createServer(serverOptions, app);
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);

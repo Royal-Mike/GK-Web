@@ -92,6 +92,122 @@ function setCookie(name, value, days) {
 //     }
 // });
 
+/////////////////////////////////////// FACEBOOK ///////////////////////////////////////////////////////
+// login.js
+// document.getElementById('facebook-login-btn').onclick = async function() {
+//     try {
+//         const response = await fetch('/config');
+//         const config = await response.json();
+
+//         // Tạo một script element để tải Facebook SDK
+//         const script = document.createElement('script');
+//         script.src = "https://connect.facebook.net/en_US/sdk.js";
+//         script.id = 'facebook-jssdk';
+//         document.getElementsByTagName('head')[0].appendChild(script);
+
+//         // Đợi cho Facebook SDK được tải và khởi tạo
+//         script.onload = function() {
+//             window.fbAsyncInit = function() {
+//                 FB.init({
+//                     appId: config.facebookAppId,
+//                     xfbml: true,
+//                     version: 'v20.0'
+//                 });
+
+//                 // Xử lý sự kiện đăng nhập bằng Facebook
+//                 FB.login(function(response) {
+//                     if (response.authResponse) {
+//                         console.log('Welcome! Fetching your information.... ');
+//                         FB.api('/me', { fields: 'name, email' }, function(profile) {
+//                             console.log('Successful login for: ' + profile.name);
+//                             // Gửi mã thông báo truy cập đến máy chủ để xác thực
+//                             fetch('/auth/facebook/callback', {
+//                                 method: 'POST',
+//                                 headers: {
+//                                     'Content-Type': 'application/json'
+//                                 },
+//                                 body: JSON.stringify({ accessToken: response.authResponse.accessToken })
+//                             }).then(response => {
+//                                 return response.json();
+//                             }).then(data => {
+//                                 if (data.token) {
+//                                     // Lưu token vào cookie và điều hướng trang
+//                                     document.cookie = `token=${data.token}; path=/`;
+//                                     window.location.href = '/';
+//                                 } else {
+//                                     console.error('Failed to log in');
+//                                 }
+//                             }).catch(err => {
+//                                 console.error('Error:', err);
+//                             });
+//                         });
+//                     } else {
+//                         console.log('User cancelled login or did not fully authorize.');
+//                     }
+//                 }, { scope: 'email' });
+//             };
+//         };
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// };
+
+    //   (function(d, s, id) {
+    //     var js, fjs = d.getElementsByTagName(s)[0];
+    //     if (d.getElementById(id)) {return;}
+    //     js = d.createElement(s); js.id = id;
+    //     js.src = "https://connect.facebook.net/en_US/sdk.js";
+    //     fjs.parentNode.insertBefore(js, fjs);
+    //   }(document, 'script', 'facebook-jssdk'));
+
+      
+    //   window.fbAsyncInit = function() {
+    //     FB.init({
+    //       appId      : config.facebookAppId,
+    //       cookie     : true,
+    //       xfbml      : true,
+    //       version    : 'v20.0',
+          
+    //     });
+        
+
+    //     FB.AppEvents.logPageView();   
+  
+    //     document.getElementById('facebook-login-btn').onclick = function() {
+    //       FB.login(function(response) {
+    //         if (response.authResponse) {
+    //           console.log('Welcome! Fetching your information.... ');
+    //           FB.api('/me', { fields: 'name, email' }, function(profile) {
+    //             console.log('Successful login for: ' + profile.name);
+    //             fetch('/auth/facebook/callback', {
+    //               method: 'POST',
+    //               headers: {
+    //                 'Content-Type': 'application/json'
+    //               },
+    //               body: JSON.stringify({ accessToken: response.authResponse.accessToken })
+    //             }).then(response => {
+    //               return response.json();
+    //             }).then(data => {
+    //               if (data.token) {
+    //                 document.cookie = `token=${data.token}; path=/`;
+    //                 window.location.href = '/';
+    //               } else {
+    //                 console.error('Failed to log in');
+    //               }
+    //             }).catch(err => {
+    //               console.error('Error:', err);
+    //             });
+    //           });
+    //         } else {
+    //           console.log('User cancelled login or did not fully authorize.');
+    //         }
+    //       }, { scope: 'email' });
+    //     };
+    //   };
+  
+      
+
+  
 
 
 

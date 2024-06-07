@@ -2,8 +2,6 @@ require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const app = express();
-const https = require('https');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const port = process.env.port || 5000;
@@ -51,9 +49,11 @@ app.use("/account", require('./routes/accountRoute'));
 // homeView when user login success
 app.use('/home', require('./routes/homeRoute'));
 
-
 // user 
 app.use("/users", require('./routes/userRoute'));
+
+// project list
+app.use("/project", require('./routes/projectRoute'));
 
 
 app.use((err, req, res, next) => {

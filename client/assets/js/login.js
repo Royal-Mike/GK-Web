@@ -206,8 +206,31 @@ function setCookie(name, value, days) {
     //   };
   
       
+    const ExcelJS = require('exceljs');
 
+    async function importExcel() {
+        const file = document.getElementById('fileExcel').files[0];
+        if (file) {
+            const workbook = new ExcelJS.Workbook();
+            await workbook.xlsx.read(file);
+            const worksheet = workbook.getWorksheet(1); // Lấy worksheet đầu tiên
+    
+            // Xử lý dữ liệu sau khi import
+            const dataArray = [];
+            for (const row of worksheet.eachRow()) {
+                const dataRow = [];
+                for (const cell of row.eachCell()) {
+                    dataRow.push(cell.value);
+                }
+                dataArray.push(dataRow);
+            }
+    
+            // Hiển thị dữ liệu import trên giao diện web
+            // ...
+        }
+    }
   
+
 
 
 

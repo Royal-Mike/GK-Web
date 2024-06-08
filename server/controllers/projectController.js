@@ -43,4 +43,23 @@ controller.projectView = async (req, res, next) => {
   }
 };
 
+// Lấy chi tiết dự án
+controller.projectDetailView = async (req, res, next) => {
+  try {
+    const projectId = req.params.id;
+
+    // Lấy thông tin project từ cơ sở dữ liệu
+    const project = await models.Project.findByPk(projectId);
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Truyền thông tin project tới view
+    res.render('user/project-detail', { project });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = controller;

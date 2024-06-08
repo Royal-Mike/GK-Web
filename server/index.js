@@ -55,6 +55,9 @@ app.use("/users", require('./routes/userRoute'));
 // project list
 app.use("/project", require('./routes/projectRoute'));
 
+// board
+app.use('/board', require('./routes/boardRoute'));
+
 
 app.use((err, req, res, next) => {
     console.log(err);

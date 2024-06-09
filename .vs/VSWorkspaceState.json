@@ -1,14 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\client",
+    "\\client\\views",
+    "\\client\\views\\tester",
+    "\\client\\views\\user",
     "\\server",
-    "\\server\\certs",
-    "\\server\\config",
-    "\\server\\controllers",
+    "\\server\\models",
     "\\server\\routes",
     "\\server\\seeders",
     "\\server\\utils"
   ],
-  "SelectedNode": "\\server\\package-lock.json",
+  "SelectedNode": "\\server\\models",
   "PreviewInSolutionExplorer": false
 }

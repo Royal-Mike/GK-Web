@@ -65,10 +65,12 @@
                   <a class="nav-link" href="#">Modules</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/project/{{project.id}}/test-case">Test Cases</a>
+                  <a class="nav-link fw-bold" href="test-case.html"
+                    >Test Cases</a
+                  >
                 </li>
                 <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/test-run">Test Runs</a>
+                  <a class="nav-link" href="test-run.html">Test Runs</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="../developer/issues.html">Issues</a>
@@ -110,11 +112,11 @@
                   </div>
                 </div>
 
-                <div class="d-inline-block me-3" id="add-testcase-btn">
+                <div class="d-inline-block me-3" id="add-testrun-btn">
                   <div class="mx-4 my-3 d-flex btn custom-bold-btn">
                     <div class="me-2 p-1">
                       <i class="bi bi-plus"></i>
-                      Add test case
+                      Add test test
                     </div>
                   </div>
                 </div>
@@ -331,17 +333,17 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody id="testcasesContainer">
+                    <tbody id="testrunContainer">
                       {{#each testcases}}
                       <tr>
                         <th scope="row">TC00{{this.id}}</th>
-                        <td>{{this.title}}</td>
+                        <td>{{this.status}}</td>
                         <td><i class="bi bi-file-earmark-fill"></i></td>
 
                         <td style="max-width: 20%">Hoàng Trần</td>
 
                         <td style="max-width: 10%" class="eclipsis-overflow">
-                          {{formatDate this.created_at}}
+                          {{formatDate this.started_at}}
                         </td>
 
                         <td class="ps-0">

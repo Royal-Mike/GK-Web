@@ -94,4 +94,56 @@ controller.createProject = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
+
+
+controller.testCaseView = async (req, res, next) => {
+  try {
+    const projectId = req.params.id;
+    const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
+    const pageSize = 5; // Số lượng testcase trên mỗi trang
+    const offset = (page - 1) * pageSize;
+
+    // Lấy thông tin project từ cơ sở dữ liệu
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    const userId = req.userid;
+
+    // Tìm tất cả các testcase có project_id bằng project.id
+    const testcases = await models.Testcase.findAndCountAll({ 
+      where: { project_id: project.id },
+      limit: pageSize,
+      offset: offset
+    });
+
+    // Tính toán tổng số trang
+    const totalPages = Math.ceil(testcases.count / pageSize);
+
+    // Truyền thông tin project và danh sách testcase tới view
+    res.render('tester/test-case', { project, testcases: testcases.rows, currentPage: page, totalPages });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Tạo mới testcase
+controller.createTestCase = async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    const projectId = req.params.projectId; // Lấy projectId từ URL
+
+    const maxTestCaseId = await models.TestCase.max('id');
+
+    // Tạo mới testcase
+    const testCase = await models.TestCase.create({ id: maxTestCaseId + 1, project_id: projectId, title: name, description, created_at: new Date() });
+
+    // Trả về testcase mới tạo cho máy khách
+    res.status(201).json({ success: true, testCase });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};
+
 module.exports = controller;

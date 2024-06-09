@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closePopup() {
         projectPopup.style.display = "none";
-        projectPopup.querySelector('input[name="project-name"]').value = "";
+        document.getElementById('project-name').value = "";
     }
 
     function showPopup() {

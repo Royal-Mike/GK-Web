@@ -17,7 +17,7 @@
     
                     <li class="nav-item py-2">
                         <a
-                        href="../tester/project-view.html"
+                        href="/project"
                         class="nav-link text-dark"
                         style="background-color: #05b658"
                         >
@@ -27,14 +27,14 @@
                     </li>
     
                     <li class="nav-item py-3">
-                        <a href="../board/board.html" class="nav-link text-dark">
+                        <a href="/board" class="nav-link text-dark">
                         <i class="bi bi-clipboard fs-5"></i><br/>
                                             Board</a
                         >
                     </li>
     
                     <li class="nav-item py-3">
-                        <a href="../board/board.html" class="nav-link text-dark">
+                        <a href="/board" class="nav-link text-dark">
                             <i class="bi bi-gear fs-5"></i> <br />
                             Setting</a
                         >
@@ -70,7 +70,7 @@
                                     <a class="nav-link" href="#">Modules</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../tester/test-case.html">Test Cases</a>
+                                    <a class="nav-link" href="/project/{{project.id}}/test-case">Test Cases</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../tester/test-run.html">Test Runs</a>
@@ -87,14 +87,14 @@
                             </ul>
                         </nav>
 
-                        <div class="container-fluid bg-light rounded-3 p-3 rounded-3">
+                        <div class="container-fluid bg-light p-3 rounded-3">
                             <div class="align-items-center d-flex">
-                              <div class="d-inline-block">
-                                <div class="d-flex flex-nowrap py-2 align-items-center">
-                                    <h5 class="mx-3 fw-bold my-auto">Project list</h5>
-                                    <i class="bi bi-chevron-right align-self-center"></i>
-                                    <h5 class="ms-3 "> project 1</h5>
-                                </div>                              </div>
+                                <div class="d-inline-block">
+                                    <div class="d-flex py-2 align-items-center">
+                                        {{!-- <i class="bi bi-chevron-right"></i> --}}
+                                        <h5 class="ms-3 fw-bold">{{project.name_project}}</h5>
+                                    </div>                              
+                                </div>
                           
                               <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
                                 <div class="mx-2">
@@ -125,7 +125,7 @@
                                                     <img src="/images/project-list.svg" alt="none" class="img-fluid" style="width: 100px; height: 100px">
                                                 </div>
                                                 <div class="col mx-auto">
-                                                    <h3 class="fw-bold">Project 1</h3>
+                                                    <h3 class="fw-bold">Project {{project.id}}</h3>
                                                     <p>{{project.created_at}}</p>
                                                     <p>{{project.description}}</p>
                                                 </div>
@@ -167,7 +167,7 @@
                                                 <hr class="mx-auto">
                                                 <div class="col-auto">
                                                     <div class="text-center">
-                                                        <img src="/assets/images/pie-chart.png" alt="" class="img-fluid w-75 h-auto">
+                                                        <img src="../../assets/images/pie-chart.png" alt="" class="img-fluid w-75 h-auto">
                                                     </div>
                                                 </div>
                                                 <div class="col p-3">

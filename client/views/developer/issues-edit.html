@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Details</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo.png">
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+  <link href="../assets/css/global.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/issues.css" />
+  <link rel="stylesheet" href="../assets/css/navbar.css" />
+  <link rel="stylesheet" href="../assets/css/toast.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container-fluid">
+        <img src="../assets/images/logo.png" alt="Logo" height="50px" class="ps-5" />
+        <a class="navbar-brand px-2" href="../index.html">
+          <h2>LATouch</h2>
+        </a>
+  
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+          aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavId">
+
+
+            <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                <div class="mx-3">
+                    <img src="../assets/images/vietnam.png" alt="Vietnam Flag" style="width:25px" />
+                    <span>VIE</span>
+                </div>
+                <div class="mx-3">
+                    <i class="bi bi-envelope fs-4 align-middle"></i>
+                </div>
+                <div class="mx-3">
+                    <i class="bi bi-question-circle fs-4 align-middle"></i>
+                </div>
+
+                <div class="mx-3 nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <i class="bi bi-person-circle fs-4 align-middle"></i>
+                      Hi, Phong
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownAccountId">
+                      <a class="dropdown-item" href="../UserPage/profile.html">Profile</a>
+                      <a class="dropdown-item" href="#">Log out</a>
+                    </div>
+              </div>
+
+
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+
+<main>
+  <!-- Page hiện tại -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Side bar -->
+      <div
+        class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1"
+      >
+        <div class="text-center">
+          <ul class="nav nav-pills flex-column mt-5">
+            <li class="nav-item py-2">
+              <a href="#" class="nav-link text-dark" aria-current="page">
+                <i class="bi bi-speedometer2 fs-5"></i> <br />
+                Dashboard</a
+              >
+            </li>
+
+            <li class="nav-item py-2">
+              <a
+                href="../project/project-list.html"
+                class="nav-link text-dark bg-active-blue-color"
+              >
+              <i class="bi bi-backpack4 fs-5"></i> <br/>
+                Project List</a
+              >
+            </li>
+
+            <li class="nav-item py-3">
+              <a href="../board/board.html" class="nav-link text-dark">
+                <i class="bi bi-clipboard fs-5"></i><br/>
+                                    Board</a
+              >
+            </li>
+
+            <li class="nav-item py-3">
+                <a href="../board/board.html" class="nav-link text-dark">
+                    <i class="bi bi-gear fs-5"></i> <br />
+                  Setting</a
+                >
+              </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Main content -->
+      <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
+        
+        <nav class="navbar navbar-expand navbar-light">
+          <ul class="nav navbar-nav" id="navbar-in-project">
+              <li class="nav-item">
+                  <a class="nav-link" href="../UserPage/project-detail.html">Overview</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    >Requirements</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    >Attachments</a
+                  >
+                </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Releases</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Modules</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="../tester/test-case.html">Test Cases</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="../tester/test-run.html">Test Runs</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link fw-bold" href="#">Issues</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="../UserPage/reports.html">Reports</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Activity log</a>
+              </li>
+          </ul>
+      </nav>
+        <div class="container-fluid bg-light rounded-3">
+            <div class="align-items-center d-flex">
+              <div class="d-inline-block">
+                <h5 class="ms-4 my-3">Issues detail - D0020</h5>
+              </div>
+          
+              <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                <div class="mx-2">
+                    <i class="bi bi-chevron-left"></i>
+                  Previous
+                </div>
+                <div class="mx-3">
+                    Next
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+              </div>
+        
+            </div>
+          </div>
+          
+
+          <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+            <div class="row">
+
+              <div class="col-8">
+                <table class="table">
+                  <tbody>
+                      <tr>
+                          <th>Status :</th>
+                          <td><input id="status" type="text" class="form-control" placeholder="New" value="New"></td>
+                          <th>Priority :</th>
+                          <td><input id="priority" type="text" class="form-control" placeholder="Show_stopper" value="Show_stopper"></td>
+                      </tr>
+                      <tr>
+                          <th>Severity :</th>
+                          <td><input id="severity" type="text" class="form-control" placeholder="Select"></td>
+                          <th></th>  
+                          <th></th>
+                      </tr>
+                      <tr>
+                          <th>Issue type :</th>
+                          <td><input id="issueType" type="text" class="form-control" placeholder="Not Applicable"></td>
+                          <th>Environment :</th>
+                          <td><input id="environment" type="text" class="form-control" placeholder="QA"></td>
+                      </tr>
+                      <tr>
+                          <th>Assigned to :</th>
+                          <td><input id="assignedTo" type="text" class="form-control" placeholder="Selected"></td>
+                          <th>Operating systems :</th>
+                          <th></th>
+                      </tr>
+                  </tbody>
+              </table>
+
+                <div class="container mt-4">
+                    <div class="row align-items-center">
+                        <div class="col d-flex">
+                            <i class="bi bi-clipboard-data"></i>
+                            <h5 class="mx-2 fw-semibold">Summary</h5>
+                            <i class="bi bi-pencil"></i>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <p>From Search result not able to add to the cart</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container mt-3">
+                    <h5 class="fw-semibold">Linked Jira Tickets</h5>
+                    <div class="row border p-4 rounded-3 mb-5">
+
+                        <div class="col-auto">
+                            <h6 class="fw-semibold">Summary</h6>
+                            <p class="mt-2">From Search result not able to add to the cart</p>
+                            <h6 class="mt-5 fw-semibold">JIRA Description</h6>
+                            <p class="mt-2">Search The Product And Add To The Cart</p>
+
+                        </div>
+
+                        <div class="col-auto">
+                            <h6 class="fw-semibold">JIRA Key</h6>
+                            <p class="mt-2">QTP-60</p>
+
+                        </div>
+
+
+                        <div class="col-auto">
+                            <h6 class="fw-semibold">Priority</h6>
+                            <p class="mt-2">Medium</p>
+
+                        </div>
+
+                        <div class="col-auto">
+                            <h6 class="fw-semibold">Action</h6>
+                            <button class="bg-active-blue-color rounded-3" style="outline: none;">View In Jira</button>
+                        </div>
+
+                        <div class="col-auto">
+                            <h6 class="fw-semibold">Delete</h6>
+                            <p class="mt-2">Medium</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+      
+                
+              </div>
+        
+               <div class="col-4 ">
+                    <div class="container mt-4 d-flex">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <h5 class="mx-2 fw-semibold">Information</h5>
+                    </div>
+
+                    <table class="table border-2">
+                        <tbody>
+                            <tr>
+                                <th><i class="bi bi-person mx-1"></i> Created by :</th>
+                                <td><input type="text" class="form-control" placeholder="Name" value="William Sue"></td>
+                            </tr>
+                            <tr>
+                                <th><i class="bi bi-calendar-week mx-1"></i> Created Date :</th>
+                                <td><input type="text" class="form-control" placeholder="" value="September 14, 2023"></td>
+                            </tr>
+                            <tr>
+                                <th><i class="bi bi-signpost-2 mx-1"></i> Releases :</th>
+                                <td><input type="text" class="form-control" placeholder="" value="-"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="container mt-4 d-flex">
+                        <i class="bi bi-list"></i>
+                        <h5 class="mx-2 fw-semibold">Action</h5>
+                    </div>
+
+                    <div class="container mt-2 d-flex">
+                        <i class="bi bi-pencil"></i>
+                        <p class="ed mx-2">Edit</p>
+                    </div>
+                    <div class="container d-flex">
+                        <i class="bi bi-plus"></i>
+                        <p class="ed mx-2">Add comment</p>
+                    </div>
+                    <div class="container d-flex">
+                        <i class="bi bi-clock-history"></i>
+                        <p class="ed mx-2">Comment History</p>
+                    </div>
+                    <div class="container d-flex">
+                        <i class="bi bi-caret-right-fill"></i>
+                        <p class="ed mx-2">Screen Record Issues</p>
+                    </div>
+
+                    
+                </div>
+              
+                 
+            </div>
+
+            <div class="justify-content-center mb-5"> 
+                <div class="text-center">
+                    <a href="issues-detail.html" id="saveButton" class="btn custom-bold-btn rounded-3 me-3 py-2" style="width: 200px;">
+                        Save
+                    </a>
+                    <a href="issues-detail.html" class="btn border rounded-3 py-2" style="width: 200px;">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    
+
+
+</main>
+
+<script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+crossorigin="anonymous"
+></script>
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="../assets/js/edit-issue.js"></script>
+
+</body>
+</html>

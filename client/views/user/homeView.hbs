@@ -80,48 +80,4 @@
         </div>
     </div>
 </main>
-<script>
-    document.getElementById('dashboard-link').addEventListener('click', function () {
-        document.getElementById('greeting').style.display = 'block';
-        document.getElementById('graph').style.display = 'block';
-        document.getElementById('content-block1').style.display = 'block';
-        document.getElementById('content-block2').style.display = 'block';
-        document.getElementById('content-block3').style.display = 'block';
-        document.getElementById('content-block4').style.display = 'block';
-        var projectListContent = document.querySelector('.content-box .content-project');
-        if (projectListContent) {
-            projectListContent.style.display = 'none';
-        }
-    });
 
-    document.getElementById('project-list-link').addEventListener('click', function () {
-        document.getElementById('greeting').style.display = 'none';
-        document.getElementById('graph').style.display = 'none';
-        document.getElementById('content-block1').style.display = 'none';
-        document.getElementById('content-block2').style.display = 'none';
-        document.getElementById('content-block3').style.display = 'none';
-        document.getElementById('content-block4').style.display = 'none';
-        var projectListContent = document.querySelector('.content-box .content-project');
-        if (projectListContent) {
-            projectListContent.style.display = 'block';
-        }
-    });
-
-    document.getElementById('administration-link').addEventListener('click', function () {
-        document.getElementById('greeting').style.display = 'none';
-        document.getElementById('graph').style.display = 'none';
-        document.getElementById('content-block1').style.display = 'none';
-        document.getElementById('content-block2').style.display = 'none';
-        document.getElementById('content-block3').style.display = 'none';
-        document.getElementById('content-block4').style.display = 'none';
-    });
-
-    document.getElementById('team-report-link').addEventListener('click', function () {
-        document.getElementById('greeting').style.display = 'none';
-        document.getElementById('graph').style.display = 'none';
-        document.getElementById('content-block1').style.display = 'none';
-        document.getElementById('content-block2').style.display = 'none';
-        document.getElementById('content-block3').style.display = 'none';
-        document.getElementById('content-block4').style.display = 'none';
-    });
-</script>

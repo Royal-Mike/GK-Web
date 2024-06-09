@@ -40,7 +40,8 @@ controller.projectView = async (req, res, next) => {
     const { count, rows: projects } = await models.Project.findAndCountAll({
       where: { id: projectIds },
       limit: pageSize,
-      offset: offset
+      offset: offset,
+      order: [['id', 'ASC']]
     });
 
     // Tính toán tổng số trang

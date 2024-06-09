@@ -49,7 +49,7 @@ app.use("/account", require('./routes/accountRoute'));
 app.use('/home', require('./routes/homeRoute'));
 
 // user 
-app.use("/users", require('./routes/userRoute'));
+app.use("/profile", require('./routes/userRoute'));
 
 // project list
 app.use("/project", require('./routes/projectRoute'));

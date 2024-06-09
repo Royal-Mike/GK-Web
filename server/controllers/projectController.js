@@ -21,6 +21,9 @@ const models = require('../models');
 controller.projectView = async (req, res, next) => {
   try {
     const userId = req.userid; // Lấy user ID từ token đã xác thực
+    const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
+    const pageSize = 8; // Số lượng dự án trên mỗi trang
+    const offset = (page - 1) * pageSize;
 
     // Lấy thông tin user từ cơ sở dữ liệu
     const user = await models.User.findByPk(userId);
@@ -32,16 +35,24 @@ controller.projectView = async (req, res, next) => {
     // Lấy tất cả các User_Project của user
     const userProjects = await models.User_Project.findAll({ where: { user_id: userId } });
 
-    // Lấy tất cả các project của user
+    // Lấy tất cả các project của user với phân trang
     const projectIds = userProjects.map(up => up.project_id);
-    const projects = await models.Project.findAll({ where: { id: projectIds } });
+    const { count, rows: projects } = await models.Project.findAndCountAll({
+      where: { id: projectIds },
+      limit: pageSize,
+      offset: offset
+    });
+
+    // Tính toán tổng số trang
+    const totalPages = Math.ceil(count / pageSize);
 
     // Truyền thông tin user, userProjects và projects tới view
-    res.render('tester/project-view', { user, userProjects, projects });
+    res.render('tester/project-view', { user, userProjects, projects, currentPage: page, totalPages });
   } catch (error) {
     next(error);
   }
 };
+
 
 // Lấy chi tiết dự án
 controller.projectDetailView = async (req, res, next) => {
@@ -62,4 +73,25 @@ controller.projectDetailView = async (req, res, next) => {
   }
 };
 
+// create new project
+controller.createProject = async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    const userId = req.userid;
+
+    const maxProjectId = await models.Project.max('id');
+
+    // Tạo mới dự án
+    const project = await models.Project.create({ id: maxProjectId + 1, name_project: name, description,  created_at: new Date() });
+
+    // Thêm liên kết vào bảng User_Project
+    await models.User_Project.create({ user_id: userId, project_id: project.id, role_id: 1 });
+
+    // Trả về dự án mới tạo cho máy khách
+    res.status(201).json({ success: true, project });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};
 module.exports = controller;

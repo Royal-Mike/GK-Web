@@ -5,5 +5,5 @@ const verifyToken = require('../middleware/account');
 
 router.get('/', verifyToken, controller.projectView);
 router.get('/:id', verifyToken, controller.projectDetailView);
-
+router.post('/create', verifyToken, controller.createProject);
 module.exports = router;

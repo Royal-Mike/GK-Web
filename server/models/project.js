@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Project.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     name_project: DataTypes.STRING, // Đảm bảo cột này đúng tên
     description: DataTypes.TEXT,
     created_at: DataTypes.DATE

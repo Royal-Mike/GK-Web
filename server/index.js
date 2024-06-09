@@ -8,6 +8,7 @@ const port = process.env.port || 5000;
 const expressHbs = require('express-handlebars');
 const { createPagination } = require('express-handlebars-paginate');
 const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
+const helpers = require('./utils/helpers');
 
 // Sử dụng middleware body-parser để phân tích các yêu cầu có nội dung dưới dạng JSON
 app.use(bodyParser.json());
@@ -29,9 +30,7 @@ app.engine(
         runtimeOptions: {
             allowProtoPropertiesByDefault: true,
         },
-        helpers: {
-            createPagination: createPagination,
-        },
+        helpers: helpers,
     })
 );
 app.set('view engine', 'hbs');

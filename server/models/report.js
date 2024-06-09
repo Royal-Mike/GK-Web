@@ -1,4 +1,6 @@
 ﻿// models/report.js
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/config.json');
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const Report = sequelize.define('Report', {

@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const testcasePopup = document.getElementById("customTestcasePopup");
     const createBtn = document.getElementById("save-testcase-btn");
     const cancelBtn = document.getElementById("cancel-testcase-btn");
-    const addTestcaseBtn = document.getElementById("add-testcase-btn"); // Đã sửa tên biến ở đây
+    const addTestcaseBtn = document.getElementById("add-testcase-btn"); 
     const successMessage = document.getElementById("successMessage");
 
     cancelBtn.addEventListener("click", function () {
         closePopup();
     });
 
-    addTestcaseBtn.addEventListener("click", function () { // Đã sửa sự kiện lắng nghe ở đây
+    addTestcaseBtn.addEventListener("click", function () { 
         showPopup();
     });
 
@@ -24,12 +24,18 @@ document.addEventListener("DOMContentLoaded", function () {
         testcasePopup.style.display = "block";
     }
 
+    function getProjectIdFromURL() {
+        const pathArray = window.location.pathname.split('/');
+        const projectId = pathArray[2]; 
+        return projectId;
+    }
+
     createBtn.addEventListener("click", async function () {
         const testcaseName = document.getElementById('testcase-name').value;
         const testcaseDescription = document.getElementById('testcase-description').value;
-
+        const projectId = getProjectIdFromURL();
         try {
-            const response = await fetch('/{{project.id}}/test-case/create', {
+            const response = await fetch(`/project/${projectId}/test-case/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const data = await response.json();
-            console.log('New testcase created:', data.testcase);
+            
             successMessage.style.display = "block";
             setTimeout(function () {
                 successMessage.style.display = "none";

@@ -111,11 +111,9 @@
                     <i class="bi bi-three-dots-vertical"></i>
                   </div>
                 </div>
-                <div class="d-inline-block me-3">
-                  <div
-                    id="add-testcase-btn"
-                    class="mx-4 my-3 d-flex btn custom-bold-btn"
-                  >
+
+                <div class="d-inline-block me-3" id="add-testcase-btn">
+                  <div class="mx-4 my-3 d-flex btn custom-bold-btn">
                     <div class="me-2 p-1">
                       <i class="bi bi-plus"></i>
                       Add test case
@@ -398,9 +396,11 @@
       </div>
     </main>
     
+
+
     <div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestcasePopup">
-      <div class="add-issue-table">
-        <div class="container">
+      <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0 ">
+        <div class="container bg-white rounded-3 p-3">
           <div class="d-flex align-item-center justify-content-between p-3">
             <h3 class="mx-auto">Add Test Case</h3>
           </div>
@@ -415,7 +415,7 @@
                   type="text"
                   class="form-control"
                   aria-label="Testcase name"
-                  name="testcase-name"
+                  id="testcase-name"
                 />
               </div>
               <span class="fs-6 font-weight-semibold"
@@ -425,7 +425,7 @@
                 <textarea
                   class="form-control"
                   aria-label="With textarea"
-                  name="testcase-description"
+                  id="testcase-description"
                 ></textarea>
               </div>
             </div>
@@ -463,30 +463,30 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="justify-content-center">
-          <div class="text-center">
-            <button
-              class="btn custom-bold-btn rounded-3 me-3"
-              id="save-testcase-btn"
-            >
-              Save
-            </button>
-            <button class="btn border rounded-3" id="cancel-testcase-btn">
-              Cancel
-            </button>
-          </div>
-          <div class="text-center mt-3">
-            <p>
-              <strong>Note:</strong>
-              <em
-                >Please do not hesitate to provide a detailed title and
-                description for the issue. Ensure to select the appropriate
-                status, priority, and assignee. Attach any necessary files if
-                required before saving and completing the process.</em
+          <div class="justify-content-center">
+            <div class="text-center">
+              <button
+                class="btn custom-bold-btn rounded-3 me-3"
+                id="save-testcase-btn"
               >
-            </p>
+                Save
+              </button>
+              <button class="btn border rounded-3" id="cancel-testcase-btn">
+                Cancel
+              </button>
+            </div>
+            <div class="text-center mt-3">
+              <p>
+                <strong>Note:</strong>
+                <em
+                  >Please do not hesitate to provide a detailed title and
+                  description for the issue. Ensure to select the appropriate
+                  status, priority, and assignee. Attach any necessary files if
+                  required before saving and completing the process.</em
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>

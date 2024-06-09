@@ -131,12 +131,12 @@ controller.testCaseView = async (req, res, next) => {
 controller.createTestCase = async (req, res) => {
   try {
     const { name, description } = req.body;
-    const projectId = req.params.projectId; // Lấy projectId từ URL
+    const projectId = req.params.id;
 
-    const maxTestCaseId = await models.TestCase.max('id');
+    const maxTestCaseId = await models.Testcase.max('id');
 
     // Tạo mới testcase
-    const testCase = await models.TestCase.create({ id: maxTestCaseId + 1, project_id: projectId, title: name, description, created_at: new Date() });
+    const testCase = await models.Testcase.create({ id: maxTestCaseId + 1, project_id: projectId, title: name, description, created_at: new Date() });
 
     // Trả về testcase mới tạo cho máy khách
     res.status(201).json({ success: true, testCase });
@@ -145,5 +145,6 @@ controller.createTestCase = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
+
 
 module.exports = controller;

@@ -40,7 +40,8 @@ controller.projectView = async (req, res, next) => {
     const { count, rows: projects } = await models.Project.findAndCountAll({
       where: { id: projectIds },
       limit: pageSize,
-      offset: offset
+      offset: offset,
+      order: [['id', 'ASC']]
     });
 
     // Tính toán tổng số trang
@@ -144,6 +145,56 @@ controller.createTestCase = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: 'Server Error' });
   }
+};
+
+controller.testRunView = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+        const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page));
+        const pageSize = 5;
+        const offset = (page - 1) * pageSize;
+
+        // Fetch project info from the database
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        const userId = req.userid;
+
+        // Fetch test runs associated with the project
+        const testRuns = await models.TestRun.findAndCountAll({
+            where: { project_id: project.id },
+            limit: pageSize,
+            offset: offset
+        });
+
+        // Calculate total pages
+        const totalPages = Math.ceil(testRuns.count / pageSize);
+
+        // Pass project and test run information to the view
+        res.render('tester/test-run', { project, testRuns: testRuns.rows, currentPage: page, totalPages });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Create new test run
+controller.createTestRun = async (req, res) => {
+    try {
+        const { name, description } = req.body;
+        const projectId = req.params.id;
+
+        const maxTestRunId = await models.TestRun.max('id');
+
+        // Create a new test run
+        const testRun = await models.TestRun.create({ id: maxTestRunId + 1, project_id: projectId, title: name, description, created_at: new Date() });
+
+        // Return the newly created test run to the client
+        res.status(201).json({ success: true, testRun });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server Error' });
+    }
 };
 
 

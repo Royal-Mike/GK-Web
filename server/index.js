@@ -1,6 +1,7 @@
-require("dotenv").config();
-const express = require('express');
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -9,6 +10,9 @@ const expressHbs = require('express-handlebars');
 const { createPagination } = require('express-handlebars-paginate');
 const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 const helpers = require('./utils/helpers');
+
+// Ensure environment variable is loaded
+console.log('ACCESS_TOKEN_SECRET:', process.env.ACCESS_TOKEN_SECRET);
 
 // Sử dụng middleware body-parser để phân tích các yêu cầu có nội dung dưới dạng JSON
 app.use(bodyParser.json());
@@ -49,7 +53,7 @@ app.use("/account", require('./routes/accountRoute'));
 app.use('/home', require('./routes/homeRoute'));
 
 // user 
-app.use("/users", require('./routes/userRoute'));
+app.use("/profile", require('./routes/userRoute'));
 
 // project list
 app.use("/project", require('./routes/projectRoute'));
@@ -62,17 +66,6 @@ app.use((err, req, res, next) => {
     console.log(err);
     res.status(500).render('error', { message: 'Server error!' });
 });
-
-// app.get('/config', (req, res) => {
-//     res.json({ facebookAppId: process.env.FACEBOOK_APP_ID });
-//   });
-
-// const serverOptions = {
-//     key: fs.readFileSync('./certs/cert.key'),
-//     cert: fs.readFileSync('./certs/cert.crt')
-//   };
-  
-// const server = https.createServer(serverOptions, app);
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);

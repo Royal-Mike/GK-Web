@@ -10,4 +10,7 @@ router.post('/create', verifyToken, controller.createProject);
 router.get('/:id/test-case', verifyToken, controller.testCaseView);
 router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
 
+router.get('/:id/test-run', verifyToken, controller.testRunView);
+router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
+
 module.exports = router;

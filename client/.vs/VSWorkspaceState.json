@@ -1,9 +1,23 @@
 {
   "ExpandedNodes": [
     "",
+<<<<<<<< HEAD:client/.vs/VSWorkspaceState.json
     "\\assets",
     "\\UserPage"
   ],
   "SelectedNode": "\\assets\\css",
+========
+    "\\client",
+    "\\client\\views",
+    "\\client\\views\\tester",
+    "\\client\\views\\user",
+    "\\server",
+    "\\server\\models",
+    "\\server\\routes",
+    "\\server\\seeders",
+    "\\server\\utils"
+  ],
+  "SelectedNode": "\\server\\models",
+>>>>>>>> 20696a80d298a855ceea3ceb694e90efd6300106:.vs/VSWorkspaceState.json
   "PreviewInSolutionExplorer": false
 }

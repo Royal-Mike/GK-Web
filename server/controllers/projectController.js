@@ -1,22 +1,6 @@
-// const controller = {}
-// const { where } = require('sequelize');
-// const models = require('../models');
-// //xử lý cho trang chủ
-// controller.projectView = async (req, res, next) => {
-//     try {
-//         // Any additional logic or data fetching can be done here
-//         res.render('tester/project-view');
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-// module.exports = controller;
 const controller = {}
 const { where } = require('sequelize');
 const models = require('../models');
-
-
 
 controller.projectView = async (req, res, next) => {
   try {
@@ -179,23 +163,23 @@ controller.testRunView = async (req, res, next) => {
 };
 
 // Create new test run
-controller.createTestRun = async (req, res) => {
-    try {
-        const { name, description } = req.body;
-        const projectId = req.params.id;
+// controller.createTestRun = async (req, res) => {
+//     try {
+//         const { name, description } = req.body;
+//         const projectId = req.params.id;
 
-        const maxTestRunId = await models.TestRun.max('id');
+//         const maxTestRunId = await models.TestRun.max('id');
 
-        // Create a new test run
-        const testRun = await models.TestRun.create({ id: maxTestRunId + 1, project_id: projectId, title: name, description, created_at: new Date() });
+//         // Create a new test run
+//         const testRun = await models.TestRun.create({ id: maxTestRunId + 1, project_id: projectId});
 
-        // Return the newly created test run to the client
-        res.status(201).json({ success: true, testRun });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Server Error' });
-    }
-};
+//         // Return the newly created test run to the client
+//         res.status(201).json({ success: true, testRun });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: 'Server Error' });
+//     }
+// };
 
 
 module.exports = controller;

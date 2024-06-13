@@ -2,6 +2,8 @@ const { format } = require('date-fns');
 
 module.exports = {
   formatDate: (timestamp) => {
+    if (!timestamp) return null; // Nếu timestamp là null thì trả về null
+
     return format(new Date(timestamp), 'MMMM dd, yyyy'); // Định dạng ngày thành "Tháng Ngày, Năm"
   },
   range: (start, end) => {

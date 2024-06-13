@@ -218,5 +218,79 @@ controller.createTestRun = async (req, res) => {
 };
 
 
+// Lấy chi tiết dự án
+controller.issuesView = async (req, res, next) => {
+  try {
+    const projectId = req.params.id;
+
+    // Fetch project to ensure it exists
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Fetch all test runs related to the project
+    const testRuns = await models.TestRun.findAll({
+        where: { project_id: projectId },
+        attributes: ['id']
+    });
+
+    // Extract test run IDs
+    const testRunIds = testRuns.map(testRun => testRun.id);
+
+    // Fetch all issues related to the test runs
+    const issues = await models.Issue.findAll({
+        where: {
+            test_run_id: testRunIds
+        }
+    });
+
+    // Render issues view and pass data
+    res.render('developer/issues', { projectId, issues });
+  } catch (error) {
+    next(error);
+  }
+};
+
+controller.issueDetailView = async (req, res, next) => {
+  try {
+    const projectId = req.params.id;
+    const issueId = req.params.issueId;
+
+    // Fetch project to ensure it exists
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Fetch issue to ensure it exists
+    const issue = await models.Issue.findOne({
+      where: { 
+        id: issueId
+      },
+      include: [
+        {
+          model: models.TestRun,
+          where: { project_id: projectId },
+          attributes: ['id', 'project_id']
+        },
+        {
+          model: models.User,
+          as: 'User', // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+          attributes: ['id', 'username']
+        }
+      ]
+    });
+
+    if (!issue) {
+      return res.status(404).json({ message: "Issue not found" });
+    }
+
+    // Render issue detail view and pass data
+    res.render('developer/issues-detail', { project, issue });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = controller;

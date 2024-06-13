@@ -13,4 +13,8 @@ router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
 router.get('/:id/test-run', verifyToken, controller.testRunView);
 router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 
+router.get('/:id/issues', verifyToken, controller.issuesView);
+router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
+
+
 module.exports = router;

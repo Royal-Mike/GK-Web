@@ -152,34 +152,71 @@ controller.testRunView = async (req, res, next) => {
             offset: offset
         });
 
+        // Tìm tất cả các testcase có project_id bằng project.id
+        const testcases = await models.Testcase.findAll({ 
+          where: { project_id: project.id }
+        });
+
+        // Fetch users with role_id = 3 associated with the project from the User_Project table
+        const usersWithRole = await models.User_Project.findAll({
+          where: {
+              project_id: projectId,
+              role_id: 3
+          },
+          include: [
+              {
+                  model: models.User,
+                  attributes: ['id', 'username'] // Select only necessary attributes
+              }
+          ]
+      });
+
+        // Extract the user data from the result
+        const users = usersWithRole.map(up => up.User);
+
         // Calculate total pages
         const totalPages = Math.ceil(testRuns.count / pageSize);
 
         // Pass project and test run information to the view
-        res.render('tester/test-run', { project, testRuns: testRuns.rows, currentPage: page, totalPages });
+        res.render('tester/test-run', { project, testRuns: testRuns.rows, currentPage: page, totalPages, users, testcases });
     } catch (error) {
         next(error);
     }
 };
 
 // Create new test run
-// controller.createTestRun = async (req, res) => {
-//     try {
-//         const { name, description } = req.body;
-//         const projectId = req.params.id;
+controller.createTestRun = async (req, res) => {
+  try {
+      const { name, test_case_id, assigned_to_user_id, release_description } = req.body;
+      const projectId = req.params.id;
 
-//         const maxTestRunId = await models.TestRun.max('id');
+      const maxTestRunId = await models.TestRun.max('id');
 
-//         // Create a new test run
-//         const testRun = await models.TestRun.create({ id: maxTestRunId + 1, project_id: projectId});
+      // Tạo một bản ghi test run mới trong cơ sở dữ liệu
+      const newTestRun = await models.TestRun.create({
+          id: maxTestRunId + 1,
+          project_id: projectId, // Sử dụng projectId từ req.params.id
+          test_case_id,
+          status: 'Pending', // Trạng thái mặc định hoặc thay đổi tùy theo yêu cầu
+          assigned_to_user_id,
+          started_at: new Date(), // hoặc để là null nếu chưa bắt đầu
+      });
 
-//         // Return the newly created test run to the client
-//         res.status(201).json({ success: true, testRun });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ success: false, message: 'Server Error' });
-//     }
-// };
+      // Sau khi tạo thành công, lấy lại danh sách test runs mới nhất
+      const testRuns = await models.TestRun.findAll({
+        where: { project_id: projectId },
+        order: [['started_at', 'DESC']], // Sắp xếp theo thời gian tạo mới nhất
+        limit: 10 // Giới hạn số lượng test runs lấy về
+    });
+
+      // Return the newly created test run to the client
+      res.status(201).json({ success: true, newTestRun, testRuns });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to create test run' });
+  }
+};
+
 
 
 module.exports = controller;

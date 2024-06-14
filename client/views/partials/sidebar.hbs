@@ -1,0 +1,72 @@
+<style>
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        background-color: #05b658;
+        color: white;
+    }
+    .active {
+        background-color: #05b658;
+        color: white !important;
+    }
+</style>
+
+<div class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1">
+    <div class="text-center">
+        <ul class="nav nav-pills flex-column mt-5">
+            <li class="nav-item py-2">
+                <a href="/" class="nav-link text-dark active" id="dashboard-link" onclick="setActive(event)">
+                    <i class="bi bi-speedometer2 fs-5"></i> <br />
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item py-2">
+                <a href="/project" class="nav-link text-dark" id="project-link" onclick="setActive(event)">
+                    <i class="bi bi-backpack4 fs-5"></i> <br />
+                    Project List
+                </a>
+            </li>
+            <li class="nav-item py-3">
+                <a href="/board" class="nav-link text-dark" id="board-link" onclick="setActive(event)">
+                    <i class="bi bi-clipboard fs-5"></i><br />
+                    Board
+                </a>
+            </li>
+            <li class="nav-item py-3">
+                <a href="../board/board.html" class="nav-link text-dark" id="setting-link" onclick="setActive(event)">
+                    <i class="bi bi-gear fs-5"></i> <br />
+                    Setting
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function setActive(event) {
+        // Remove 'active' class from all nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked link
+        event.currentTarget.classList.add('active');
+    }
+
+    // Set the active class based on the current URL
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const path = window.location.pathname;
+        const navLinks = {
+            '/': 'dashboard-link',
+            '/project': 'project-link',
+            '/board': 'board-link',
+            '/board/board.html': 'setting-link'
+        };
+        const activeLinkId = navLinks[path];
+        if (activeLinkId) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById(activeLinkId).classList.add('active');
+        }
+    });
+</script>

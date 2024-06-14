@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/toast.css">
     <link rel="stylesheet" href="/css/issues.css" />
+    <link rel="stylesheet" href="/css/report.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -52,7 +53,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
                           <i class="bi bi-person-circle fs-4 align-middle"></i>
-                          Hi, Phong
+                          Hi, {{user.username}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownAccountId">
                             <a class="dropdown-item" href="/profile">Profile</a>

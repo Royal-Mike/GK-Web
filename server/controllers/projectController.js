@@ -293,4 +293,15 @@ controller.issueDetailView = async (req, res, next) => {
   }
 };
 
+
+controller.reportView = async (req, res, next) => {
+  try {
+     
+      // Pass project and test run information to the view
+      res.render('user/reports');
+  } catch (error) {
+      next(error);
+  }
+};
+
 module.exports = controller;

@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\assets",
     "\\client\\views",
-    "\\client\\views\\tester",
     "\\client\\views\\user",
     "\\server",
     "\\server\\models",
@@ -11,6 +11,6 @@
     "\\server\\seeders",
     "\\server\\utils"
   ],
-  "SelectedNode": "\\server\\models",
+  "SelectedNode": "\\client\\views",
   "PreviewInSolutionExplorer": false
 }

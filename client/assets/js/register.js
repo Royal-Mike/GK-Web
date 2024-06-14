@@ -1,9 +1,7 @@
-// Đợi cho tài liệu HTML được tải hoàn toàn
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var signupButton = document.querySelector('#btn-signup');
 
-    signupButton.addEventListener('click', function() {
+    signupButton.addEventListener('click', function () {
         var name = document.querySelector('#name').value;
         var email = document.querySelector('#email').value;
         var password = document.querySelector('#password').value;
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Kiểm tra xác nhận mật khẩu
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            showToast("Passwords do not match!");
             return;
         }
 
@@ -20,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             url: "/account/register",
             method: "POST",
             data: { name: name, email: email, password: password },
-            success: function(response) {
+            success: function (response) {
                 // Xử lý phản hồi từ server
                 console.log(response);
                 if (response.success) {
@@ -30,17 +28,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.cookie = "token=" + response.accessToken + "; path=/;";
                     // Redirect đến trang sau khi đăng ký thành công (nếu cần)
                     window.location.href = "/home";
+                } else if (response.message === "Email already registered") {
+                    showToast("Email already registered. Please use a different email.");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Failed to register:", error);
+                showToast("Failed to register. Please try again.");
             }
         });
     });
 });
-
-
-
 
 // Hàm hiển thị toast
 function showToast(message) {
@@ -63,7 +61,7 @@ function showToast(message) {
     document.body.appendChild(toast);
 
     // Xóa toast sau 3 giây
-    setTimeout(function() {
+    setTimeout(function () {
         toast.remove();
     }, 3000);
 }

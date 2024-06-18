@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Lắng nghe sự kiện click vào nút "Save"
     document.getElementById('btn-save-profile').addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         // Lấy giá trị từ các ô input
         var firstName = document.getElementById('first-name').value;
@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var link = document.getElementById('link').value;
 
         // Cập nhật các giá trị của profile
-        document.getElementById('first-name').innerText = firstName;
-        document.getElementById('last-name').innerText = lastName;
-        document.getElementById('headline').innerText = headline;
-        document.getElementById('language').innerText = language;
-        document.getElementById('link').innerText = link;
+        document.getElementById('first-name').value = firstName;
+        document.getElementById('last-name').value = lastName;
+        document.getElementById('headline').value = headline;
+        document.getElementById('language').value = language;
+        document.getElementById('link').value = link;
 
-     
+
         showToast("Profile has been updated successfully.");
 
     });
@@ -50,11 +50,10 @@ function showToast(message) {
     $(toast).toast('show');
 
     // Xóa toast sau 3 giây
-    setTimeout(function() {
+    setTimeout(function () {
         $(toast).toast('hide'); // Ẩn toast
-        setTimeout(function() {
+        setTimeout(function () {
             toast.remove(); // Xóa toast khỏi DOM
         }, 500); // Đợi 0.5 giây trước khi xóa
     }, 3000);
 }
-

@@ -27,10 +27,12 @@ controller.loginControl = async (req, res, next) => {
         const dehashPassword = await comparePassword(password, user.password);
         // Kiểm tra xem người dùng có tồn tại và mật khẩu có khớp không
         if (dehashPassword && user.password) {
+
             const accessToken = jwt.sign(
                 { userid: user.id },
                 process.env.ACCESS_TOKEN_SECRET
             );
+
             res.cookie("token", accessToken, {
                 httpOnly: true,
                 //secure: true,
@@ -84,6 +86,7 @@ controller.registerWithVerificationControl = async (req, res) => {
             { userid: user.id },
             process.env.ACCESS_TOKEN_SECRET
         );
+
         res.cookie("token", accessToken, {
             httpOnly: true,
             //secure: true,

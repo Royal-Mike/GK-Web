@@ -1,6 +1,4 @@
-﻿
-
-      <main>
+﻿     <main>
         <!-- Page hiện tại -->
         <div class="container-fluid bg-grey">
             <div class="row">
@@ -51,7 +49,7 @@
                                 <div class="d-inline-block">
                                     <div class="d-flex py-2 align-items-center">
                                         {{!-- <i class="bi bi-chevron-right"></i> --}}
-                                        <h5 class="ms-3 fw-bold">{{project.name_project}}</h5>
+                                        <h5 class="ms-3 fw-bold">ID : {{project.id}}</h5>
                                     </div>
                                 </div>
 
@@ -69,9 +67,6 @@
                             </div>
                         </div>
 
-
-
-
                         <div class="container-fluid bg-light mt-4 py-2 rounded-3">
                             <div class="row mt-3">
 
@@ -84,7 +79,7 @@
                                                     <img src="/images/project-list.svg" alt="none" class="img-fluid" style="width: 100px; height: 100px">
                                                 </div>
                                                 <div class="col mx-auto">
-                                                    <h3 class="fw-bold">Project {{project.id}}</h3>
+                                                    <h3 class="fw-bold">Project {{project.name_project}}</h3>
                                                     <p>{{project.created_at}}</p>
                                                     <p>{{project.description}}</p>
                                                 </div>
@@ -381,6 +376,23 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
             </main>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle pageshow event
+        function handlePageShow(event) {
+            // Check if the page is being loaded from the bfcache
+            if (event.persisted) {
+                // Reload the page to ensure it's up-to-date
+                location.reload();
+            }
+        }
+
+        // Add pageshow event listener to the window object
+        window.addEventListener('pageshow', handlePageShow);
+    });
+</script>

@@ -10,16 +10,37 @@ document.addEventListener('DOMContentLoaded', function () {
         var language = document.getElementById('language').value;
         var link = document.getElementById('link').value;
 
-        // Cập nhật các giá trị của profile
-        document.getElementById('first-name').value = firstName;
-        document.getElementById('last-name').value = lastName;
-        document.getElementById('headline').value = headline;
-        document.getElementById('language').value = language;
-        document.getElementById('link').value = link;
+        // Tạo object chứa dữ liệu cập nhật
+        var data = {
+            firstName: firstName,
+            lastName: lastName,
+            headline: headline,
+            language: language,
+            link: link
+        };
 
-
-        showToast("Profile has been updated successfully.");
-
+        // Gửi AJAX request để cập nhật thông tin lên server
+        fetch('/profile/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật thành công, hiển thị thông báo
+                    showToast("Profile has been updated successfully.");
+                } else {
+                    // Xử lý lỗi nếu có
+                    showToast("Failed to update profile. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast("An error occurred while updating profile.");
+            });
     });
 });
 

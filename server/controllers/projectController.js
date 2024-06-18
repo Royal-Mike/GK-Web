@@ -1,6 +1,9 @@
-const controller = {}
+const controller = {};
 const { where } = require('sequelize');
 const models = require('../models');
+
+
+
 
 controller.projectView = async (req, res, next) => {
   try {
@@ -58,27 +61,47 @@ controller.projectDetailView = async (req, res, next) => {
   }
 };
 
-// create new project
+const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
 controller.createProject = async (req, res) => {
-  try {
-    const { name, description } = req.body;
-    const userId = req.userid;
+    try {
+        const { name, description } = req.body;
+        const userId = req.userid;
 
-    const maxProjectId = await models.Project.max('id');
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Project name is required.' });
+        }
 
-    // Tạo mới dự án
-    const project = await models.Project.create({ id: maxProjectId + 1, name_project: name, description,  created_at: new Date() });
+        // Check if name contains special symbols
+        if (specialSymbolsRegex.test(name)) {
+            return res.status(401).json({ success: false, message: 'Project name cannot contain special symbols.' });
+        }
 
-    // Thêm liên kết vào bảng User_Project
-    await models.User_Project.create({ user_id: userId, project_id: project.id, role_id: 1 });
+        const maxProjectId = await models.Project.max('id');
 
-    // Trả về dự án mới tạo cho máy khách
-    res.status(201).json({ success: true, project });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Server Error' });
-  }
+        // Create the project
+        const project = await models.Project.create({
+            id: maxProjectId + 1,
+            name_project: name,
+            description,
+            created_at: new Date()
+        });
+
+        // Create association in User_Project table
+        await models.User_Project.create({ user_id: userId, project_id: project.id, role_id: 1 });
+
+        // Return the newly created project to the client
+        res.status(201).json({ success: true, project });
+    } catch (error) {
+        console.error(error);
+        // Handle specific validation errors
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({ success: false, message: error.errors[0].message });
+        }
+        res.status(500).json({ success: false, message: 'An error occurred while creating the project. Please try again.' });
+    }
 };
+
 
 
 controller.testCaseView = async (req, res, next) => {

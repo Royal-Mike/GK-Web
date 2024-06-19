@@ -1,4 +1,4 @@
-const controller = {}
+﻿const controller = {}
 const { where } = require('sequelize');
 const models = require('../models');
 //xử lý cho trang chủ

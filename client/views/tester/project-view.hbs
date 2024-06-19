@@ -80,99 +80,99 @@
                         <a href="/project/{{this.id}}" class="nav-link text-dark" aria-current="page">
                           <div class="bg-white">
                             <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-center w-100">
-                        <div class="d-flex align-items-center justify-content-start w-100">
-                          <img src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png" width="40px" height="40px"/>
-                          <div class="p-2 flex-grow-1" style="min-width: 0;">
-                            <h4 class="card-title text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                              {{this.name_project}}
-                            </h4>
-                            <p style="font-size: 0.75rem">Created on {{formatDate this.created_at}}</p>
-                            <p style="font-size: 0.75rem">Created by <b>Hoàng</b></p>
-                          </div>
-                        </div>
+                              <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                  <div class="d-flex align-items-center justify-content-start w-100">
+                                    <img src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png" width="40px" height="40px"/>
+                                    <div class="p-2 flex-grow-1" style="min-width: 0;">
+                                    <h4 class="card-title text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        {{this.name_project}}
+                                    </h4>
+                                    <p style="font-size: 0.75rem">Created on {{formatDate this.created_at}}</p>
+                                    <p style="font-size: 0.75rem">Created by <b>Hoàng</b></p>
+                                    </div>
+                                  </div>
                         {{!-- <div>
                           <i class="bi bi-three-dots"></i>
                         </div> --}}
-                      </div>
-                      <style>
-                        .enc-id-con {
-                          padding-bottom: 15px;
-                          border-bottom: 1px solid #f2f8ff;
-                          display: inline-flex;
-                          align-items: center;
-                          justify-content: space-between;
-                          width: 100%;
-                        }
-                        .key {
-                          box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                          text-align: left;
-                          border-radius: 30px;
-                          background: #f2f0ff;
-                          padding: 2px 25px;
-                          font-size: 0.75rem;
-                          font-weight: 500;
-                        }
-                      </style>
-                      <div class="enc-id-con">
-                        <p>Project Key</p>
-                        <p class="key" style="color: rgb(77, 0, 174)">Mglx</p>
-                      </div>
-                      <hr/>
-                      <div class="row">
-                        <div class="col" style="font-size: 0.8rem">
-                          Test Cases<br/>1
+                                </div>
+                                  <style>
+                                    .enc-id-con {
+                                      padding-bottom: 15px;
+                                      border-bottom: 1px solid #f2f8ff;
+                                      display: inline-flex;
+                                      align-items: center;
+                                      justify-content: space-between;
+                                      width: 100%;
+                                    }
+                                    .key {
+                                      box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                      text-align: left;
+                                      border-radius: 30px;
+                                      background: #f2f0ff;
+                                      padding: 2px 25px;
+                                      font-size: 0.75rem;
+                                      font-weight: 500;
+                                    }
+                                  </style>
+                                  <div class="enc-id-con">
+                                    <p>Project Key</p>
+                                    <p class="key" style="color: rgb(77, 0, 174)">Mglx</p>
+                                  </div>
+                                  <hr/>
+                                  <div class="row">
+                                    <div class="col" style="font-size: 0.8rem">
+                                      Test Cases<br/>1
+                                    </div>
+                                    <div class="col" style="font-size: 0.8rem">
+                                      Test Runs<br/>1
+                                    </div>
+                                    <div class="col" style="font-size: 0.8rem">
+                                      Issues<br/>1
+                                    </div>
+                                  </div>
+                                  <hr/>
+                              <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary" style="background-color: #034f75">
+                                  <i class="bi bi-person-plus"></i>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                        <div class="col" style="font-size: 0.8rem">
-                          Test Runs<br/>1
-                        </div>
-                        <div class="col" style="font-size: 0.8rem">
-                          Issues<br/>1
-                        </div>
-                      </div>
-                      <hr/>
-                      <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" style="background-color: #034f75">
-                          <i class="bi bi-person-plus"></i>
-                        </button>
-                      </div>
+                        </a>
                     </div>
-                  </div>
-        </div>
-      </a>
-    </div>
-  {{/each}}
-</div>
+                    {{/each}}
+                </div>
 
-<!-- Pagination -->
-<div class="d-flex justify-content-center">
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      {{#if (gt currentPage 1)}}
-        <li class="page-item">
-          <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-      {{/if}}
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                      {{#if (gt currentPage 1)}}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                      {{/if}}
 
-      {{#each (range 1 totalPages)}}
-        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
-          <a class="page-link" href="?page={{this}}">{{this}}</a>
-        </li>
-      {{/each}}
+                      {{#each (range 1 totalPages)}}
+                        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
+                          <a class="page-link" href="?page={{this}}">{{this}}</a>
+                        </li>
+                      {{/each}}
 
-      {{#if (lt currentPage totalPages)}}
-        <li class="page-item">
-          <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      {{/if}}
-    </ul>
-  </nav>
-</div>
+                      {{#if (lt currentPage totalPages)}}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      {{/if}}
+                    </ul>
+                  </nav>
+                </div>
 
               </div>
             </div>
@@ -237,85 +237,6 @@
 
    
     <script src="/js/add-project.js"></script>
+    <script src="/js/sort-filter-project.js"></script>
 
     
-
-
-<script>
-  const searchInput = document.getElementById('project-search');
-  searchInput.addEventListener('keyup', function() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const projectItems = document.querySelectorAll('.project-item');
-
-    projectItems.forEach(item => {
-      const projectName = item.querySelector('.card-title').textContent.toLowerCase();
-      if (projectName.includes(searchTerm)) {
-        item.style.display = '';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  });
-
- document.addEventListener('DOMContentLoaded', function () {
-  const orderDropdown = document.getElementById('order-dropdown');
-  const orderButton = document.getElementById('order-dropdown'); // Thêm id cho nút order dropdown
-  let sortOrder = 'desc';
-
-  // Toggle order dropdown when the button is clicked
-  orderButton.addEventListener('click', function () {
-    if (orderDropdown.classList.contains('show')) {
-      orderDropdown.classList.remove('show');
-    } else {
-      orderDropdown.classList.add('show');
-    }
-  });
-
-  // Handle sort order selection
-  const sortOrders = document.querySelectorAll('.sort-order');
-  sortOrders.forEach(option => {
-    option.addEventListener('click', function () {
-      const sortBy = this.getAttribute('data-sort-by');
-      const sortOrder = this.getAttribute('data-sort-order');
-
-      // Perform sorting based on selected option
-      sortProjects(sortBy, sortOrder);
-
-      // Close the dropdown menu after selecting an option
-      orderDropdown.classList.remove('show');
-    });
-  });
-
-  // Sort projects based on selected option
-  function sortProjects(sortBy, order) {
-    const projectContainer = document.querySelector('.row.p-5');
-    const projectItems = Array.from(document.querySelectorAll('.project-item'));
-
-    projectItems.sort((a, b) => {
-      const dateA = new Date(a.getAttribute('data-created-at'));
-      const dateB = new Date(b.getAttribute('data-created-at'));
-
-      return order === 'asc' ? dateA - dateB : dateB - dateA;
-    });
-
-    projectContainer.innerHTML = ''; // Clear the container before re-adding sorted items
-
-    projectItems.forEach(item => {
-      projectContainer.appendChild(item);
-    });
-  }
-
-  // Initial sort when the page is loaded
-  sortProjects(sortOrder);
-
-  // Toggle order when the order button is clicked
-  orderButton.addEventListener('click', function () {
-    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    orderButton.textContent = sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1);
-    sortProjects('created-date', sortOrder); // Sort by created date after changing order
-  });
-});
-
-
-</script>
-

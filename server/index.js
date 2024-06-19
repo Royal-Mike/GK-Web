@@ -1,72 +1,74 @@
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
 const express = require('express');
-const app = express();
+const path = require('path');
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const port = process.env.port || 5000;
 const expressHbs = require('express-handlebars');
-const { createPagination } = require('express-handlebars-paginate');
-const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 const helpers = require('./utils/helpers');
+const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 
-// Ensure environment variable is loaded
-console.log('ACCESS_TOKEN_SECRET:', process.env.ACCESS_TOKEN_SECRET);
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-// Sử dụng middleware body-parser để phân tích các yêu cầu có nội dung dưới dạng JSON
-app.use(bodyParser.json());
+const app = express();
+const port = process.env.PORT || 5000;
 
-// Đảm bảo rằng bodyParser.urlencoded() được sử dụng nếu bạn cần phân tích dữ liệu từ form POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+const nocache = require('nocache');
+
+// Use nocache middleware to prevent caching
+app.use(nocache());
 
 // Serve static files from the /client/assets directory
 app.use(express.static(path.join(__dirname, '../client/assets')));
 
-app.engine(
-    'hbs',
-    expressHbs.engine({
-        extname: 'hbs',
-        defaultLayout: 'layout',
-        layoutsDir: path.join(__dirname, '../client/views/layouts/'),
-        partialsDir: path.join(__dirname, '../client/views/partials/'),
-        runtimeOptions: {
-            allowProtoPropertiesByDefault: true,
-        },
-        helpers: helpers,
-    })
-);
+// Configure handlebars as the view engine
+app.engine('hbs', expressHbs.engine({
+    extname: 'hbs',
+    defaultLayout: 'layout',
+    layoutsDir: path.join(__dirname, '../client/views/layouts/'),
+    partialsDir: path.join(__dirname, '../client/views/partials/'),
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+    },
+    helpers: helpers,
+}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../client/views'));
 
-// trang chu
-app.get("/", redirectIfAuthenticated, (req, res) => {
-    res.render("index", { layout: false }); // Chỉ định không sử dụng layout
+// Middleware to parse JSON and urlencoded request bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Home page route with redirection if authenticated
+app.get('/', redirectIfAuthenticated, (req, res) => {
+    res.render('index', { layout: false });
 });
-app.use("/", require('./routes/authRoute'));
 
-// login register ...
-app.use("/account", require('./routes/accountRoute'));
+// Routes for authentication
+app.use('/', require('./routes/authRoute'));
 
-// homeView when user login success
+// Routes for account management
+app.use('/account', require('./routes/accountRoute'));
+
+// Routes for authenticated user's home view
 app.use('/home', require('./routes/homeRoute'));
 
-// user 
-app.use("/profile", require('./routes/userRoute'));
+// Routes for user profile
+app.use('/profile', require('./routes/userRoute'));
 
-// project list
-app.use("/project", require('./routes/projectRoute'));
+// Routes for projects
+app.use('/project', require('./routes/projectRoute'));
 
-// board
+// Routes for board
 app.use('/board', require('./routes/boardRoute'));
 
-
+// Error handling middleware
 app.use((err, req, res, next) => {
-    console.log(err);
+    console.error(err.stack);
     res.status(500).render('error', { message: 'Server error!' });
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });

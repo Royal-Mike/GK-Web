@@ -19,62 +19,60 @@
                         <h2>My Account</h2>
                         <ul class="nav nav-tabs">
                             <li><a href="#">Profile</a></li>
+                            <!--
                             <li><a href="#">Personalisation</a></li>
                             <li><a href="#">Account</a></li>
                             <li><a href="#">Payment Methods</a></li>
                             <li><a href="#">Notifications</a></li>
                             <li><a href="#">Privacy</a></li>
+                             -->
                         </ul>
-
-                        <!-- Profile Section -->
-                        <div id="profile" class="tab-content">
-                            <!-- Avatar -->
-                            <div class="avatar-icon-container">
-                                <div class="avatar-wrapper">
-                                    <img src="/images/boy.png" alt="User Avatar" class="avatar">
-                                    <div class="icon">
-                                        <i class="bi bi-camera-fill fs-5"></i>
+                            <!-- Profile Section -->
+                            <div id="profile" class="tab-content">
+                                <!-- Avatar -->
+                                <div class="avatar-icon-container">
+                                    <div class="avatar-wrapper">
+                                        <img src="/images/boy.png" alt="User Avatar" class="avatar">
+                                        <div class="icon">
+                                            <i class="bi bi-camera-fill fs-5"></i>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <!-- Form for updating profile information -->
+                                <form action="/update-profile" method="post">
+                                    <!-- First Name -->
+                                    <label for="first-name">First Name:</label>
+                                    <input type="text" id="first-name" name="first_name" value="{{ user.firstname }}"><br>
+
+                                    <!-- Last Name -->
+                                    <label for="last-name">Last Name:</label>
+                                    <input type="text" id="last-name" name="last_name" value="{{ user.lastname }}"><br>
+
+                                    <!-- Headline -->
+                                    <label for="headline">Headline:</label>
+                                    <input type="text" id="headline" name="headline" value="{{ user.headline }}"><br>
+
+                                    <!-- Language Selection Dropdown -->
+                                    <label for="language">Language:</label>
+                                    <select id="language" name="language">
+                                        <option value="vn" {{#if (eq user.language 'vn')}} selected{{/if}}>Vietnamese</option>
+                                        <option value="en" {{#if (eq user.language 'en')}} selected{{/if}}>English</option>
+                                        <option value="fr" {{#if (eq user.language 'fr')}} selected{{/if}}>Francais</option>
+                                    </select>
+                                    <br>
+
+                                    <!-- Link -->
+                                    <label for="link">Link:</label>
+                                    <input type="text" id="link" name="link" value="{{ user.website_link }}"><br>
+
+                                    <!-- Save Button -->
+                                    <button type="button" class="save-button" id="btn-save-profile">Save</button>
+                                </form>
+
+                                <!-- Placeholder for updated profile information -->
+                                <div id="updated-profile-info"></div>
                             </div>
-
-
-
-
-                            <!-- Form for updating profile information -->
-                            <!-- Form for updating profile information -->
-                            <form action="/update-profile" method="post">
-                                <!-- First Name -->
-                                <label for="first-name">First Name:</label>
-                                <input type="text" id="first-name" name="first_name" value="Tuan Phong" placeholder="Jonathan"><br>
-
-                                <!-- Last Name -->
-                                <label for="last-name">Last Name:</label>
-                                <input type="text" id="last-name" name="last_name" value="Nguyen" placeholder="Doe"><br>
-
-                                <!-- Headline -->
-                                <label for="headline">Headline:</label>
-                                <input type="text" id="headline" name="headline" value="" placeholder=""><br>
-
-                                <!-- Language Selection Dropdown -->
-                                <label for="language">Language:</label>
-                                <select id="language" name="language">
-                                    <option value="vn" selected>VietNamese</option>
-                                    <option value="en">English</option>
-                                    <option value="fr">Francais</option>
-                                </select><br>
-
-                                <!-- Link -->
-                                <label for="link">Link:</label>
-                                <input type="text" id="link" name="link" value="" placeholder="www.kotani.io"><br>
-
-                                <!-- Save Button -->
-                                <button type="button" class="save-button" id="btn-save-profile">Save</button>
-                            </form>
-
-                            <!-- Placeholder for updated profile information -->
-                            <div id="updated-profile-info"></div>
-                        </div>
                     </div>
                 </div>
             </div>

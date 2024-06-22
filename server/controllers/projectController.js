@@ -1,45 +1,102 @@
 const controller = {};
 const { where } = require('sequelize');
 const models = require('../models');
+const { Op } = require('sequelize');
 
 
 
 
 controller.projectView = async (req, res, next) => {
   try {
-    const userId = req.userid; // Lấy user ID từ token đã xác thực
-    const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
-    const pageSize = 8; // Số lượng dự án trên mỗi trang
+    const userId = req.userid;
+    let { page, sortBy, sortOrder, searchTerm } = req.query;
+
+    page = page ? parseInt(page) : 1;
+    const pageSize = 8;
     const offset = (page - 1) * pageSize;
 
-    // Lấy thông tin user từ cơ sở dữ liệu
     const user = await models.User.findByPk(userId);
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Lấy tất cả các User_Project của user
     const userProjects = await models.User_Project.findAll({ where: { user_id: userId } });
-
-    // Lấy tất cả các project của user với phân trang
     const projectIds = userProjects.map(up => up.project_id);
-    const { count, rows: projects } = await models.Project.findAndCountAll({
-      where: { id: projectIds },
+
+    let whereCondition = { id: projectIds };
+    if (searchTerm) {
+      whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
+    }
+
+    let orderCondition = [['created_at', 'DESC']];
+    if (sortBy && ['name_project', 'created_at'].includes(sortBy)) {
+      orderCondition = [[sortBy, sortOrder === 'asc' ? 'ASC' : 'DESC']];
+    }
+
+    const count = await models.Project.count({ where: whereCondition });
+
+    const projects = await models.Project.findAll({
+      where: whereCondition,
+      order: orderCondition,
       limit: pageSize,
-      offset: offset,
-      order: [['id', 'ASC']]
+      offset: offset
     });
 
-    // Tính toán tổng số trang
     const totalPages = Math.ceil(count / pageSize);
 
-    // Truyền thông tin user, userProjects và projects tới view
     res.render('tester/project-view', { user, userProjects, projects, currentPage: page, totalPages });
+
   } catch (error) {
     next(error);
   }
 };
+
+
+
+controller.getProjectByKey = async (req, res, next) => {
+  try {
+    const { page, sortBy, sortOrder, searchTerm } = req.query;
+    const userId = req.userid;
+
+    const pageSize = 8;
+    const offset = (page - 1) * pageSize;
+
+    const user = await models.User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userProjects = await models.User_Project.findAll({ where: { user_id: userId } });
+    const projectIds = userProjects.map(up => up.project_id);
+
+    let whereCondition = { id: projectIds };
+    if (searchTerm) {
+      whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
+    }
+
+    let orderCondition = [['created_at', 'DESC']];
+    if (sortBy && ['name_project', 'created_at'].includes(sortBy)) {
+      orderCondition = [[sortBy, sortOrder === 'asc' ? 'ASC' : 'DESC']];
+    }
+
+    const count = await models.Project.count({ where: whereCondition });
+
+    const projects = await models.Project.findAll({
+      where: whereCondition,
+      order: orderCondition,
+      limit: pageSize,
+      offset: offset
+    });
+
+    const totalPages = Math.ceil(count / pageSize);
+
+    res.json({ projects, currentPage: page, totalPages });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 
 // Lấy chi tiết dự án
@@ -122,7 +179,8 @@ controller.testCaseView = async (req, res, next) => {
     const testcases = await models.Testcase.findAndCountAll({ 
       where: { project_id: project.id },
       limit: pageSize,
-      offset: offset
+      offset: offset,
+      order: [['created_at', 'DESC']]
     });
 
     // Tính toán tổng số trang

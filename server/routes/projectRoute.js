@@ -4,6 +4,8 @@ const controller = require('../controllers/projectController');
 const verifyToken = require('../middleware/account');
 
 router.get('/', verifyToken, controller.projectView);
+router.get("/search", verifyToken, controller.getProjectByKey);
+
 router.get('/:id', verifyToken, controller.projectDetailView);
 router.post('/create', verifyToken, controller.createProject);
 
@@ -12,5 +14,11 @@ router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
 
 router.get('/:id/test-run', verifyToken, controller.testRunView);
 router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
+
+router.get('/:id/issues', verifyToken, controller.issuesView);
+router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
+
+router.get('/:id/report', verifyToken, controller.reportView);
+
 
 module.exports = router;

@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 successMessage.style.display = "none";
             }, 3000);
             closePopup(); // Đóng cửa sổ popup sau khi tạo thành công
+            window.location.reload();
         } catch (error) {
             console.error('Error creating testcase:', error.message);
             // Xử lý lỗi ở đây

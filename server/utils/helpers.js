@@ -2,7 +2,7 @@ const { format } = require('date-fns');
 
 module.exports = {
   formatDate: (timestamp) => {
-    return format(new Date(timestamp), 'MMMM dd, yyyy'); // Định dạng ngày thành "Tháng Ngày, Năm"
+        return format(new Date(timestamp), 'M/dd/yyyy, h:mm:ss a');
   },
   range: (start, end) => {
     let array = [];

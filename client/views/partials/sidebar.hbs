@@ -3,6 +3,7 @@
         background-color: #05b658;
         color: white;
     }
+
     .active {
         background-color: #05b658;
         color: white !important;
@@ -31,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item py-3">
-                <a href="../board/board.html" class="nav-link text-dark" id="setting-link" onclick="setActive(event)">
+                <a href="/setting" class="nav-link text-dark" id="setting-link" onclick="setActive(event)">
                     <i class="bi bi-gear fs-5"></i> <br />
                     Setting
                 </a>
@@ -40,33 +41,62 @@
     </div>
 </div>
 
+
 <script>
-    function setActive(event) {
+    let currentActiveLink = 'dashboard-link'; // Initialize the current active link
+
+    function setActive(linkId) {
         // Remove 'active' class from all nav links
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.classList.remove('active');
         });
 
-        // Add 'active' class to the clicked link
-        event.currentTarget.classList.add('active');
+        // Add 'active' class to the specified link
+        const activeLink = document.getElementById(linkId);
+        if (activeLink) {
+            activeLink.classList.add('active');
+            currentActiveLink = linkId;
+        }
     }
 
-    // Set the active class based on the current URL
+    // Set the active link based on the current URL
     document.addEventListener('DOMContentLoaded', (event) => {
         const path = window.location.pathname;
         const navLinks = {
             '/': 'dashboard-link',
             '/project': 'project-link',
             '/board': 'board-link',
-            '/board/board.html': 'setting-link'
+            '/setting': 'setting-link'
         };
-        const activeLinkId = navLinks[path];
+
+        let activeLinkId = null;
+
+        // Find the exact match or a subpath match
+        Object.keys(navLinks).forEach((navPath) => {
+            if (path === navPath || path.startsWith(navPath + '/')) {
+                activeLinkId = navLinks[navPath];
+            }
+        });
+
         if (activeLinkId) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.getElementById(activeLinkId).classList.add('active');
+            setActive(activeLinkId);
+        } else {
+            setActive('dashboard-link');
         }
+    });
+
+    // Add click event listeners to nav links
+    const navLinksElements = document.querySelectorAll('.nav-link');
+    navLinksElements.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();  // Prevent default link behavior
+            const targetId = link.getAttribute('id');
+            setActive(targetId);
+
+            // Update the URL and refresh the page
+            history.pushState(null, '', link.getAttribute('href'));
+            window.location.reload();
+        });
     });
 </script>

@@ -2,6 +2,7 @@ const controller = {};
 const { where } = require("sequelize");
 const models = require("../models");
 const { Op } = require("sequelize");
+const { isNumericString } = require('../utils/helpers'); 
 
 controller.projectView = async (req, res, next) => {
   try {
@@ -100,24 +101,31 @@ controller.getProjectByKey = async (req, res, next) => {
   }
 };
 
-// Lấy chi tiết dự án
+
 controller.projectDetailView = async (req, res, next) => {
-  try {
-    const projectId = req.params.id;
+    try {
+        const projectId = req.params.id;
 
-    // Lấy thông tin project từ cơ sở dữ liệu
-    const project = await models.Project.findByPk(projectId);
+        if (!isNumericString(projectId)) {
+            res.cookie('error', 'Invalid Project ID type');
+            return res.redirect('/project');
+        }
 
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+        // Lấy thông tin project từ cơ sở dữ liệu
+        const project = await models.Project.findByPk(projectId);
+
+        if (!project) {
+            res.cookie('error', 'Project not found');
+            return res.redirect('/project');
+        }
+
+        // Truyền thông tin project tới view
+        res.render("user/project-detail", { project });
+    } catch (error) {
+        next(error);
     }
-
-    // Truyền thông tin project tới view
-    res.render("user/project-detail", { project });
-  } catch (error) {
-    next(error);
-  }
 };
+
 
 const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 

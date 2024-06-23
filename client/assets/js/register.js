@@ -47,28 +47,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Hàm hiển thị toast
-function showToast(message) {
-    // Tạo một thẻ div để chứa toast
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add('show');
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Thêm nội dung của toast
-    toast.innerHTML = `
-        <div class="toast-body">
-            ${message}
-        </div>
-    `;
-
-    // Thêm toast vào body của tài liệu HTML
-    document.body.appendChild(toast);
-
-    // Xóa toast sau 3 giây
-    setTimeout(function () {
-        toast.remove();
-    }, 3000);
-}

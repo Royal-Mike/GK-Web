@@ -25,5 +25,14 @@ module.exports = {
   },
   subtract: (a, b) => {
     return a - b;
+  },
+  isNumericString(str) {
+  for (var i = 0; i < str.length; i++) {
+      if (!/^\d$/.test(str[i])) {
+          return false;
+      }
   }
+return true;
+}
+
 };

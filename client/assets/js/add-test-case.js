@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const testcaseDescription = document.getElementById('testcase-description').value;
         const projectId = getProjectIdFromURL();
 
-        if (testcaseNam === '') {
+        if (testcaseName === '') {
             alert('Test case name is required.');
             return;
         }

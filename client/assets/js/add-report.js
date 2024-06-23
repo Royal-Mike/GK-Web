@@ -39,17 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         try {
-            const response = await fetch('/reports', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(reportData)
-            });
+            // const response = await fetch('/reports', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(reportData)
+            // });
 
-            if (!response.ok) {
-                throw new Error('Failed to create report');
-            }
+            // if (!response.ok) {
+            //     throw new Error('Failed to create report');
+            // }
 
             closePopup();
             showToast("Save successfully!!!");

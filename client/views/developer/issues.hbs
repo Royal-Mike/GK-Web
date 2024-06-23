@@ -2,220 +2,186 @@
     <main>
       <!-- Page hiện tại -->
       <div class="container-fluid">
-        <div class="row">
-          {{> sidebar}}
-          <!-- Main content -->
-          <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
-            
-            <nav class="navbar navbar-expand navbar-light">
-              <ul class="nav navbar-nav" id="navbar-in-project">
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}">Overview</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Requirements</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Attachments</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Releases</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Modules</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}/test-case">Test Cases</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}/test-run">Test Runs</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}/issues">Issues</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}/report">Reports</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="/project/{{project.id}}/activity">Activity log</a>
-                          </li>
-              </ul>
-          </nav>
+          <div class="row">
+              <!-- Side bar -->
+              {{> sidebar}}
+              <!-- Main content -->
+              <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
 
-            <div class="container-fluid bg-light rounded-3">
-                <div class="align-items-center d-flex">
-                  <div class="d-inline-block">
-                    <h5 class="ms-4 my-3">Issues</h5>
-                  </div>
-              
-                  <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
-                    <div class="mx-3">
-                      <i class="bi bi-share"></i>
-                      Share
-                    </div>
-                    <div class="mx-3">
-                      <i class="bi bi-bar-chart"></i>
-                      Report
-                    </div>
-                    <div class="mx-3">
-                      <i class="bi bi-cloud-upload"></i>
-                      Import
-                    </div>
-                    <div class="mx-3">
-                      <i class="bi bi-cloud-download"></i>
-                      Export
-                    </div>
-                  </div>
-              
-                  <div class="d-inline-block me-3">
-                    <div
-                      id="add-issue-btn"
-                      class="mx-4 my-3 d-flex btn custom-bold-btn"
-                    >
-                      <div class="me-2 p-1">
-                        <i class="bi bi-plus"></i>
-                        Add Issue
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="mx-3">
-                    <i class="bi bi-book"></i>
-                    <span class="fw-bold">Guide</span>
-                  </div>
-                </div>
-              </div>
-              
+                    {{> project-nav-bar}}
 
-              <div class="container-fluid bg-light mt-4 py-2 rounded-3">
-                <div class="row align-items-center">
+                  <div class="container-fluid bg-light rounded-3">
+                      <div class="align-items-center d-flex">
+                          <div class="d-inline-block">
+                              <h5 class="ms-4 my-3">Issues</h5>
+                          </div>
 
-                  <div class="col-auto d-flex">
-                    <h5 class="ms-4 my-3 align-self-center">Show</h5>
-          
-                    <div class="dropdown ms-3 align-self-center">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle p-1 border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 50px">
-                                5
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li>
-                                    <button class="dropdown-item" type="button">5</button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" type="button">15</button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item" type="button">20</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    </div>
-            
-                    <div class="col-auto d-flex">
-                      <h5 class="my-3 align-self-center">Sort</h5>
-                      <div class="dropdown ms-3 align-self-center">
-                          <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Created Date
-                          </button>
-                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              <li>
-                                  <button class="dropdown-item" type="button">Priority</button>
-                              </li>
-                              <li>
-                                  <button class="dropdown-item" type="button">Code</button>
-                              </li>
-                          </ul>
-                      </div>
-                  
-                      <div class="dropdown ms-3 me-1 align-self-center">
-                          <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Desc
-                          </button>
-                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              <li>
-                                  <button class="dropdown-item" type="button">Asc</button>
-                              </li>
-                          </ul>
+                          <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                              <div class="mx-3">
+                                  <i class="bi bi-share"></i>
+                                  Share
+                              </div>
+                              <div class="mx-3">
+                                  <i class="bi bi-bar-chart"></i>
+                                  Report
+                              </div>
+                              <div class="mx-3">
+                                  <i class="bi bi-cloud-upload"></i>
+                                  Import
+                              </div>
+                              <div class="mx-3">
+                                  <i class="bi bi-cloud-download"></i>
+                                  Export
+                              </div>
+                          </div>
+
+                          <div class="d-inline-block me-3">
+                              <div id="add-issue-btn"
+                                   class="mx-4 my-3 d-flex btn custom-bold-btn">
+                                  <div class="me-2 p-1">
+                                      <i class="bi bi-plus"></i>
+                                      Add Issue
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="mx-3">
+                              <i class="bi bi-book"></i>
+                              <span class="fw-bold">Guide</span>
+                          </div>
                       </div>
                   </div>
-                  
-            
-                    <div class="col-5">
-                        <div class="input-group rounded">
-                            <input type="search" class="form-control rounded" placeholder="Search by ID/Title issue" aria-label="Search" aria-describedby="search-addon" />
-                            <span class="input-group-text border-0" id="search-addon">
-                                <i class="fas fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-            
-                    <div class="col-2 d-flex align-items-center">
-                        <button class="border-0 rounded-circle p-2 text-muted ms-auto">
-                            <i class="bi bi-chevron-double-left"></i>
-                        </button>
-                        <div class="d-flex justify-content-center align-items-center mx-3" style="width: 50px; height: 50px">
-                            <h2 class="mb-0">1</h2>
-                        </div>
-                        <button class="border-0 rounded-circle p-2 text-muted me-3">
-                            <i class="bi bi-chevron-double-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            
+
+
+                  <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+                      <div class="row align-items-center">
+
+                          <div class="col-auto d-flex">
+                              <h5 class="ms-4 my-3 align-self-center">Show</h5>
+
+                              <div class="dropdown ms-3 align-self-center">
+                                  <div class="dropdown">
+                                      <button class="btn dropdown-toggle p-1 border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 50px">
+                                          5
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                          <li>
+                                              <button class="dropdown-item" type="button">5</button>
+                                          </li>
+                                          <li>
+                                              <button class="dropdown-item" type="button">15</button>
+                                          </li>
+                                          <li>
+                                              <button class="dropdown-item" type="button">20</button>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-auto d-flex">
+                              <h5 class="my-3 align-self-center">Sort</h5>
+                              <div class="dropdown ms-3 align-self-center">
+                                  <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Created Date
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                      <li>
+                                          <button class="dropdown-item" type="button">Priority</button>
+                                      </li>
+                                      <li>
+                                          <button class="dropdown-item" type="button">Code</button>
+                                      </li>
+                                  </ul>
+                              </div>
+
+                              <div class="dropdown ms-3 me-1 align-self-center">
+                                  <button class="btn dropdown-toggle border" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Desc
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                      <li>
+                                          <button class="dropdown-item" type="button">Asc</button>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+
+
+                          <div class="col-5">
+                              <div class="input-group rounded">
+                                  <input type="search" class="form-control rounded" placeholder="Search by ID/Title issue" aria-label="Search" aria-describedby="search-addon" />
+                                  <span class="input-group-text border-0" id="search-addon">
+                                      <i class="fas fa-search"></i>
+                                  </span>
+                              </div>
+                          </div>
+
+                          <div class="col-2 d-flex align-items-center">
+                              <button class="border-0 rounded-circle p-2 text-muted ms-auto">
+                                  <i class="bi bi-chevron-double-left"></i>
+                              </button>
+                              <div class="d-flex justify-content-center align-items-center mx-3" style="width: 50px; height: 50px">
+                                  <h2 class="mb-0">1</h2>
+                              </div>
+                              <button class="border-0 rounded-circle p-2 text-muted me-3">
+                                  <i class="bi bi-chevron-double-right"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
 
 
 
 
 
-            <div class="container-fluid bg-light py-3">
-              <div class="row">
-                <div class="col fw-bold">Code</div>
-                <div class="col-3 fw-bold">Title</div>
-                <div class="col fw-bold">Created By</div>
-                <div class="col fw-bold">Assigned to</div>
-                <div class="col fw-bold">Status</div>
-                <div class="col fw-bold">Priority</div>
-                <div class="col-2 fw-bold">Created date</div>
-                <div class="col fw-bold">Action</div>
+
+
+                  <div class="container-fluid bg-light py-3">
+                      <div class="row">
+                          <div class="col fw-bold">Code</div>
+                          <div class="col-3 fw-bold">Title</div>
+                          <div class="col fw-bold">Created By</div>
+                          <div class="col fw-bold">Assigned to</div>
+                          <div class="col fw-bold">Status</div>
+                          <div class="col fw-bold">Priority</div>
+                          <div class="col-2 fw-bold">Created date</div>
+                          <div class="col fw-bold">Action</div>
+                      </div>
+                  </div>
+
+                  <div class="container-fluid bg-light py-3 mb-3 rounded-3">
+
+                      {{#each issues}}
+                      <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark">
+                          <div class="row">
+                              <div class="col">IS00{{this.id}}</div>
+                              <div class="col-3">{{this.title}}</div>
+                              <div class="col">Ky Thanh</div>
+                              <div class="col">{{this.assigned_to_user_id}}</div>
+                              <div class="col">{{this.status}}</div>
+                              <div class="col">{{this.priority}}</div>
+                              <div class="col-2">{{formatDate this.created_at }}</div>
+                              <div class="col d-flex">
+                                  <i class="bi bi-eye"></i>
+                                  <i class="bi bi-pencil mx-3"></i>
+                                  <i class="bi bi-trash"></i>
+                              </div>
+                          </div>
+                      </a>
+                      <hr />
+                      {{/each}}
+
+
+                      <div class="row mt-5 align-content-center">
+                          <div class="col">
+                              <h4>Showing 1 to 5 of 5 Issue</h4>
+                          </div>
+
+                      </div>
+                  </div>
               </div>
-            </div>
-
-            <div class="container-fluid bg-light py-3 mb-3 rounded-3">
-
-              {{#each issues}}
-              <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark">
-              <div class="row">
-                <div class="col">IS00{{this.id}}</div>
-                <div class="col-3">{{this.title}}</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col">{{this.assigned_to_user_id}}</div>
-                <div class="col">{{this.status}}</div>
-                <div class="col">{{this.priority}}</div>
-                <div class="col-2">{{formatDate this.created_at }}</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              </a>
-              <hr />
-              {{/each}}
-
-
-              <div class="row mt-5 align-content-center">
-                <div class="col">
-                  <h4>Showing 1 to 5 of 5 Issue</h4>
-                </div>
-                
-              </div>
-            </div>
           </div>
-        </div>
       </div>
       <!-- Overlay -->
       <div class="overlay"></div>

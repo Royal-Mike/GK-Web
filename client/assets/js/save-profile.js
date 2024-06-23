@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Lắng nghe sự kiện click vào nút "Save"
     document.getElementById('btn-save-profile').addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         // Lấy giá trị từ các ô input
         var firstName = document.getElementById('first-name').value;
@@ -10,16 +10,37 @@ document.addEventListener('DOMContentLoaded', function () {
         var language = document.getElementById('language').value;
         var link = document.getElementById('link').value;
 
-        // Cập nhật các giá trị của profile
-        document.getElementById('first-name').innerText = firstName;
-        document.getElementById('last-name').innerText = lastName;
-        document.getElementById('headline').innerText = headline;
-        document.getElementById('language').innerText = language;
-        document.getElementById('link').innerText = link;
+        // Tạo object chứa dữ liệu cập nhật
+        var data = {
+            firstName: firstName,
+            lastName: lastName,
+            headline: headline,
+            language: language,
+            link: link
+        };
 
-     
-        showToast("Profile has been updated successfully.");
-
+        // Gửi AJAX request để cập nhật thông tin lên server
+        fetch('/profile/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật thành công, hiển thị thông báo
+                    showToast("Profile has been updated successfully.");
+                } else {
+                    // Xử lý lỗi nếu có
+                    showToast("Failed to update profile. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast("An error occurred while updating profile.");
+            });
     });
 });
 
@@ -50,11 +71,10 @@ function showToast(message) {
     $(toast).toast('show');
 
     // Xóa toast sau 3 giây
-    setTimeout(function() {
+    setTimeout(function () {
         $(toast).toast('hide'); // Ẩn toast
-        setTimeout(function() {
+        setTimeout(function () {
             toast.remove(); // Xóa toast khỏi DOM
         }, 500); // Đợi 0.5 giây trước khi xóa
     }, 3000);
 }
-

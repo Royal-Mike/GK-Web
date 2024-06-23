@@ -6,7 +6,7 @@ controller.homeView = async (req, res, next) => {
     try {
         // console.log(req);
         const userId = req.userid; // Lấy user ID từ token đã xác thực
-
+        console.log('UserID:', req.userid);
         // Lấy thông tin user từ cơ sở dữ liệu
         const user = await models.User.findByPk(userId);
         // console.log(user);

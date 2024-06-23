@@ -1,80 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Issues</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="icon" type="image/svg+xml" href="../assets/images/logo.png">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link href="../assets/css/global.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/issues.css" />
-    <link rel="stylesheet" href="../assets/css/navbar.css" />
-    <link rel="stylesheet" href="../assets/css/toast.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-          <div class="container-fluid">
-            <img src="../assets/images/logo.png" alt="Logo" height="50px" class="ps-5" />
-            <a class="navbar-brand px-2" href="../index.html">
-              <h2>LATouch</h2>
-            </a>
-      
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
-              aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-      
-            <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavId">
-
-
-                <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
-                    <div class="mx-3">
-                        <img src="../assets/images/vietnam.png" alt="Vietnam Flag" style="width:25px" />
-                        <span>VIE</span>
-                    </div>
-                    <div class="mx-3">
-                        <i class="bi bi-envelope fs-4 align-middle"></i>
-                    </div>
-                    <div class="mx-3">
-                        <i class="bi bi-question-circle fs-4 align-middle"></i>
-                    </div>
-
-                    <div class="mx-3 nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountId" data-bs-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <i class="bi bi-person-circle fs-4 align-middle"></i>
-                          Hi, Phong
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownAccountId">
-                          <a class="dropdown-item" href="../UserPage/profile.html">Profile</a>
-                          <a class="dropdown-item" href="#">Log out</a>
-                        </div>
-                  </div>
-
-
-            </div>
-          </div>
-        </nav>
-      </header>
-      
 
     <main>
       <!-- Page hiện tại -->
@@ -125,7 +48,7 @@
             <nav class="navbar navbar-expand navbar-light">
               <ul class="nav navbar-nav" id="navbar-in-project">
                   <li class="nav-item">
-                      <a class="nav-link" href="../UserPage/project-detail.html">Overview</a>
+                      <a class="nav-link" href="/project/{{projectId}}">Overview</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#"
@@ -144,16 +67,16 @@
                       <a class="nav-link" href="#">Modules</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="../tester/test-case.html">Test Cases</a>
+                      <a class="nav-link" href="/project/{{projectId}}/test-case">Test Cases</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="../tester/test-run.html">Test Runs</a>
+                      <a class="nav-link" href="/project/{{projectId}}/test-run">Test Runs</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link fw-bold" href="#">Issues</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="../UserPage/reports.html">Reports</a>
+                      <a class="nav-link" href="/project/{{projectId}}/report">Reports</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Activity log</a>
@@ -293,27 +216,28 @@
             <div class="container-fluid bg-light py-3">
               <div class="row">
                 <div class="col fw-bold">Code</div>
-                <div class="col-4 fw-bold">Title</div>
+                <div class="col-3 fw-bold">Title</div>
                 <div class="col fw-bold">Created By</div>
                 <div class="col fw-bold">Assigned to</div>
                 <div class="col fw-bold">Status</div>
                 <div class="col fw-bold">Priority</div>
-                <div class="col fw-bold">Created date</div>
+                <div class="col-2 fw-bold">Created date</div>
                 <div class="col fw-bold">Action</div>
               </div>
             </div>
 
             <div class="container-fluid bg-light py-3 mb-3 rounded-3">
-              <a href="issues-detail.html" class="text-decoration-none text-dark">
-                
+
+              {{#each issues}}
+              <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark">
               <div class="row">
-                <div class="col">IS001</div>
-                <div class="col-4">Issue1</div>
+                <div class="col">IS00{{this.id}}</div>
+                <div class="col-3">{{this.title}}</div>
                 <div class="col">Ky Thanh</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Open</div>
-                <div class="col">High</div>
-                <div class="col">1/1/2024</div>
+                <div class="col">{{this.assigned_to_user_id}}</div>
+                <div class="col">{{this.status}}</div>
+                <div class="col">{{this.priority}}</div>
+                <div class="col-2">{{formatDate this.created_at }}</div>
                 <div class="col d-flex">
                   <i class="bi bi-eye"></i>
                   <i class="bi bi-pencil mx-3"></i>
@@ -322,78 +246,8 @@
               </div>
               </a>
               <hr />
+              {{/each}}
 
-
-              <a href="issues-detail.html" class="text-decoration-none text-dark">
-              <div class="row">
-                <div class="col">IS001</div>
-                <div class="col-4">Issue1</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Open</div>
-                <div class="col">High</div>
-                <div class="col">1/1/2024</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              </a>
-
-              <hr />
-              <a href="issues-detail.html" class="text-decoration-none text-dark">
-              <div class="row">
-                <div class="col">IS001</div>
-                <div class="col-4">Issue1</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Open</div>
-                <div class="col">High</div>
-                <div class="col">1/1/2024</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              </a>
-
-              <hr />
-              <a href="issues-detail.html" class="text-decoration-none text-dark">
-              <div class="row">
-                <div class="col">IS001</div>
-                <div class="col-4">Issue1</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Open</div>
-                <div class="col">High</div>
-                <div class="col">1/1/2024</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              </a>
-
-              <hr />
-              <a href="issues-detail.html" class="text-decoration-none text-dark">
-              <div class="row">
-                <div class="col">IS001</div>
-                <div class="col-4">Issue1</div>
-                <div class="col">Ky Thanh</div>
-                <div class="col">Hoang Tran</div>
-                <div class="col">Open</div>
-                <div class="col">High</div>
-                <div class="col">1/1/2024</div>
-                <div class="col d-flex">
-                  <i class="bi bi-eye"></i>
-                  <i class="bi bi-pencil mx-3"></i>
-                  <i class="bi bi-trash"></i>
-                </div>
-              </div>
-              </a>
 
               <div class="row mt-5 align-content-center">
                 <div class="col">
@@ -492,6 +346,3 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="../assets/js/add-issue.js"></script>
 
- 
-  </body>
-</html>

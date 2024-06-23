@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\assets",
+    "\\client\\assets\\css",
+    "\\client\\assets\\js",
     "\\client\\views",
-    "\\client\\views\\tester",
-    "\\client\\views\\user",
+    "\\client\\views\\layouts",
     "\\server",
-    "\\server\\models",
-    "\\server\\routes",
-    "\\server\\seeders",
+    "\\server\\controllers",
     "\\server\\utils"
   ],
-  "SelectedNode": "\\server\\models",
+  "SelectedNode": "\\client\\assets\\css\\report.css",
   "PreviewInSolutionExplorer": false
 }

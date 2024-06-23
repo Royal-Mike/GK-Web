@@ -10,7 +10,7 @@ const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
-const port = process.env.PORT || 1000;
+const port = process.env.PORT || 5000;
 
 const nocache = require('nocache');
 

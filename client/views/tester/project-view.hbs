@@ -1,87 +1,74 @@
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-    <main>
-      <div class="container-fluid">
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
+
+<main>
+    <div class="container-fluid">
         <div class="row">
-              <!-- Side bar -->
-              {{> sidebar}}
-              <!-- Main content -->
+            <!-- Side bar -->
+            {{> sidebar}}
+            <!-- Main content -->
 
-          <div class="col-xl-11 bg-grey px-4 mx-auto">
-            <div class="container-fluid bg-white mt-4 py-2 rounded-3 mx-auto">
-              <div class="row align-items-center mx-auto bg-white">
-                <div class="col-auto d-flex align-self-center">
-                    <div class="col-auto d-flex align-self-center">
-                        <h5 class="my-3 align-self-center">Sort</h5>
-                        <!-- Dropdown for Sort by Created Date -->
-                        <div class="dropdown ms-3 align-self-center">
-                            <button class="btn dropdown-toggle border"
-                                    type="button"
-                                    id="sort-dropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                Created Date
-                            </button>
+            <div class="col-xl-11 bg-grey px-4 mx-auto">
+                <div class="container-fluid bg-white mt-4 py-2 rounded-3 mx-auto">
+                    <div class="row align-items-center mx-auto bg-white">
+                        <div class="col-auto d-flex align-self-center">
+                            <h5 class="my-3 align-self-center">Sort</h5>
+                            <div class="dropdown ms-3 align-self-center">
+                                <button class="btn dropdown-toggle border" type="button" id="sort-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width:171px">
+                                    Created Date
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="sort-dropdown">
+                                    <li><a class="dropdown-item" data-sort="created_at">Created Date</a></li>
+                                    <li><a class="dropdown-item" data-sort="name_project">Name</a></li>
+                                </ul>
+                            </div>
 
+                            <div class="ms-3 me-1 align-self-center">
+                                <button id="order-button" class="btn border" style="width: 80px" type="button" aria-expanded="false">
+                                    Desc <i id="order-icon" class="fas fa-arrow-down" style="color: red;"></i>
+                                </button>
+                            </div>
+                            <div class="col-12 d-flex align-self-center mx-2">
+                                <div class="input-group rounded">
+                                    <input type="search" id="project-search" class="form-control rounded" placeholder="Search by project name" aria-label="Search" aria-describedby="search-addon" />
+                                    <span class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="add-project"
+                                 class="col-auto d-flex btn custom-bold-btn align-self-center">
+                                <div>Add project</div>
+                            </div>
+
+                            <div class="col-auto d-flex mx-4 align-self-center">
+                                <i class="bi bi-book fs-5"></i>
+                                <span class="fw-semibold mx-1 align-self-center">Guide</span>
+                            </div>
                         </div>
-
-                        <!-- Dropdown for Sort Order (Asc/Desc) -->
-                        {{!-- <div class="dropdown ms-3 me-1 align-self-center">
-                            <button class="btn dropdown-toggle border"
-                                    type="button"
-                                    id="order-dropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                Desc
-                            </button>
-                            <ul class="dropdown-menu order-dropdown" aria-labelledby="order-dropdown">
-                                <li>
-                                    <button class="dropdown-item sort-order" type="button" data-sort-by="order" data-sort-order="asc">
-                                        Asc
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item sort-order" type="button" data-sort-by="order" data-sort-order="desc">
-                                        Desc
-                                    </button>
-                                </li>
-                            </ul>
-                        </div> --}}
-                        <div class="dropdown ms-3 me-1 align-self-center">
-                            <select id="order-dropdown" class="custom-select">
-                                <option value="desc">Desc</option>
-                                <option value="asc">Asc</option>
-                            </select>
-                        </div>
-                                                        
                     </div>
-
-                  <div class="col-12 d-flex align-self-center mx-2">
-                    <div class="input-group rounded">
-                      <input type="search" id="project-search" class="form-control rounded" placeholder="Search by project name" aria-label="Search" aria-describedby="search-addon" />
-                      <span class="input-group-text border-0" id="search-addon">
-                        <i class="fas fa-search"></i>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    id="add-project"
-                    class="col-auto d-flex btn custom-bold-btn align-self-center"
-                  >
-                    <div>Add project</div>
-                  </div>
-
-                  <div class="col-auto d-flex mx-4 align-self-center">
-                    <i class="bi bi-book fs-5"></i>
-                    <span class="fw-semibold mx-1 align-self-center"
-                      >Guide</span
-                    >
-                  </div>
-                </div>
-              </div>
 
               <div class="container bg-white">
-                <div class="row p-5" id="project-list"> 
+                <div class="row p-5"> 
                     {{#each projects}}
                       <div class="col-lg-3 col-md-4 col-sm-6 mb-3 project-item" data-created-at="{{this.created_at}}">
                         <a href="/project/{{this.id}}" class="nav-link text-dark" aria-current="page">
@@ -96,7 +83,7 @@
                                         {{this.name_project}}
                                     </h4>
                                     <p style="font-size: 0.75rem">Created on {{formatDate this.created_at}}</p>
-                                    <p style="font-size: 0.75rem">Created by <b>Ho√†ng</b></p>
+                                    <p style="font-size: 0.75rem">Created by <b>Ho‡ng</b></p>
                                     </div>
                                   </div>
                         {{!-- <div>
@@ -153,7 +140,7 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="d-flex justify-content-center" id="pagination-container">
+                <div class="d-flex justify-content-center">
                   <nav aria-label="Page navigation">
                     <ul class="pagination">
                       {{#if (gt currentPage 1)}}
@@ -164,86 +151,76 @@
                         </li>
                       {{/if}}
 
-                      {{#each (range 1 totalPages)}}
-                        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
-                          <a class="page-link" href="?page={{this}}">{{this}}</a>
-                        </li>
-                      {{/each}}
+                                    {{#each (range 1 totalPages)}}
+                                    <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
+                                        <a class="page-link" href="?page={{this}}">{{this}}</a>
+                                    </li>
+                                    {{/each}}
 
-                      {{#if (lt currentPage totalPages)}}
-                        <li class="page-item">
-                          <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                      {{/if}}
-                    </ul>
-                  </nav>
+                                    {{#if (lt currentPage totalPages)}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    {{/if}}
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
                 </div>
-
-              </div>
             </div>
-          </div>
         </div>
 
 
-        <div
-          id="customProjectPopup"
-          class="position-fixed overlay top-0 bottom-0 start-0 end-0">
-          <div
-            class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0"
-          >
-            <div class="w-50 shadow bg-white rounded-4">
-              <div class="m-2 mt-2 bg-white semi-rounded">
-                <div class="container p-4 position-relative">
-                  <h6 class="text-left fs-4">Create Project</h6>
-                  <div class="justify-content-between gap-5 mb-4">
-                    <div class="flex-fill">
-                        <span class="fs-6 font-weight-semibold">Name<span class="text-danger">*</span></span>
-                        <div class="input-group w-100 mb-4 mt-2">
-                            <input type="text" class="form-control" id="project-name" placeholder="Project Name" aria-label="Project name" />
+        <div id="customProjectPopup"
+             class="position-fixed overlay top-0 bottom-0 start-0 end-0">
+            <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+                <div class="w-50 shadow bg-white rounded-4">
+                    <div class="m-2 mt-2 bg-white semi-rounded">
+                        <div class="container p-4 position-relative">
+                            <h6 class="text-left fs-4">Create Project</h6>
+                            <div class="justify-content-between gap-5 mb-4">
+                                <div class="flex-fill">
+                                    <span class="fs-6 font-weight-semibold">Name<span class="text-danger">*</span></span>
+                                    <div class="input-group w-100 mb-4 mt-2">
+                                        <input type="text" class="form-control" id="project-name" placeholder="Project Name" aria-label="Project name" />
+                                    </div>
+                                </div>
+                                <div class="flex-fill">
+                                    <span class="fs-6 font-weight-semibold">Description</span>
+                                    <div class="input-group w-100 mb-4 mt-2">
+                                        <textarea class="form-control" id="project-description" rows="3" placeholder="Project Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="ps-3 pe-3 ms-4 d-flex btn save-btn"
+                                     id="customCreateProject">
+                                    Create
+                                </div>
+                                <div class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn">
+                                    Cancel
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex-fill">
-                        <span class="fs-6 font-weight-semibold">Description</span>
-                        <div class="input-group w-100 mb-4 mt-2">
-                            <textarea class="form-control" id="project-description" rows="3" placeholder="Project Description"></textarea>
-                        </div>
+                        <hr />
                     </div>
                 </div>
-                  <div class="d-flex justify-content-center">
-                    <div
-                      class="ps-3 pe-3 ms-4 d-flex btn save-btn"
-                      id="customCreateProject"
-                    >
-                      Create
-                    </div>
-                    <div
-                      class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn"
-                    >
-                      Cancel
-                    </div>
-                  </div>
-                </div>
-                <hr />
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      
-      <div
-        class="alert alert-success position-fixed top-0 end-0 mt-3 me-3"
-        id="successMessage"
-        style="display: none"
-      >
+
+    <div class="alert alert-success position-fixed top-0 end-0 mt-3 me-3"
+         id="successMessage"
+         style="display: none">
         Saved successfully!
-      </div>
-    </main>
+    </div>
+</main>
 
-   
-    <script src="/js/add-project.js"></script>
-    <script src="/js/sort-filter-project.js"></script>
 
-    
+<script src="/js/add-project.js"></script>
+<script src="/js/sort-filter-project.js"></script>
+

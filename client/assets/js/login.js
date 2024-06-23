@@ -1,7 +1,20 @@
 // Đợi cho tài liệu HTML được tải hoàn toàn
 document.addEventListener('DOMContentLoaded', function() {
     var loginButton = document.querySelector('#btn-login');
+    var flashMessage = getCookie('flash');
+    var loginButtonClicked = getCookie('loginButtonClicked');
+    var isPageReloaded = performance.navigation.type === performance.navigation.TYPE_RELOAD;
 
+    // Check if login button was previously clicked and show toast if necessary
+    if (flashMessage && loginButtonClicked === 'false' && !isPageReloaded) {
+        showToast("Please log in to access this page.");
+    }
+    else {
+        setCookie('loginButtonClicked', 'false', 1);
+    }
+
+
+    
     loginButton.addEventListener('click', function() {
         var email = $("#email").val();
         var password = $("#password").val();
@@ -230,8 +243,6 @@ function setCookie(name, value, days) {
         }
     }
   
-
-
 
 
 

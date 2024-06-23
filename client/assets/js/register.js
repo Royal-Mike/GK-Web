@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     var signupButton = document.querySelector('#btn-signup');
+    var loginButton = document.querySelector('#btn-nav-login');
+
+    loginButton.addEventListener('click', function () {
+        // Set a flag or store information indicating the login button has been clicked
+        document.cookie = 'loginButtonClicked=true; path=/'; // Example using cookie
+    });
+
 
     signupButton.addEventListener('click', function () {
         var name = document.querySelector('#name').value;

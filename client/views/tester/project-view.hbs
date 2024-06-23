@@ -67,89 +67,87 @@
                         </div>
                     </div>
 
-              <div class="container bg-white">
-                <div class="row p-5"> 
-                    {{#each projects}}
-                      <div class="col-lg-3 col-md-4 col-sm-6 mb-3 project-item" data-created-at="{{this.created_at}}">
-                        <a href="/project/{{this.id}}" class="nav-link text-dark" aria-current="page">
-                          <div class="bg-white">
-                            <div class="card">
-                              <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center w-100">
-                                  <div class="d-flex align-items-center justify-content-start w-100">
-                                    <img src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png" width="40px" height="40px"/>
-                                    <div class="p-2 flex-grow-1" style="min-width: 0;">
-                                    <h4 class="card-title text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                        {{this.name_project}}
-                                    </h4>
-                                    <p style="font-size: 0.75rem">Created on {{formatDate this.created_at}}</p>
-                                    <p style="font-size: 0.75rem">Created by <b>Hoàng</b></p>
-                                    </div>
-                                  </div>
-                        {{!-- <div>
-                          <i class="bi bi-three-dots"></i>
-                        </div> --}}
-                                </div>
-                                  <style>
-                                    .enc-id-con {
-                                      padding-bottom: 15px;
-                                      border-bottom: 1px solid #f2f8ff;
-                                      display: inline-flex;
-                                      align-items: center;
-                                      justify-content: space-between;
-                                      width: 100%;
-                                    }
-                                    .key {
-                                      box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
-                                      text-align: left;
-                                      border-radius: 30px;
-                                      background: #f2f0ff;
-                                      padding: 2px 25px;
-                                      font-size: 0.75rem;
-                                      font-weight: 500;
-                                    }
-                                  </style>
-                                  <div class="enc-id-con">
-                                    <p>Project Key</p>
-                                    <p class="key" style="color: rgb(77, 0, 174)">Mglx</p>
-                                  </div>
-                                  <hr/>
-                                  <div class="row">
-                                    <div class="col" style="font-size: 0.8rem">
-                                      Test Cases<br/>1
-                                    </div>
-                                    <div class="col" style="font-size: 0.8rem">
-                                      Test Runs<br/>1
-                                    </div>
-                                    <div class="col" style="font-size: 0.8rem">
-                                      Issues<br/>1
-                                    </div>
-                                  </div>
-                                  <hr/>
-                              <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" style="background-color: #034f75">
-                                  <i class="bi bi-person-plus"></i>
-                                </button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    {{/each}}
-                </div>
+                    <div class="container bg-white">
+                        <div class="row p-5" id="project-list">
+                            {{#each projects}}
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-3 project-item" data-created-at="{{this.created_at}}">
+                                <a href="/project/{{this.id}}" class="nav-link text-dark" aria-current="page">
+                                    <div class="bg-white">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div class="d-flex align-items-center justify-content-start w-100">
+                                                        <img src="https://cdn.qatouch.com/assets/images/qatouch-favicon-color-1.png" width="40px" height="40px" />
+                                                        <div class="p-2 flex-grow-1" style="min-width: 0;">
+                                                            <h4 class="card-title text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                {{this.name_project}}
+                                                            </h4>
+                                                            <p style="font-size: 0.75rem">Created on {{formatDate this.created_at}}</p>
+                                                            <p style="font-size: 0.75rem">Created by <b>Hoang</b></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <style>
+                                                    .enc-id-con {
+                                                        padding-bottom: 15px;
+                                                        border-bottom: 1px solid #f2f8ff;
+                                                        display: inline-flex;
+                                                        align-items: center;
+                                                        justify-content: space-between;
+                                                        width: 100%;
+                                                    }
 
-                <!-- Pagination -->
-                <div class="d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                      {{#if (gt currentPage 1)}}
-                        <li class="page-item">
-                          <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                      {{/if}}
+                                                    .key {
+                                                        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 29%);
+                                                        text-align: left;
+                                                        border-radius: 30px;
+                                                        background: #f2f0ff;
+                                                        padding: 2px 25px;
+                                                        font-size: 0.75rem;
+                                                        font-weight: 500;
+                                                    }
+                                                </style>
+                                                <div class="enc-id-con">
+                                                    <p>Project Key</p>
+                                                    <p class="key" style="color: rgb(77, 0, 174)">{{this.id}}</p>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col" style="font-size: 0.8rem">
+                                                        Test Cases<br />1
+                                                    </div>
+                                                    <div class="col" style="font-size: 0.8rem">
+                                                        Test Runs<br />1
+                                                    </div>
+                                                    <div class="col" style="font-size: 0.8rem">
+                                                        Issues<br />1
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-primary" style="background-color: #034f75">
+                                                        <i class="bi bi-person-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {{/each}}
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-center" id="pagination-container">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    {{#if (gt currentPage 1)}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    {{/if}}
 
                                     {{#each (range 1 totalPages)}}
                                     <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
@@ -223,4 +221,3 @@
 
 <script src="/js/add-project.js"></script>
 <script src="/js/sort-filter-project.js"></script>
-

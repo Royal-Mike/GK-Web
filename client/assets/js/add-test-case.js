@@ -34,6 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const testcaseName = document.getElementById('testcase-name').value;
         const testcaseDescription = document.getElementById('testcase-description').value;
         const projectId = getProjectIdFromURL();
+
+        if (testcaseNam === '') {
+            alert('Test case name is required.');
+            return;
+        }
+
         try {
             const response = await fetch(`/project/${projectId}/test-case/create`, {
                 method: 'POST',

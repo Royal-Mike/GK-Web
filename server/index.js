@@ -61,6 +61,7 @@ app.use('/project', require('./routes/projectRoute'));
 
 // Routes for board
 app.use('/board', require('./routes/boardRoute'));
+app.use('/activity',require('./routes/activityRoute'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,11 +1,13 @@
-<!-- Page hiện tại -->
-<div class="container-fluid">
+
+
+      <main>
+        <!-- Page hiện tại -->
+        <div class="container-fluid">
     <div class="row vh-100">
         <!-- Side bar -->
-        
+        {{> sidebar}}
         <!-- Main content -->
         <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
-            
             <div class="container-fluid bg-light mt-4 py-2">
                 <div class="row">
                     <div class="col d-flex align-items-center">
@@ -148,7 +150,7 @@
                 </div>
             </div>
             <div class="container-fluid bg-light py-3">
-                {{#each activities}}
+                {{!-- {{#each activities}}
                 <div class="row flex-wrap activity-item" data-name="{{Actor.User.first_name}} {{Actor.User.last_name}}">
                     <div class="col-md-4 text-color-1">{{Actor.User.first_name}} {{Actor.User.last_name}}</div>
                     <div class="col-md-2 text-color-1">{{title_name}}</div>
@@ -157,7 +159,7 @@
                     <div class="col-md-2 text-color-1">{{formatDate created_at "MMM DD YYYY HH:mm"}}</div>
                     <hr />
                 </div>
-                {{/each}}
+                {{/each}} --}}
 
                 <div class="row mt-5 align-content-center px-3 pb-4">
                     <div class="col">
@@ -183,9 +185,13 @@
     </div>
 </div>
 
-<script src="/scripts/list-activity.js"></script>
 
+        
+  
+  
+      </main>
+    
 
-{{#section "head"}}
-<title>Activity</title>
-{{/section}}
+    <script src="/scripts/list-activity.js"></script>
+  
+    

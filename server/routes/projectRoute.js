@@ -19,6 +19,6 @@ router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 
 router.get('/:id/report', verifyToken, controller.reportView);
-
-
+router.use('/:id/activity',verifyToken,controller.getActivities);
+router.use('/:id/activity/all',verifyToken,controller.getAllActivities);
 module.exports = router;

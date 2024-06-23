@@ -10,7 +10,7 @@ const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 1000;
 
 const nocache = require('nocache');
 
@@ -61,7 +61,9 @@ app.use('/project', require('./routes/projectRoute'));
 
 // Routes for board
 app.use('/board', require('./routes/boardRoute'));
-app.use('/activity',require('./routes/activityRoute'));
+
+
+//Routes for activity
 
 // Error handling middleware
 app.use((err, req, res, next) => {

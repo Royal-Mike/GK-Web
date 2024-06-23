@@ -4,84 +4,42 @@
         <!-- Page hiện tại -->
         <div class="container-fluid">
           <div class="row">
-            <!-- Side bar -->
-            <div
-              class="bg-white sidebar d-flex justify-content-center fs-8rem col-auto col-md-1"
-            >
-              <div class="text-center">
-                <ul class="nav nav-pills flex-column mt-5">
-                  <li class="nav-item py-2">
-                    <a href="/home" class="nav-link text-dark" aria-current="page">
-                      <i class="bi bi-speedometer2 fs-5"></i> <br />
-                      Dashboard</a
-                    >
-                  </li>
-  
-                  <li class="nav-item py-2">
-                    <a
-                      href="/project"
-                      class="nav-link text-dark bg-active-blue-color"
-                    >
-                    <i class="bi bi-backpack4 fs-5"></i> <br/>
-                      Project List</a
-                    >
-                  </li>
-  
-                  <li class="nav-item py-3">
-                    <a href="/board" class="nav-link text-dark">
-                      <i class="bi bi-clipboard fs-5"></i><br/>
-                                          Board</a
-                    >
-                  </li>
-  
-                  <li class="nav-item py-3">
-                      <a href="/board" class="nav-link text-dark">
-                          <i class="bi bi-gear fs-5"></i> <br />
-                        Setting</a
-                      >
-                    </li>
-                </ul>
-              </div>
-            </div>
+                        {{> sidebar}}
             <!-- Main content -->
             <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
               
                 <nav class="navbar navbar-expand navbar-light">
                     <ul class="nav navbar-nav" id="navbar-in-project">
                         <li class="nav-item">
-                            <a class="nav-link" href="project-detail.html">Overview</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"
-                              >Requirements</a
-                            >
+                              <a class="nav-link" href="/project/{{project.id}}">Overview</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#"
-                              >Attachments</a
-                            >
+                              <a class="nav-link" href="#">Requirements</a>
                           </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Releases</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Modules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../tester/test-case.html">Test Cases</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../tester/test-run.html">Test Runs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../developer/issues.html">Issues</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold" href="reports.html">Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Activity log</a>
-                        </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Attachments</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Releases</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Modules</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/project/{{project.id}}/test-case">Test Cases</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/project/{{project.id}}/test-run">Test Runs</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/project/{{project.id}}/issues">Issues</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/project/{{project.id}}/report">Reports</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/project/{{project.id}}/activity">Activity log</a>
+                          </li>
                     </ul>
                 </nav>
 
@@ -205,7 +163,7 @@
   
               <div class="container-fluid bg-light mb-5 p-3 rounded-3">
                   
-                <div class="row d-flex align-items-center justify-content-center">
+                {{!-- <div class="row d-flex align-items-center justify-content-center">
                   <div class="col-1 d-flex p-3">
                     <div class="bg-active-blue-color p-2 rounded-3 text-center" style="width: 40px;">AS</div>
                 </div>
@@ -276,15 +234,15 @@
                       <p class="mx-2">Delete</p></div>
   
                   </div>
-                  <hr />
-
+                  <hr /> --}}
+              {{#each reports}}
                <div class="row d-flex align-items-center justify-content-center">
                   <div class="col-1 d-flex p-3">
                     <div class="bg-active-blue-color p-2 rounded-3 text-center" style="width: 40px;">RES</div>
                 </div>
 
                   <div class="col-5">
-                    <h6>Requirements Summary</h6>
+                    <h6>{{this.name}}</h6>
                     <p class="fs-8rem">Mar-01-2023 - Jun-02-2023</p>
                     </div>
                   <div class="col-auto d-flex">
@@ -312,7 +270,7 @@
                     <p class="mx-2">Delete</p></div>
 
                 </div>
-        
+              {{/each}}
   
   
                 <div class="row mt-5 align-content-center">
@@ -328,82 +286,81 @@
 
 
         <!-- Overlay -->
-        <div class="overlay"></div>
-        <div class="add-report-table">
-          <div class="container">
-  
-            <div class="d-flex align-item-center justify-content-between p-3">
-              <h3 class="mx-auto">Add report</h3>
-              <button 
-              type="button" 
-              class="btn-close"
-              id="close-report-btn"
-              aria-label="Close"></button>
-          </div>
-  
-          <div class="row p-3">
-            <div class="col">
-                <p>Report title <span class="text-danger">*</span></p>
-                <input
-                    type="text"
-                    class="form-control mb-2"
-                    placeholder=""
-                    aria-label="title"
-                />
-                <p>Type <span class="text-danger">*</span></p>
-                <input
-                    type="text"
-                    class="form-control mb-2"
-                    placeholder=""
-                    aria-label="status"
-                />
-                <p>Duration <span class="text-danger">*</span></p>
-                <input
-                    type="date"
-                    class="form-control"
-                    placeholder=""
-                    aria-label="duration"
-                />
-            </div>
-            <div class="col d-flex flex-column">
-                <p>Description</p>
-                <textarea class="form-control flex-grow-1 mb-3"></textarea>
-                <div class="d-flex">
-                        <p>Accessing & Scheduling</p>
-                    <div class="form-check form-switch mx-2">
-                        <input class="form-check-input" type="checkbox" id="accessing-scheduling-switch">
+    <div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customReportPopup">
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0 ">
+            <div class="container bg-white rounded-3 p-3">
+      
+                <div class="d-flex align-item-center justify-content-between p-3">
+                  <h3 class="mx-auto">Add report</h3>
+                  <button 
+                  type="button" 
+                  class="btn-close"
+                  id="close-report-btn"
+                  aria-label="Close"></button>
+              </div>
+      
+              <div class="row p-3">
+                <div class="col">
+                    <p>Report title <span class="text-danger">*</span></p>
+                    <input
+                        type="text"
+                        class="form-control mb-2"
+                        placeholder=""
+                        aria-label="title"
+                    />
+                    <p>Type <span class="text-danger">*</span></p>
+                    <input
+                        type="text"
+                        class="form-control mb-2"
+                        placeholder=""
+                        aria-label="status"
+                    />
+                    <p>Duration <span class="text-danger">*</span></p>
+                    <input
+                        type="date"
+                        class="form-control"
+                        placeholder=""
+                        aria-label="duration"
+                    />
+                </div>
+                <div class="col d-flex flex-column">
+                    <p>Description</p>
+                    <textarea class="form-control flex-grow-1 mb-3"></textarea>
+                    <div class="d-flex">
+                            <p>Accessing & Scheduling</p>
+                        <div class="form-check form-switch mx-2">
+                            <input class="form-check-input" type="checkbox" id="accessing-scheduling-switch">
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p><strong>Note:</strong> <em>Switching this ON will allow you to enable scheduled Email Report and Accessing Controls.</em></p>
                     </div>
                 </div>
-                <div class="text-center mt-3">
-                    <p><strong>Note:</strong> <em>Switching this ON will allow you to enable scheduled Email Report and Accessing Controls.</em></p>
-                </div>
             </div>
-        </div>
-        
-  
+            
+      
             <div class="justify-content-center"> 
-              <div class="text-center">
-                  <button
-                      class="btn custom-bold-btn rounded-3 me-3"
-                      id="save-report-btn"
-                  >
-                      Save
-                  </button>
-                  <button
-                      class="btn border rounded-3"
-                      id="cancel-report-btn"
-                  >
-                      Cancel
-                  </button>
-              </div>
-              
-          </div>
+                  <div class="text-center">
+                      <button
+                          class="btn custom-bold-btn rounded-3 me-3"
+                          id="save-report-btn"
+                      >
+                          Save
+                      </button>
+                      <button
+                          class="btn border rounded-3"
+                          id="cancel-report-btn"
+                      >
+                          Cancel
+                      </button>
+                  </div>
+            </div>
           
-  
+      </div>
+      </div>
           
-          
-        </div>
-  
+       
+  </div>
   
       </main>
     

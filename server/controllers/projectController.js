@@ -417,7 +417,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { projectId, issues });
+    res.render("developer/issues", { project, issues });
   } catch (error) {
     next(error);
   }
@@ -465,14 +465,7 @@ controller.issueDetailView = async (req, res, next) => {
 };
 
 
-controller.reportView = async (req, res, next) => {
-  try {
-    // Pass project and test run information to the view
-    res.render("user/reports");
-  } catch (error) {
-    next(error);
-  }
-};
+
 controller.getActivities = async (req, res,next) => {
   // const name = req.query.keyword | "";
   // const projectId = req.query.projectId | 0;
@@ -621,13 +614,57 @@ controller.deleteIssue = async(req, res) => {
 
 
 controller.reportView = async (req, res, next) => {
+  const projectId = req.params.id;
   try {
-     
+      // Fetch project to ensure it exists
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Fetch all test runs related to the project
+    const reports = await models.Report.findAll({
+      where: { related_project_id: projectId }
+        });
       // Pass project and test run information to the view
-      res.render('user/reports');
+      res.render('user/reports', {reports, project});
   } catch (error) {
       next(error);
   }
 };
+
+
+
+
+// Thêm issue
+// controller.createReport = async (req, res,next) => {
+//   const { name, status, priority, note } = req.body;
+//   const project_id = parseInt(req.session.project_id);
+//   const member_id = req.session.projects[project_id].memberId
+//   console.log(name, project_id, status, priority, note, member_id)
+//   if (!project_id || !name || !status || !priority || !note) {
+//     return res.status(400).message({ error: "Missing some fields" });
+//   }
+
+//   try {
+
+//     const newIssue = await models.Issue.create({
+//       name,
+//       project_id,
+//       status,
+//       priority,
+//       note,
+//       member_id
+//     });
+//     console.log('Test Run created:', newIssue.toJSON());
+//     res.redirect(`/project/${project_id}/issues`)
+//   } catch (error) {
+//     console.error("Error adding issue:", error);
+//     res.send("Can not add issue!");
+//     console.error(error);
+//   }
+// };
+
+
 
 module.exports = controller;

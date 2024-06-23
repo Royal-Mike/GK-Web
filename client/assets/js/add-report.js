@@ -63,29 +63,4 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelReportBtn.addEventListener("click", closePopup);
 
     closeReportBtn.addEventListener("click", closePopup);
-
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.classList.add('toast', 'align-items-center', 'text-white', 'bg-primary', 'fade');
-        toast.setAttribute('role', 'alert');
-        toast.setAttribute('aria-live', 'assertive');
-        toast.setAttribute('aria-atomic', 'true');
-
-        toast.innerHTML = `
-            <div class="toast-body">
-                ${message}
-            </div>
-        `;
-
-        document.body.appendChild(toast);
-
-        $(toast).toast('show');
-
-        setTimeout(function () {
-            $(toast).toast('hide');
-            setTimeout(function () {
-                toast.remove();
-            }, 500);
-        }, 3000);
-    }
 });

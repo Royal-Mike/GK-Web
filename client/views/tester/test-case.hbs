@@ -237,7 +237,7 @@
                                           <td>{{this.title}}</td>
                                           <td><i class="bi bi-file-earmark-fill"></i></td>
 
-                                          <td style="max-width: 20%">Hoàng Trần</td>
+                                          <td style="max-width: 20%">{{this.CreatedByUser.username}}</td>
 
                                           <td style="max-width: 10%" class="eclipsis-overflow">
                                               {{formatDate this.created_at}}
@@ -251,6 +251,7 @@
                                           </td>
                                       </tr>
                                       {{/each}}
+
 
                                   </tbody>
                               </table>

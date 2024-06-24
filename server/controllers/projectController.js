@@ -458,7 +458,7 @@ controller.issueDetailView = async (req, res, next) => {
     }
 
     // Render issue detail view and pass data
-    res.render("developer/issues-detail", { project, issue });
+    res.render("developer/issues-detail", { project, issue, projectId });
   } catch (error) {
     next(error);
   }

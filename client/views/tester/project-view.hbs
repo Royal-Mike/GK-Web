@@ -135,6 +135,7 @@
                                 </a>
                             </div>
                             {{/each}}
+
                         </div>
 
                         <!-- Pagination -->
@@ -219,6 +220,20 @@
 </main>
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 <script src="/js/add-project.js"></script>
 <script src="/js/sort-filter-project.js"></script>
-
+<script src="/js/toast.js"></script>
+<script>
+    $(document).ready(function () {
+        var error = getCookie('error');
+        if (error) {
+            showToast(error);
+            // Clear the error cookie
+            document.cookie = 'error=; Max-Age=-1; Path=/';
+        }
+    });
+</script>

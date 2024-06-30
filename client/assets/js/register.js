@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     var signupButton = document.querySelector('#btn-signup');
+    var loginButton = document.querySelector('#btn-nav-login');
+
+    loginButton.addEventListener('click', function () {
+        // Set a flag or store information indicating the login button has been clicked
+        document.cookie = 'loginButtonClicked=true; path=/'; // Example using cookie
+    });
+
 
     signupButton.addEventListener('click', function () {
         var name = document.querySelector('#name').value;
@@ -40,28 +47,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Hàm hiển thị toast
-function showToast(message) {
-    // Tạo một thẻ div để chứa toast
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add('show');
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Thêm nội dung của toast
-    toast.innerHTML = `
-        <div class="toast-body">
-            ${message}
-        </div>
-    `;
-
-    // Thêm toast vào body của tài liệu HTML
-    document.body.appendChild(toast);
-
-    // Xóa toast sau 3 giây
-    setTimeout(function () {
-        toast.remove();
-    }, 3000);
-}

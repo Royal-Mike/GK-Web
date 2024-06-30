@@ -8,7 +8,7 @@ const redirectIfAuthenticated = (req, res, next) => {
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
       return res.redirect('/home');  // Chuyển hướng đến trang /home nếu đã đăng nhập
     } catch (error) {
-      // Nếu token không hợp lệ, tiếp tục cho phép truy cập vào trang login
+        return res.redirect('/account/login'); // Nếu token không hợp lệ, tiếp tục cho phép truy cập vào trang login
     }
   }
   next();

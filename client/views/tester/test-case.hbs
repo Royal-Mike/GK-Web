@@ -237,7 +237,7 @@
                                           <td>{{this.title}}</td>
                                           <td><i class="bi bi-file-earmark-fill"></i></td>
 
-                                          <td style="max-width: 20%">Hoàng Trần</td>
+                                          <td style="max-width: 20%">{{this.CreatedByUser.username}}</td>
 
                                           <td style="max-width: 10%" class="eclipsis-overflow">
                                               {{formatDate this.created_at}}
@@ -251,6 +251,7 @@
                                           </td>
                                       </tr>
                                       {{/each}}
+
 
                                   </tbody>
                               </table>
@@ -301,29 +302,25 @@
           </div>
 
           <div class="row p-3">
-            <div class="col">
-              <span class="fs-6 font-weight-semibold"
-                >Title test-case</span
-              >
-              <div class="input-group mb-3 w-30">
-                <input
-                  type="text"
-                  class="form-control"
-                  aria-label="Testcase name"
-                  id="testcase-name"
-                />
+              <div class="col">
+                  <span class="fs-6 font-weight-semibold">
+                      Title test-case<span class="text-danger">*</span>
+                  </span>
+                  <div class="input-group mb-3 w-30">
+                      <input type="text"
+                             class="form-control"
+                             aria-label="Testcase name"
+                             id="testcase-name" />
+                  </div>
+                  <span class="fs-6 font-weight-semibold">
+                      Description<span class="text-danger"></span>
+                  </span>
+                  <div class="input-group w-100">
+                      <textarea class="form-control"
+                                aria-label="With textarea"
+                                id="testcase-description"></textarea>
+                  </div>
               </div>
-              <span class="fs-6 font-weight-semibold"
-                >Description<span class="text-danger"></span
-              ></span>
-              <div class="input-group w-100">
-                <textarea
-                  class="form-control"
-                  aria-label="With textarea"
-                  id="testcase-description"
-                ></textarea>
-              </div>
-            </div>
             <div class="col d-flex flex-column">
               <div class="flex-fill flex-column">
                 <div

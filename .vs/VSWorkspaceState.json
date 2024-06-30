@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\assets",
+    "\\client\\assets\\css",
+    "\\client\\assets\\images",
+    "\\client\\assets\\js",
     "\\client\\views",
-    "\\client\\views\\developer",
     "\\client\\views\\layouts",
-    "\\client\\views\\partials",
     "\\client\\views\\signup-signin",
-    "\\client\\views\\tester",
-    "\\client\\views\\user",
-    "\\server",
-    "\\server\\routes"
+    "\\server"
   ],
-  "SelectedNode": "\\server\\controllers\\projectController.js",
+  "SelectedNode": "\\client\\views\\user\\project-detail.hbs",
   "PreviewInSolutionExplorer": false
 }

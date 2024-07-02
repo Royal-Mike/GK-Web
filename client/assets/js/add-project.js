@@ -3,18 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const createBtn = document.getElementById("customCreateProject");
     const cancelBtn = projectPopup.querySelector(".cancel-btn");
     const addProjectBtn = document.getElementById("add-project");
-    const successMessage = document.getElementById("successMessage");
-    const projectContainer = document.querySelector('.row.p-5'); // Container to append new projects
+    //const successMessage = document.getElementById("successMessage");
+    //const projectContainer = document.querySelector('.row.p-5'); // Container to append new projects
 
-    function handlePageShow(event) {
-        if (event.persisted) {
-            console.log('Page is being shown from bfcache.');
-            location.reload(); // This will reload the entire page
-        }
-    }
-
-    // Add pageshow event listener to the window object
-    window.addEventListener('pageshow', handlePageShow);
 
     // Function to close the project popup
     function closePopup() {

@@ -5,9 +5,11 @@ const verifyToken = require('../middleware/account');
 
 router.get('/', verifyToken, controller.projectView);
 router.get("/search", verifyToken, controller.getProjectByKey);
+router.post('/create', verifyToken, controller.createProject);
+router.delete('/delete', verifyToken, controller.deleteProject);
 
 router.get('/:id', verifyToken, controller.projectDetailView);
-router.post('/create', verifyToken, controller.createProject);
+router.post('/:id/update', verifyToken, controller.updateProject);
 
 router.get('/:id/test-case', verifyToken, controller.testCaseView);
 router.post('/:id/test-case/create', verifyToken, controller.createTestCase);

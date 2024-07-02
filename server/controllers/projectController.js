@@ -187,6 +187,91 @@ controller.createProject = async (req, res) => {
   }
 };
 
+controller.updateProject = async (req, res) => {
+    try {
+        const { name, description } = req.body;
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        if (!name) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Project name is required." });
+        }
+
+        // Check if name contains special symbols
+        if (specialSymbolsRegex.test(name)) {
+            return res
+                .status(401)
+                .json({
+                    success: false,
+                    message: "Project name cannot contain special symbols.",
+                });
+        }
+
+        // Find the project to be updated
+        const project = await models.Project.findOne({ where: { id: projectId } });
+
+        if (!project) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Project not found." });
+        }
+
+        // Update the project
+        await project.update({
+            name_project: name,
+            description,
+        });
+
+        // Return the updated project to the client
+        res.status(201).json({ success: true, project });
+    } catch (error) {
+        console.error(error);
+        // Handle specific validation errors
+        if (error.name === "SequelizeValidationError") {
+            return res
+                .status(400)
+                .json({ success: false, message: error.errors[0].message });
+        }
+        res
+            .status(500)
+            .json({
+                success: false,
+                message:
+                    "An error occurred while updating the project. Please try again.",
+            });
+    }
+};
+
+controller.deleteProject = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        const project = await models.Project.findByPk(id);
+
+        if (!project) {
+            return res.status(404).json({ success: false, message: "Project not found." });
+        }
+
+        // Delete associated entries in User_Project table
+        await models.User_Project.destroy({ where: { project_id: id } });
+
+        // Now delete the project itself
+        await project.destroy();
+
+        // Return success response
+        res.status(200).json({ success: true, message: "Project deleted successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while deleting the project. Please try again.",
+        });
+    }
+};
+
+
 
 controller.testCaseView = async (req, res, next) => {
     try {

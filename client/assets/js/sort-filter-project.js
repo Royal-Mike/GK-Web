@@ -88,9 +88,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
                 </div>
                 <hr/>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
                   <button type="button" class="btn btn-primary" style="background-color: #034f75">
                     <i class="bi bi-person-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary delete-project">
+                    <i class="bi bi-trash"></i>
                   </button>
                 </div>
               </div>

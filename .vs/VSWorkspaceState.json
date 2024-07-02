@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\assets",
+    "\\client\\assets\\css",
+    "\\client\\assets\\images",
+    "\\client\\assets\\js",
     "\\client\\views",
-    "\\client\\views\\developer",
-    "\\client\\views\\partials",
-    "\\client\\views\\tester",
-    "\\client\\views\\user",
-    "\\server",
-    "\\server\\routes",
-    "\\server\\utils"
+    "\\client\\views\\layouts",
+    "\\client\\views\\signup-signin",
+    "\\server"
   ],
-  "SelectedNode": "\\client\\views\\tester\\test-case.hbs",
+  "SelectedNode": "\\client\\views\\user\\project-detail.hbs",
   "PreviewInSolutionExplorer": false
 }

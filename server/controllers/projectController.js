@@ -409,38 +409,40 @@ controller.testRunView = async (req, res, next) => {
   }
 };
 
-// Create new test run
 controller.createTestRun = async (req, res) => {
-  try {
-    const { name, test_case_id, assigned_to_user_id, release_description } =
-      req.body;
-    const projectId = req.params.id;
+    try {
+        const { name, test_case_id, assigned_to_user_id, release_description } =
+            req.body;
+        const projectId = req.params.id;
+        const userID = req.userid;
+        const maxTestRunId = await models.TestRun.max("id");
 
-    const maxTestRunId = await models.TestRun.max("id");
+        // Set the assigned_to_user_id to a default value if not provided
+        const assignedToUserId = assigned_to_user_id || userID; // Use a default user ID, e.g., 1
 
-    // Tạo một bản ghi test run mới trong cơ sở dữ liệu
-    const newTestRun = await models.TestRun.create({
-      id: maxTestRunId + 1,
-      project_id: projectId, // Sử dụng projectId từ req.params.id
-      test_case_id,
-      status: "Pending", // Trạng thái mặc định hoặc thay đổi tùy theo yêu cầu
-      assigned_to_user_id,
-      started_at: new Date(), // hoặc để là null nếu chưa bắt đầu
-    });
+        // Create a new test run record in the database
+        const newTestRun = await models.TestRun.create({
+            id: maxTestRunId + 1,
+            project_id: projectId,
+            test_case_id,
+            status: "Pending",
+            assigned_to_user_id: assignedToUserId,
+            started_at: new Date(),
+        });
 
-    // Sau khi tạo thành công, lấy lại danh sách test runs mới nhất
-    const testRuns = await models.TestRun.findAll({
-      where: { project_id: projectId },
-      order: [["started_at", "DESC"]], // Sắp xếp theo thời gian tạo mới nhất
-      limit: 10, // Giới hạn số lượng test runs lấy về
-    });
+        // Fetch the latest list of test runs
+        const testRuns = await models.TestRun.findAll({
+            where: { project_id: projectId },
+            order: [["started_at", "DESC"]],
+            limit: 10,
+        });
 
-    // Return the newly created test run to the client
-    res.status(201).json({ success: true, newTestRun, testRuns });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to create test run" });
-  }
+        // Return the newly created test run to the client
+        res.status(201).json({ success: true, newTestRun, testRuns });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to create test run" });
+    }
 };
 
 // Lấy chi tiết dự án
@@ -644,7 +646,7 @@ controller.getAllActivities = async (req, res,next) => {
 
 
 // Thêm issue
-controller.createIssue = async (req, res,next) => {
+controller.createIssue = async (req, res) => {
   const { name, status, priority, note } = req.body;
   const project_id = parseInt(req.session.project_id);
   const member_id = req.session.projects[project_id].memberId

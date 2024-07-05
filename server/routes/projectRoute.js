@@ -11,6 +11,14 @@ router.delete('/delete', verifyToken, controller.deleteProject);
 router.get('/:id', verifyToken, controller.projectDetailView);
 router.post('/:id/update', verifyToken, controller.updateProject);
 
+router.get('/:id/requirement', verifyToken, controller.requirementView);
+
+router.get('/:id/attachment', verifyToken, controller.attachmentView);
+//router.post('/:id/attachment/upload', verifyToken, controller.uploadAttachment);
+
+router.get('/:id/release', verifyToken, controller.releaseView);
+router.get('/:id/module', verifyToken, controller.moduleView);
+
 router.get('/:id/test-case', verifyToken, controller.testCaseView);
 router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
 

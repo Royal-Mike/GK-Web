@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var headline = document.getElementById('headline').value;
         var language = document.getElementById('language').value;
         var link = document.getElementById('link').value;
+        var avatar = document.getElementById('user-avatar').src;
 
         // Tạo object chứa dữ liệu cập nhật
         var data = {
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
             lastName: lastName,
             headline: headline,
             language: language,
-            link: link
+            link: link,
+            avatar: avatar
         };
 
         // Gửi AJAX request để cập nhật thông tin lên server
@@ -43,38 +45,3 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
-
-// Hàm hiển thị toast
-function showToast(message) {
-    // Tạo một thẻ div để chứa toast
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add('align-items-center'); // Bootstrap class
-    toast.classList.add('text-white'); // Bootstrap class
-    toast.classList.add('bg-primary'); // Bootstrap class
-    toast.classList.add('fade'); // Bootstrap class
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Thêm nội dung của toast
-    toast.innerHTML = `
-        <div class="toast-body">
-            ${message}
-        </div>
-    `;
-
-    // Thêm toast vào body của tài liệu HTML
-    document.body.appendChild(toast);
-
-    // Kích hoạt hiệu ứng fade-in
-    $(toast).toast('show');
-
-    // Xóa toast sau 3 giây
-    setTimeout(function () {
-        $(toast).toast('hide'); // Ẩn toast
-        setTimeout(function () {
-            toast.remove(); // Xóa toast khỏi DOM
-        }, 500); // Đợi 0.5 giây trước khi xóa
-    }, 3000);
-}

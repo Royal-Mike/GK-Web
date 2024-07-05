@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           ${project.name_project}
                       </h4>
                       <p style="font-size: 0.75rem">Created on ${new Date(project.created_at).toLocaleString()}</p>
-                      <p style="font-size: 0.75rem">Created by <b>Hoang</b></p>
+                      <p style="font-size: 0.75rem">Created by <b>${project.projectFounder}</b></p>
                     </div>
                   </div>
                 </div>

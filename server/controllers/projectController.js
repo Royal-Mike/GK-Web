@@ -5,55 +5,75 @@ const { Op } = require("sequelize");
 const { isNumericString } = require('../utils/helpers'); 
 
 controller.projectView = async (req, res, next) => {
-  try {
-    const userId = req.userid;
-    let { page, sortBy, sortOrder, searchTerm } = req.query;
+    try {
+        const userId = req.userid;
+        let { page, sortBy, sortOrder, searchTerm } = req.query;
 
-    page = page ? parseInt(page) : 1;
-    const pageSize = 8;
-    const offset = (page - 1) * pageSize;
+        page = page ? parseInt(page) : 1;
+        const pageSize = 8;
+        const offset = (page - 1) * pageSize;
 
-    const user = await models.User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const userProjects = await models.User_Project.findAll({
+            where: { user_id: userId },
+        });
+        const projectIds = userProjects.map((up) => up.project_id);
+
+        let whereCondition = { id: projectIds };
+        if (searchTerm) {
+            whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
+        }
+
+        let orderCondition = [["created_at", "DESC"]];
+        if (sortBy && ["name_project", "created_at"].includes(sortBy)) {
+            orderCondition = [[sortBy, sortOrder === "asc" ? "ASC" : "DESC"]];
+        }
+
+        const count = await models.Project.count({ where: whereCondition });
+
+        const projects = await models.Project.findAll({
+            where: whereCondition,
+            order: orderCondition,
+            limit: pageSize,
+            offset: offset,
+        });
+
+        const projectsWithFounders = await Promise.all(
+            projects.map(async (project) => {
+                const founder = await models.User_Project.findOne({
+                    where: {
+                        project_id: project.id,
+                        role_id: 1, // Assuming role_id 1 indicates the founder
+                    },
+                    include: {
+                        model: models.User,
+                        attributes: ['username'],
+                    },
+                });
+
+                const projectData = project.toJSON();
+                projectData.projectFounder = founder ? founder.User.username : null;
+
+                return projectData;
+            })
+        );
+
+        const totalPages = Math.ceil(count / pageSize);
+
+        res.render("tester/project-view", {
+            user,
+            userProjects,
+            projects: projectsWithFounders,
+            currentPage: page,
+            totalPages,
+        });
+    } catch (error) {
+        next(error);
     }
-
-    const userProjects = await models.User_Project.findAll({
-      where: { user_id: userId },
-    });
-    const projectIds = userProjects.map((up) => up.project_id);
-
-    let whereCondition = { id: projectIds };
-    if (searchTerm) {
-      whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
-    }
-
-    let orderCondition = [["created_at", "DESC"]];
-    if (sortBy && ["name_project", "created_at"].includes(sortBy)) {
-      orderCondition = [[sortBy, sortOrder === "asc" ? "ASC" : "DESC"]];
-    }
-
-    const count = await models.Project.count({ where: whereCondition });
-
-    const projects = await models.Project.findAll({
-      where: whereCondition,
-      order: orderCondition,
-      limit: pageSize,
-      offset: offset,
-    });
-
-    const totalPages = Math.ceil(count / pageSize);
-
-    res.render("tester/project-view", {
-      user,
-      userProjects,
-      projects,
-      currentPage: page,
-      totalPages,
-    });
-  } catch (error) {
-    next(error);
-  }
 };
 
 controller.getProjectByKey = async (req, res, next) => {
@@ -93,9 +113,29 @@ controller.getProjectByKey = async (req, res, next) => {
       offset: offset,
     });
 
+      const projectsWithFounders = await Promise.all(
+          projects.map(async (project) => {
+              const founder = await models.User_Project.findOne({
+                  where: {
+                      project_id: project.id,
+                      role_id: 1, // Assuming role_id 1 indicates the founder
+                  },
+                  include: {
+                      model: models.User,
+                      attributes: ['username'],
+                  },
+              });
+
+              const projectData = project.toJSON();
+              projectData.projectFounder = founder ? founder.User.username : null;
+
+              return projectData;
+          })
+      );
+
     const totalPages = Math.ceil(count / pageSize);
 
-    res.json({ projects, currentPage: page, totalPages });
+      res.json({ projects: projectsWithFounders, currentPage: page, totalPages });
   } catch (error) {
     next(error);
   }
@@ -104,7 +144,13 @@ controller.getProjectByKey = async (req, res, next) => {
 
 controller.projectDetailView = async (req, res, next) => {
     try {
+        const userId = req.userid;
         const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
 
         if (!isNumericString(projectId)) {
             res.cookie('error', 'Invalid Project ID type');
@@ -120,7 +166,7 @@ controller.projectDetailView = async (req, res, next) => {
         }
 
         // Truyền thông tin project tới view
-        res.render("user/project-detail", { project });
+        res.render("user/project-detail", { user, project });
     } catch (error) {
         next(error);
     }
@@ -190,7 +236,6 @@ controller.createProject = async (req, res) => {
 controller.updateProject = async (req, res) => {
     try {
         const { name, description } = req.body;
-        const userId = req.userid;
         const projectId = req.params.id;
 
         if (!name) {
@@ -271,11 +316,99 @@ controller.deleteProject = async (req, res) => {
     }
 };
 
+controller.requirementView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
 
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/requirement", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.attachmentView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/attachment", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.releaseView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/release", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.moduleView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/module", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 
 controller.testCaseView = async (req, res, next) => {
     try {
+        const userId = req.userid;
         const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
         const page = isNaN(req.query.page)
             ? 1
             : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
@@ -308,6 +441,7 @@ controller.testCaseView = async (req, res, next) => {
 
         // Truyền thông tin project và danh sách testcase tới view
         res.render("tester/test-case", {
+            user,
             project,
             testcases: testcases.rows,
             currentPage: page,
@@ -349,7 +483,13 @@ controller.createTestCase = async (req, res) => {
 
 controller.testRunView = async (req, res, next) => {
   try {
+    const userId = req.userid;
     const projectId = req.params.id;
+
+    const user = await models.User.findByPk(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
     const page = isNaN(req.query.page)
       ? 1
       : Math.max(1, parseInt(req.query.page));
@@ -361,7 +501,6 @@ controller.testRunView = async (req, res, next) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-    const userId = req.userid;
 
     // Fetch test runs associated with the project
     const testRuns = await models.TestRun.findAndCountAll({
@@ -396,13 +535,14 @@ controller.testRunView = async (req, res, next) => {
     const totalPages = Math.ceil(testRuns.count / pageSize);
 
     // Pass project and test run information to the view
-    res.render("tester/test-run", {
-      project,
-      testRuns: testRuns.rows,
-      currentPage: page,
-      totalPages,
-      users,
-      testcases,
+      res.render("tester/test-run", {
+          user,
+          project,
+          testRuns: testRuns.rows,
+          currentPage: page,
+          totalPages,
+          users,
+          testcases,
     });
   } catch (error) {
     next(error);
@@ -448,28 +588,34 @@ controller.createTestRun = async (req, res) => {
 // Lấy chi tiết dự án
 controller.issuesView = async (req, res, next) => {
   try {
-    const projectId = req.params.id;
+      const userId = req.userid;
+      const projectId = req.params.id;
 
-    // Fetch project to ensure it exists
-    const project = await models.Project.findByPk(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
 
-    // Fetch all test runs related to the project
-    const testRuns = await models.TestRun.findAll({
-      where: { project_id: projectId },
-      attributes: ["id"],
-    });
+       // Fetch project to ensure it exists
+       const project = await models.Project.findByPk(projectId);
+       if (!project) {
+         return res.status(404).json({ message: "Project not found" });
+       }
+
+       // Fetch all test runs related to the project
+       const testRuns = await models.TestRun.findAll({
+           where: { project_id: projectId },
+           attributes: ["id"],
+       });
 
     // Extract test run IDs
     const testRunIds = testRuns.map((testRun) => testRun.id);
 
     // Fetch all issues related to the test runs
     const issues = await models.Issue.findAll({
-      where: {
+        where: {
         test_run_id: testRunIds,
-      },
+        },
     });
 
 
@@ -523,7 +669,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { project, issues });
+    res.render("developer/issues", { user, project, issues });
   } catch (error) {
     next(error);
   }
@@ -531,8 +677,14 @@ controller.issuesView = async (req, res, next) => {
 
 controller.issueDetailView = async (req, res, next) => {
   try {
-    const projectId = req.params.id;
-    const issueId = req.params.issueId;
+      const userId = req.userid;
+      const projectId = req.params.id;
+
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+      const issueId = req.params.issueId;
 
     // Fetch project to ensure it exists
     const project = await models.Project.findByPk(projectId);
@@ -564,7 +716,7 @@ controller.issueDetailView = async (req, res, next) => {
     }
 
     // Render issue detail view and pass data
-    res.render("developer/issues-detail", { project, issue, projectId });
+    res.render("developer/issues-detail", { user, project, issue, projectId });
   } catch (error) {
     next(error);
   }
@@ -720,8 +872,14 @@ controller.deleteIssue = async(req, res) => {
 
 
 controller.reportView = async (req, res, next) => {
-  const projectId = req.params.id;
   try {
+      const userId = req.userid;
+      const projectId = req.params.id;
+
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
       // Fetch project to ensure it exists
     const project = await models.Project.findByPk(projectId);
     if (!project) {
@@ -733,7 +891,7 @@ controller.reportView = async (req, res, next) => {
       where: { related_project_id: projectId }
         });
       // Pass project and test run information to the view
-      res.render('user/reports', {reports, project});
+      res.render('user/reports', {user, project, reports});
   } catch (error) {
       next(error);
   }
@@ -814,7 +972,15 @@ controller.getActivities = async (req, res, next) => {
     // }
     try {
         // Pass project and test run information to the view
-        res.render("user/activity");
+        const userId = req.userid;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.render("user/activity", {
+            user
+        });
     } catch (error) {
         next(error);
     }
@@ -838,7 +1004,15 @@ controller.getAllActivities = async (req, res, next) => {
     // }
     try {
         // Pass project and test run information to the view
-        res.render("user/activity");
+        const userId = req.userid;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.render("user/activity", {
+            user
+        });
     } catch (error) {
         next(error);
     }

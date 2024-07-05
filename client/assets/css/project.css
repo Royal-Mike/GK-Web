@@ -3,7 +3,7 @@
     display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-menu {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -13,6 +13,6 @@
     z-index: 1;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-menu {
     display: block;
 }

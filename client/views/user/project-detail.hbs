@@ -1,4 +1,4 @@
-﻿     <main>
+﻿<main>
     <!-- Page hiện tại -->
     <div class="container-fluid bg-grey">
         <div class="row">
@@ -358,6 +358,43 @@
                 <div class="m-2 mt-2 bg-white semi-rounded">
                     <div class="container p-4 position-relative">
                         <h6 class="text-left fs-4">Update Project</h6>
+                        <div class="justify-content-between gap-5 mb-4">
+                            <div class="flex-fill">
+                                <span class="fs-6 font-weight-semibold">Name<span class="text-danger">*</span></span>
+                                <div class="input-group w-100 mb-4 mt-2">
+                                    <textarea class="form-control" id="project-name" rows="3">{{project.name_project}}</textarea>
+                                </div>
+                            </div>
+                            <div class="flex-fill">
+                                <span class="fs-6 font-weight-semibold">Description</span>
+                                <div class="input-group w-100 mb-4 mt-2">
+                                    <textarea class="form-control" id="project-description" rows="3">{{project.description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="ps-3 pe-3 ms-4 d-flex btn save-btn"
+                                 id="customEditProject">
+                                Update
+                            </div>
+                            <div class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn">
+                                Cancel
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addMemberPopup"
+         class="position-fixed overlay top-0 bottom-0 start-0 end-0">
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+            <div class="w-50 shadow bg-white rounded-4">
+                <div class="m-2 mt-2 bg-white semi-rounded">
+                    <div class="container p-4 position-relative">
+                        <h6 class="text-left fs-4">Add Member</h6>
                         <div class="justify-content-between gap-5 mb-4">
                             <div class="flex-fill">
                                 <span class="fs-6 font-weight-semibold">Name<span class="text-danger">*</span></span>

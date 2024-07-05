@@ -3,14 +3,14 @@
     "",
     "\\client",
     "\\client\\assets",
-    "\\client\\assets\\js",
-    "\\client\\views",
-    "\\client\\views\\tester",
-    "\\client\\views\\user",
+    "\\client\\assets\\css",
+    "\\client\\assets\\upload",
+    "\\client\\assets\\upload\\avatar",
     "\\server",
-    "\\server\\controllers",
-    "\\server\\routes"
+    "\\server\\certs",
+    "\\server\\config",
+    "\\server\\middleware"
   ],
-  "SelectedNode": "\\server\\controllers\\projectController.js",
+  "SelectedNode": "\\client\\assets\\js\\add-test-run.js",
   "PreviewInSolutionExplorer": false
 }

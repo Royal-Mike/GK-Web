@@ -559,34 +559,24 @@ controller.getAllActivities = async (req, res,next) => {
 
 
 // Thêm issue
-controller.createIssue = async (req, res,next) => {
-  const { name, status, priority, note } = req.body;
-  const project_id = parseInt(req.session.project_id);
-  const member_id = req.session.projects[project_id].memberId
-  console.log(name, project_id, status, priority, note, member_id)
-  if (!project_id || !name || !status || !priority || !note) {
-    return res.status(400).message({ error: "Missing some fields" });
-  }
-
+exports.createIssue = async (req, res) => {
+  const { projectId, title, description, test_run_id, status, priority, assigned_to_user_id } = req.body;
   try {
-
-    const newIssue = await models.Issue.create({
-      name,
-      project_id,
-      status,
-      priority,
-      note,
-      member_id
-    });
-    console.log('Test Run created:', newIssue.toJSON());
-    res.redirect(`/project/${project_id}/issues`)
+      const newIssue = await models.Issue.create({
+          projectId,
+          title,
+          description,
+          test_run_id,
+          status,
+          priority,
+          assigned_to_user_id
+      });
+      return res.status(201).json({ success: true, message: 'Issue created successfully', issue: newIssue });
   } catch (error) {
-    console.error("Error adding issue:", error);
-    res.send("Can not add issue!");
-    console.error(error);
+      console.error('Detailed Error: ', error);
+      return res.status(500).json({ success: false, message: 'Failed to create issue', error: error.message });
   }
 };
-
 // edit issue
 controller.editIssue = async (req, res) => {
   const { title, status, priority, note } = req.body;

@@ -18,6 +18,8 @@ router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 
+router.post('/:projectId/issues/create', issueController.createIssue);
+
 router.get('/:id/report', verifyToken, controller.reportView);
 
 router.use('/:id/activity', verifyToken, controller.getActivities);

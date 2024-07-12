@@ -1,0 +1,89 @@
+<style>
+    .active-tab {
+        background-color: green;
+        color: white !important;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 0 5px;
+    }
+   
+</style>
+
+<nav class="navbar navbar-expand navbar-light">
+    <ul class="nav navbar-nav" id="navbar-in-project">
+        <li class="nav-item">
+            <a class="nav-link active-tab" data-tab="overview" href="/project/{{project.id}}">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="requirements" href="#">Requirements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="attachments" href="#">Attachments</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="releases" href="#">Releases</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="modules" href="#">Modules</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="test-cases" href="/project/{{project.id}}/test-case">Test Cases</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="test-runs" href="/project/{{project.id}}/test-run">Test Runs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="issues" href="/project/{{project.id}}/issues">Issues</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="reports" href="/project/{{project.id}}/report">Reports</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-tab="activity" href="/project/{{project.id}}/activity">Activity log</a>
+        </li>
+    </ul>
+</nav>
+
+<script src="/js/toast.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('#navbar-in-project .nav-item a');
+
+        // Function to remove active state from all tabs
+        function removeAllActiveTabs() {
+            navLinks.forEach(link => {
+                link.classList.remove('active-tab');
+            });
+        }
+
+        // Function to set active tab based on current URL pathname
+        function setActiveTabFromUrl() {
+            const pathName = window.location.pathname;
+            const activeTabLink = document.querySelector(`#navbar-in-project .nav-link[href="${pathName}"]`);
+
+            if (activeTabLink) {
+                removeAllActiveTabs();
+                activeTabLink.classList.add('active-tab');
+            }
+        }
+
+        // Set active tab when page loads
+        setActiveTabFromUrl();
+
+        // Event listener for clicking on tabs
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                // Remove active state from all tabs
+                removeAllActiveTabs();
+
+                // Add active state to the clicked tab
+                this.classList.add('active-tab');
+            });
+        });
+    });
+
+
+</script>

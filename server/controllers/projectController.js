@@ -2,6 +2,7 @@ const controller = {};
 const { where } = require("sequelize");
 const models = require("../models");
 const { Op } = require("sequelize");
+const { isNumericString } = require('../utils/helpers'); 
 
 controller.projectView = async (req, res, next) => {
   try {
@@ -100,24 +101,31 @@ controller.getProjectByKey = async (req, res, next) => {
   }
 };
 
-// Lấy chi tiết dự án
+
 controller.projectDetailView = async (req, res, next) => {
-  try {
-    const projectId = req.params.id;
+    try {
+        const projectId = req.params.id;
 
-    // Lấy thông tin project từ cơ sở dữ liệu
-    const project = await models.Project.findByPk(projectId);
+        if (!isNumericString(projectId)) {
+            res.cookie('error', 'Invalid Project ID type');
+            return res.redirect('/project');
+        }
 
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+        // Lấy thông tin project từ cơ sở dữ liệu
+        const project = await models.Project.findByPk(projectId);
+
+        if (!project) {
+            res.cookie('error', 'Project not found');
+            return res.redirect('/project');
+        }
+
+        // Truyền thông tin project tới view
+        res.render("user/project-detail", { project });
+    } catch (error) {
+        next(error);
     }
-
-    // Truyền thông tin project tới view
-    res.render("user/project-detail", { project });
-  } catch (error) {
-    next(error);
-  }
 };
+
 
 const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
@@ -179,50 +187,60 @@ controller.createProject = async (req, res) => {
   }
 };
 
+
 controller.testCaseView = async (req, res, next) => {
-  try {
-    const projectId = req.params.id;
-    const page = isNaN(req.query.page)
-      ? 1
-      : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
-    const pageSize = 5; // Số lượng testcase trên mỗi trang
-    const offset = (page - 1) * pageSize;
+    try {
+        const projectId = req.params.id;
+        const page = isNaN(req.query.page)
+            ? 1
+            : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
+        const pageSize = 5; // Số lượng testcase trên mỗi trang
+        const offset = (page - 1) * pageSize;
 
-    // Lấy thông tin project từ cơ sở dữ liệu
-    const project = await models.Project.findByPk(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+        // Lấy thông tin project từ cơ sở dữ liệu
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Tìm tất cả các testcase có project_id bằng project.id
+        const testcases = await models.Testcase.findAndCountAll({
+            where: { project_id: project.id },
+            limit: pageSize,
+            offset: offset,
+            order: [["created_at", "DESC"]],
+            include: [
+                {
+                    model: models.User,
+                    as: 'CreatedByUser',
+                    attributes: ['username'] // Fetch only 'name' attribute of User
+                }
+            ]
+        });
+
+        // Tính toán tổng số trang
+        const totalPages = Math.ceil(testcases.count / pageSize);
+
+        // Truyền thông tin project và danh sách testcase tới view
+        res.render("tester/test-case", {
+            project,
+            testcases: testcases.rows,
+            currentPage: page,
+            totalPages,
+        });
+    } catch (error) {
+        next(error);
     }
-    const userId = req.userid;
-
-    // Tìm tất cả các testcase có project_id bằng project.id
-    const testcases = await models.Testcase.findAndCountAll({
-      where: { project_id: project.id },
-      limit: pageSize,
-      offset: offset,
-      order: [["created_at", "DESC"]],
-    });
-
-    // Tính toán tổng số trang
-    const totalPages = Math.ceil(testcases.count / pageSize);
-
-    // Truyền thông tin project và danh sách testcase tới view
-    res.render("tester/test-case", {
-      project,
-      testcases: testcases.rows,
-      currentPage: page,
-      totalPages,
-    });
-  } catch (error) {
-    next(error);
-  }
 };
+
 
 // Tạo mới testcase
 controller.createTestCase = async (req, res) => {
   try {
     const { name, description } = req.body;
     const projectId = req.params.id;
+    const userId = req.userid;
+
 
     const maxTestCaseId = await models.Testcase.max("id");
 
@@ -233,6 +251,7 @@ controller.createTestCase = async (req, res) => {
       title: name,
       description,
       created_at: new Date(),
+      created_by_user_id: userId,
     });
 
     // Trả về testcase mới tạo cho máy khách
@@ -417,7 +436,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { projectId, issues });
+    res.render("developer/issues", { project, issues });
   } catch (error) {
     next(error);
   }
@@ -458,21 +477,14 @@ controller.issueDetailView = async (req, res, next) => {
     }
 
     // Render issue detail view and pass data
-    res.render("developer/issues-detail", { project, issue });
+    res.render("developer/issues-detail", { project, issue, projectId });
   } catch (error) {
     next(error);
   }
 };
 
 
-controller.reportView = async (req, res, next) => {
-  try {
-    // Pass project and test run information to the view
-    res.render("user/reports");
-  } catch (error) {
-    next(error);
-  }
-};
+
 controller.getActivities = async (req, res,next) => {
   // const name = req.query.keyword | "";
   // const projectId = req.query.projectId | 0;
@@ -620,4 +632,128 @@ controller.deleteIssue = async(req, res) => {
 
 
 
+controller.reportView = async (req, res, next) => {
+  const projectId = req.params.id;
+  try {
+      // Fetch project to ensure it exists
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Fetch all test runs related to the project
+    const reports = await models.Report.findAll({
+      where: { related_project_id: projectId }
+        });
+      // Pass project and test run information to the view
+      res.render('user/reports', {reports, project});
+  } catch (error) {
+      next(error);
+  }
+};
+
+
+
+
+// Thêm issue
+// controller.createReport = async (req, res,next) => {
+//   const { name, status, priority, note } = req.body;
+//   const project_id = parseInt(req.session.project_id);
+//   const member_id = req.session.projects[project_id].memberId
+//   console.log(name, project_id, status, priority, note, member_id)
+//   if (!project_id || !name || !status || !priority || !note) {
+//     return res.status(400).message({ error: "Missing some fields" });
+//   }
+
+//   try {
+
+//     const newIssue = await models.Issue.create({
+//       name,
+//       project_id,
+//       status,
+//       priority,
+//       note,
+//       member_id
+//     });
+//     console.log('Test Run created:', newIssue.toJSON());
+//     res.redirect(`/project/${project_id}/issues`)
+//   } catch (error) {
+//     console.error("Error adding issue:", error);
+//     res.send("Can not add issue!");
+//     console.error(error);
+//   }
+// };
+
+
+controller.getActivities = async (req, res, next) => {
+    // const name = req.query.keyword | "";
+    // const projectId = req.query.projectId | 0;
+    // const page = parseInt(req.query.page) | 1;
+    // const size = parseInt(req.query.size) | 0;
+
+    // try {
+    //   let whereClause = {};
+
+    //   whereClause = {
+    //     [models.Sequelize.Op.and]: [
+    //       { name: { [models.Sequelize.Op.like]: `%${name}%` } },
+    //       { project_id: projectId },
+    //     ],
+    //   };
+
+    //   const limit = size;
+    //   const offset = (page - 1) * size;
+
+    //   const { count, rows: activities } = await models.Activity.findAndCountAll({
+    //     where: whereClause,
+    //     limit,
+    //     offset,
+    //   });
+
+    //   if (!activities || activities.length === 0) {
+    //     return res.status(404).json({ message: "No activities found" });
+    //   }
+
+    //   return res.status(200).json({
+    //     totalItems: count,
+    //     totalPages: Math.ceil(count / limit),
+    //     currentPage: page,
+    //     activities: activities,
+    //   });
+    // } catch (error) {
+    //   return res
+    //     .status(500)
+    //     .json({ message: "Internal server error", error: error.message });
+    // }
+    try {
+        // Pass project and test run information to the view
+        res.render("user/activity");
+    } catch (error) {
+        next(error);
+    }
+};
+
+controller.getAllActivities = async (req, res, next) => {
+    // try {
+    //     const activities = await models.Activity.findAll();
+
+    //     if (!activities || activities.length === 0) {
+    //     return res.status(404).json({ message: "No activities found" });
+    //     }
+
+    //     return res.status(200).json({
+    //         activities: activities,
+    //     });
+    // } catch (error) {
+    //     return res
+    //     .status(500)
+    //     .json({ message: "Internal server error", error: error.message });
+    // }
+    try {
+        // Pass project and test run information to the view
+        res.render("user/activity");
+    } catch (error) {
+        next(error);
+    }
+};
 module.exports = controller;

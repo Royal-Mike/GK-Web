@@ -9,40 +9,7 @@
                 <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
 
                     <div class="content-box">
-                        <nav class="navbar navbar-expand navbar-light">
-                            <ul class="nav navbar-nav" id="navbar-in-project">
-                                <li class="nav-item">
-                                    <a class="nav-link active fw-bold" href="#">Overview</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Requirements</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Attachments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Releases</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Modules</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/test-case">Test Cases</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/test-run">Test Runs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/issues">Issues</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/report">Reports</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/project/{{project.id}}/activity">Activity log</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        {{> project-nav-bar}}
 
                         <div class="container-fluid bg-light p-3 rounded-3">
                             <div class="align-items-center d-flex">
@@ -70,7 +37,7 @@
                         <div class="container-fluid bg-light mt-4 py-2 rounded-3">
                             <div class="row mt-3">
 
-                                <div class="col-md-8">
+                                <div class="col-md-8" style="width:1200px">
 
                                     <div class="row">
                                         <div class="col-md-7 bg-white p-3 me-3 border rounded-3">
@@ -116,11 +83,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col container-fluid bg-white me-3 pt-3 border rounded-3">
+                                        <div class="col container-fluid bg-white me-3 pt-3 border rounded-3" style="width : 650px">
                                             <div class="row align-items-center">
                                                 <h4 class="mx-auto text-center">Release status</h4>
                                                 <hr class="mx-auto">
-                                                <div class="col-auto">
+                                                <div class="col-auto" style="width:250px">
                                                     <div class="text-center">
                                                         <img src="/images/pie-chart.png" alt="" class="img-fluid w-75 h-auto">
                                                     </div>
@@ -128,31 +95,31 @@
                                                 <div class="col p-3">
                                                     <div class="row align-items-center justify-content-center">
                                                         <!-- Passed -->
-                                                        <div class="col-md-5 text-center text-md-start">
+                                                        <div class="col-md-5 text-md-start align-items-center">
                                                             <h3 class="d-inline text-success"> 5 </h3>
                                                             <i class="bi bi-circle-fill text-success d-inline-block"></i>
                                                             <p class="text-muted"> Passed </p>
                                                         </div>
                                                         <!-- Untested -->
-                                                        <div class="col-md-5 text-center text-md-start">
+                                                        <div class="col-md-5 text-md-start align-items-center">
                                                             <h3 class="d-inline text-primary"> 2 </h3>
                                                             <i class="bi bi-circle-fill text-primary d-inline-block"></i>
                                                             <p class="text-muted"> Untested </p>
                                                         </div>
                                                         <!-- Blocked -->
-                                                        <div class="col-md-5 text-center text-md-start">
+                                                        <div class="col-md-5 text-md-start align-items-center">
                                                             <h3 class="d-inline text-muted"> 0 </h3>
                                                             <i class="bi bi-circle-fill text-muted d-inline-block"></i>
                                                             <p class="text-muted"> Blocked </p>
                                                         </div>
                                                         <!-- Retest -->
-                                                        <div class="col-md-5 text-center text-md-start">
+                                                        <div class="col-md-5 text-md-start align-items-center">
                                                             <h3 class="d-inline text-warning"> 0 </h3>
                                                             <i class="bi bi-circle-fill text-warning d-inline-block"></i>
                                                             <p class="text-muted"> Retest </p>
                                                         </div>
                                                         <!-- Failed -->
-                                                        <div class="col-md-5 text-center text-md-start">
+                                                        <div class="col-md-5 text-md-start align-items-center">
                                                             <h3 class="d-inline text-danger"> 0 </h3>
                                                             <i class="bi bi-circle-fill text-danger d-inline-block"></i>
                                                             <p class="text-muted"> Failed </p>
@@ -310,7 +277,7 @@
 
 
                                 </div>
-                                <div class="col-md-4 bg-white border p-3 rounded-3">
+                                <div class="col-md-4 bg-white border p-3 rounded-3" style="width:450px">
                                     <div class="mt-2 d-flex">
                                         <h4 class="d-inline"> Activity Log</h4>
                                         <a class="text-info d-inline ms-auto fs-4 text-decoration-none" href="activity-log.html"> View more</a>

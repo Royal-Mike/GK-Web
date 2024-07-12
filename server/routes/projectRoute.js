@@ -17,12 +17,11 @@ router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 
 router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
-router.post('/:id/issues/create', verifyToken, controller.createIssue);
-router.put('/:id/issues/:id', verifyToken, controller.editIssue);
-router.delete('/:id/issues/:id', verifyToken, controller.deleteIssue);
-
 
 router.get('/:id/report', verifyToken, controller.reportView);
-router.use('/:id/activity',verifyToken,controller.getActivities);
-router.use('/:id/activity/all',verifyToken,controller.getAllActivities);
+
+router.use('/:id/activity', verifyToken, controller.getActivities);
+router.use('/:id/activity/all', verifyToken, controller.getAllActivities);
+
+
 module.exports = router;

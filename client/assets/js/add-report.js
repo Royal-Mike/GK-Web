@@ -1,58 +1,66 @@
-$(document).ready(function () {
-    // Function để hiển thị form add report
-    $("#add-report-btn").click(function () {
-        $(".overlay").show(); // hiển thị overlay
-        $(".add-report-table").show(); // hiển thị add report table
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    const reportPopup = document.getElementById("customReportPopup");
+    const saveReportBtn = document.getElementById("save-report-btn");
+    const cancelReportBtn = document.getElementById("cancel-report-btn");
+    const closeReportBtn = document.getElementById("close-report-btn");
+    const addReportBtn = document.getElementById("add-report-btn");
 
-    // Function để save report
-    $("#save-report-btn").click(function () {
-        $(".overlay, .add-report-table").hide(); // ẩn overlay và add report table
-        showToast("Save successfully!!!");
-    });
+    function closePopup() {
+        reportPopup.style.display = "none";
+    }
 
-    // Function để cancel add report
-    $("#cancel-report-btn").click(function () {
-        $(".overlay, .add-report-table").hide(); // ẩn overlay và add report table
-    });
+    function showPopup() {
+        reportPopup.style.display = "block";
+    }
+
+    addReportBtn.addEventListener("click", showPopup);
+
+    function getProjectIdFromURL() {
+        const pathArray = window.location.pathname.split('/');
+        const projectId = pathArray[2]; 
+        return projectId;
+    }
     
-    // Function để đóng bảng thêm report
-    $("#close-report-btn").click(function () {
-        $(".overlay, .add-report-table").hide(); // ẩn overlay và add report table
+    saveReportBtn.addEventListener("click", async function () {
+        const title = document.querySelector('input[aria-label="title"]').value;
+        const type = document.querySelector('input[aria-label="status"]').value;
+        const duration = document.querySelector('input[aria-label="duration"]').value;
+        const description = document.querySelector('textarea').value;
+        const relatedProjectId = getProjectIdFromURL(); // Assuming the project ID is in the URL
+
+        const reportData = {
+            name: title,
+            description: description,
+            created_by_user_id: 1, // Replace with actual user ID
+            related_test_case_id: 1, // Replace with actual test case ID
+            related_test_run_id: 1, // Replace with actual test run ID
+            related_project_id: relatedProjectId,
+            created_at: duration
+        };
+
+        try {
+            // const response = await fetch('/reports', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(reportData)
+            // });
+
+            // if (!response.ok) {
+            //     throw new Error('Failed to create report');
+            // }
+
+            closePopup();
+            showToast("Save successfully!!!");
+            window.location.reload(); // Reload the page to reflect the new report
+        } catch (error) {
+            console.error('Error creating report:', error.message);
+            showToast('Error saving report');
+        }
     });
+
+    cancelReportBtn.addEventListener("click", closePopup);
+
+    closeReportBtn.addEventListener("click", closePopup);
 });
-
-function showToast(message) {
-    // Tạo một thẻ div để chứa toast
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add('align-items-center'); // Bootstrap class
-    toast.classList.add('text-white'); // Bootstrap class
-    toast.classList.add('bg-primary'); // Bootstrap class
-    toast.classList.add('fade'); // Bootstrap class
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Thêm nội dung của toast
-    toast.innerHTML = `
-        <div class="toast-body">
-            ${message}
-        </div>
-    `;
-
-    // Thêm toast vào body của tài liệu HTML
-    document.body.appendChild(toast);
-
-    // Kích hoạt hiệu ứng fade-in
-    $(toast).toast('show');
-
-    // Xóa toast sau 3 giây
-    setTimeout(function() {
-        $(toast).toast('hide'); // Ẩn toast
-        setTimeout(function() {
-            toast.remove(); // Xóa toast khỏi DOM
-        }, 500); // Đợi 0.5 giây trước khi xóa
-    }, 3000);
-}
-

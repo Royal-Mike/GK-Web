@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   class Testcase extends Model {
     static associate(models) {
       // Định nghĩa mối quan hệ với model Project
-      Testcase.belongsTo(models.Project, { foreignKey: 'project_id' });
+        Testcase.belongsTo(models.Project, { foreignKey: 'project_id' });
+        Testcase.belongsTo(models.User, { foreignKey: 'created_by_user_id', as: 'CreatedByUser' });
     }
   }
 
@@ -18,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
     created_at: DataTypes.DATE,
-    project_id: DataTypes.INTEGER
+    project_id: DataTypes.INTEGER,
+    created_by_user_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Testcase',

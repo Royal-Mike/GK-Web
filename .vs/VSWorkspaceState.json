@@ -3,14 +3,14 @@
     "",
     "\\client",
     "\\client\\assets",
-    "\\client\\assets\\css",
     "\\client\\assets\\upload",
+    "\\client\\assets\\upload\\attachment",
     "\\client\\assets\\upload\\avatar",
     "\\server",
-    "\\server\\certs",
-    "\\server\\config",
-    "\\server\\middleware"
+    "\\server\\middleware",
+    "\\server\\models",
+    "\\server\\seeders"
   ],
-  "SelectedNode": "\\client\\assets\\js\\add-test-run.js",
+  "SelectedNode": "\\client\\views\\tester\\attachment.hbs",
   "PreviewInSolutionExplorer": false
 }

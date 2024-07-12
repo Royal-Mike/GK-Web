@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/projectController');
 const verifyToken = require('../middleware/account');
+const { uploadFile } = require('../middleware/upload'); 
 
 router.get('/', verifyToken, controller.projectView);
 router.get("/search", verifyToken, controller.getProjectByKey);
@@ -14,7 +15,9 @@ router.post('/:id/update', verifyToken, controller.updateProject);
 router.get('/:id/requirement', verifyToken, controller.requirementView);
 
 router.get('/:id/attachment', verifyToken, controller.attachmentView);
-//router.post('/:id/attachment/upload', verifyToken, controller.uploadAttachment);
+router.post('/:id/attachment/upload', verifyToken, uploadFile.single('data_link'), controller.uploadAttachment);
+router.delete('/:projectId/attachment/:attachmentId', controller.deleteAttachment);
+
 
 router.get('/:id/release', verifyToken, controller.releaseView);
 router.get('/:id/module', verifyToken, controller.moduleView);

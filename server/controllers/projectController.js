@@ -3,6 +3,8 @@ const { where } = require("sequelize");
 const models = require("../models");
 const { Op } = require("sequelize");
 const { isNumericString } = require('../utils/helpers'); 
+const fs = require('fs');
+const path = require('path');
 
 controller.projectView = async (req, res, next) => {
     try {
@@ -346,17 +348,105 @@ controller.attachmentView = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        const project = await models.Project.findByPk(projectId);
+
+        const project = await models.Project.findByPk(projectId, {
+            include: {
+                model: models.Attachment,
+                attributes: ['id', 'data_link'] // Include id and data_link attributes
+            }
+        });
+
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
+
+        // Extract attachments with id, data_link, and filename
+        const attachments = project.Attachments.map(attachment => {
+            const data_link = attachment.data_link;
+            const filename = data_link.split('/').pop(); // Extract filename from data_link
+            return {
+                id: attachment.id, // Include attachment ID
+                data_link,
+                filename
+            };
+        });
+
         res.render("tester/attachment", {
-            user, project
+            user,
+            project,
+            attachments // Pass the attachments array with id, data_link, and filename
         });
     } catch (error) {
         next(error);
     }
-}
+};
+
+controller.uploadAttachment = async (req, res) => {
+    try {
+        if (req.file == undefined) {
+            return res.status(400).send({ message: "Please upload a file!" });
+        }
+
+        const userId = req.userid;
+        const projectId = req.params.id;
+        const attachmentUrl = `/upload/attachment/${req.file.filename}`;
+
+        // Save the attachment data to the database
+        const newAttachment = await models.Attachment.create({
+            project_id: projectId,
+            data_link: attachmentUrl,
+            uploaded_by: userId
+        });
+
+        res.status(200).json({
+            success: true,
+            attachmentUrl: newAttachment.data_link
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: "Could not upload the file. Please try again later."
+        });
+    }
+};
+
+
+
+controller.deleteAttachment = async (req, res, next) => {
+    try {
+        const { projectId, attachmentId } = req.params;
+
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        const attachment = await models.Attachment.findOne({
+            where: {
+                id: attachmentId,
+                project_id: projectId
+            }
+        });
+        if (!attachment) {
+            return res.status(404).json({ message: "Attachment not found" });
+        }
+
+        // Delete the file from the upload directory
+        const filePath = path.join(__dirname, '/../../client/assets', attachment.data_link);
+
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        // Delete the attachment record from the database
+        await attachment.destroy();
+
+        res.status(200).json({ message: "Attachment deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 controller.releaseView = async (req, res, next) => {
     try {

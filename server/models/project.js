@@ -4,11 +4,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Project extends Model {
-    static associate(models) {
-      // define association here
-      //
-
-    }
+      static associate(models) {
+          Project.hasMany(models.Attachment, {
+              foreignKey: 'project_id'
+          });
+      }
   }
   Project.init({
     id: {

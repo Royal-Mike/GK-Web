@@ -16,13 +16,17 @@
     openAttachmentPopupButton.addEventListener("click", showPopup);
 
     cancelPopupButton.addEventListener('click', closePopup);
-
-    saveAttachmentButton.addEventListener('click', function () {
+    function getProjectIdFromURL() {
+        const pathArray = window.location.pathname.split('/');
+        const projectId = pathArray[2];
+        return projectId;
+    }
+    saveAttachmentButton.addEventListener('click', async function () { 
         const projectId = getProjectIdFromURL();
         const file = attachmentFileInput.files[0];
         if (file) {
             const formData = new FormData();
-            formData.append('attachment', file);
+            formData.append('data_link', file);
 
             try {
                 const response = await fetch(`/project/${projectId}/attachment/upload`, {
@@ -36,15 +40,18 @@
 
                 const data = await response.json();
 
-                successMessage.style.display = "block";
-                setTimeout(function () {
-                    successMessage.style.display = "none";
-                }, 3000);
-                closePopup(); // Đóng cửa sổ popup sau khi tạo thành công
+                // Show toast with success message
+                showToast('Attachment uploaded successfully!');
+
+                // Close the popup after successful upload
+                closePopup();
+
+                // Reload the page or perform other actions as needed
                 window.location.reload();
             } catch (error) {
                 console.error('Error uploading attachment:', error.message);
-                // Xử lý lỗi ở đây
+                // Handle the error here
+                showToast('Error uploading attachment. Please try again.');
             }
         }
     });

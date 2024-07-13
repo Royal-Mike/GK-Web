@@ -561,12 +561,13 @@ controller.getAllActivities = async (req, res,next) => {
 // Thêm issue
 controller.createIssue = async (req, res) => {
   try {
-    const { title, status, priority, description, test_run_id } = req.body;
+    const { title, status, priority, description } = req.body;
     const projectId = req.params.id;
+    const testRunId = projectId; // Use the same :id as test_run_id
     const userId = req.userid; // Get the logged-in user ID from the middleware
 
     // Validate input data
-    if (!title || !status || !priority || !projectId || !test_run_id) {
+    if (!title || !status || !priority || !projectId || !testRunId) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
@@ -577,7 +578,7 @@ controller.createIssue = async (req, res) => {
     }
 
     // Check if the test run exists
-    const testRun = await models.TestRun.findByPk(test_run_id);
+    const testRun = await models.TestRun.findByPk(testRunId);
     if (!testRun) {
       return res.status(404).json({ success: false, message: "Test Run not found" });
     }
@@ -594,8 +595,8 @@ controller.createIssue = async (req, res) => {
       priority: priority,
       description: description,
       created_at: new Date(),
-      test_run_id: test_run_id,
-      assigned_to_user_id: 5, // Assign the issue to the logged-in user
+      test_run_id: testRunId,
+      assigned_to_user_id: userId, // Assign the issue to the logged-in user
     });
 
     // Return the newly created issue to the client
@@ -605,6 +606,7 @@ controller.createIssue = async (req, res) => {
     return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
 };
+
 
 
 // edit issue

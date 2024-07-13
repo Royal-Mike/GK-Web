@@ -5,7 +5,6 @@ const verifyToken = require('../middleware/account');
 
 router.get('/', verifyToken, controller.projectView);
 router.get("/search", verifyToken, controller.getProjectByKey);
-
 router.get('/:id', verifyToken, controller.projectDetailView);
 router.post('/create', verifyToken, controller.createProject);
 
@@ -17,13 +16,13 @@ router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 
 router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
+router.post('/:id/issues/create', verifyToken, controller.createIssue);
 
-router.post('/:id/issues/create', verifyToken, controller.createIssue)
+router.delete('/:id/issues/:issueId/delete', verifyToken, controller.deleteIssue);
 
 router.get('/:id/report', verifyToken, controller.reportView);
 
 router.use('/:id/activity', verifyToken, controller.getActivities);
 router.use('/:id/activity/all', verifyToken, controller.getAllActivities);
-
 
 module.exports = router;

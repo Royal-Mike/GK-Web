@@ -73,7 +73,12 @@
                                                 {{#each usersInProject}}
                                                 <li>
                                                     <div class="row mt-2">
-                                                        <div class="col">{{this.User.username}} - {{roleName this.role_id}}</div>
+                                                        <div class="col">
+                                                            {{#unless (isManager this.role_id)}}
+                                                            <i class="fas fa-minus-circle remove-member" data-user-id="{{this.User.id}}" data-project-id="{{../project.id}}" style="cursor: pointer;"></i>
+                                                            {{/unless}}
+                                                            {{this.User.username}} - {{roleName this.role_id}}
+                                                        </div>
                                                     </div>
                                                 </li>
                                                 {{/each}}
@@ -437,3 +442,4 @@
 <script src="/js/toast.js"></script>
 <script src="/js/edit-project.js"></script>
 <script src="/js/add-member.js"></script>
+<script src="/js/remove-member.js"></script>

@@ -13,7 +13,7 @@ router.delete('/delete', verifyToken, controller.deleteProject);
 router.get('/:id', verifyToken, controller.projectDetailView);
 router.post('/:id/update', verifyToken, controller.updateProject);
 router.post('/:id/add-member', verifyToken, controller.addMemberToProject);
-
+router.post('/:id/remove-member', verifyToken, controller.removeMemberFromProject);
 
 router.get('/:id/requirement', verifyToken, controller.requirementView);
 router.post('/:id/requirement/upload', verifyToken, uploadReq.single('data_link'), controller.uploadRequirement);

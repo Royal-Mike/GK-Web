@@ -218,6 +218,30 @@ controller.addMemberToProject = async (req, res) => {
     }
 };
 
+controller.removeMemberFromProject = async (req, res) => {
+    try {
+        const { userId, projectId } = req.body;
+
+        // Ensure both userId and projectId are valid
+        if (!userId || !projectId) {
+            return res.status(400).json({ message: 'Invalid input' });
+        }
+
+        // Remove the user from the project
+        await models.User_Project.destroy({
+            where: {
+                user_id: userId,
+                project_id: projectId
+            }
+        });
+
+        res.status(200).json({ message: 'Member removed successfully' });
+    } catch (error) {
+        console.error('Error removing member:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
 controller.createProject = async (req, res) => {

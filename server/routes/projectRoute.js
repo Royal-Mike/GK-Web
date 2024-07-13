@@ -38,7 +38,7 @@ router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 router.post('/:id/issues/create', verifyToken, controller.createIssue);
-
+router.delete('/:id/issues/delete', verifyToken, controller.deleteIssue);
 
 router.get('/:id/release', verifyToken, controller.releaseView);
 router.post('/:id/release/create', verifyToken, controller.createRelease);

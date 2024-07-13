@@ -18,6 +18,12 @@ router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 
+router.get('/:id/release', verifyToken, controller.releaseView);
+router.post('/:id/release/create', verifyToken, controller.createRelease);
+router.delete('/:id/release/:releaseId/delete', verifyToken, controller.deleteRelease);
+router.put('/:id/release/:releaseId/edit', verifyToken, controller.editRelease);
+router.get('/:id/release/:releaseId', verifyToken, controller.releaseDetailView);
+
 router.get('/:id/report', verifyToken, controller.reportView);
 
 router.use('/:id/activity', verifyToken, controller.getActivities);

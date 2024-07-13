@@ -106,10 +106,10 @@ controller.projectDetailView = async (req, res, next) => {
     try {
         const projectId = req.params.id;
 
-        if (!isNumericString(projectId)) {
-            res.cookie('error', 'Invalid Project ID type');
-            return res.redirect('/project');
-        }
+        // if (!isNumericString(projectId)) {
+        //     res.cookie('error', 'Invalid Project ID type');
+        //     return res.redirect('/project');
+        // }
 
         // Lấy thông tin project từ cơ sở dữ liệu
         const project = await models.Project.findByPk(projectId);
@@ -482,6 +482,151 @@ controller.issueDetailView = async (req, res, next) => {
     next(error);
   }
 };
+
+
+controller.releaseView = async (req, res, next) => {
+  try {
+    const projectId = req.params.id;
+    const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page));
+    const pageSize = 8;
+    const offset = (page - 1) * pageSize;
+
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    const { count, rows: releases } = await models.Release.findAndCountAll({
+      where: { project_id: projectId },
+      attributes: ["id", "name", "start_at", "released_at", "description", "created_at"], 
+      order: [["created_at", "DESC"]],
+      limit: pageSize,
+      offset: offset,
+    });
+
+    const totalPages = Math.ceil(count / pageSize);
+
+    res.render("user/release", { project, projectId, releases, currentPage: page, totalPages });
+  } catch (error) {
+    next(error);
+  }
+};
+
+controller.releaseDetailView = async (req, res, next) => {
+  try {
+      const projectId = req.params.id;
+      const releaseId = req.params.releaseId;
+      // if (!isNumericString(projectId)) {
+      //     res.cookie('error', 'Invalid Project ID type');
+      //     return res.redirect('/project');
+      // }
+
+      // Lấy thông tin project từ cơ sở dữ liệu
+      const project = await models.Project.findByPk(projectId);
+
+      if (!project) {
+          res.cookie('error', 'Project not found');
+          return res.redirect('/project');
+      }
+
+      const release = await models.Release.findByPk(releaseId, {
+        order: [['created_at', 'ASC']] // Sắp xếp theo created_at từ mới nhất đến cũ nhất
+    });
+          if (!release) {
+        res.cookie('error', 'Release not found');
+        return res.redirect('/project');
+    }
+
+      // Truyền thông tin release tới view
+      res.render("user/release-detail", { project, release });
+  } catch (error) {
+      next(error);
+  }
+};
+
+
+controller.createRelease = async (req, res) => {
+  try {
+    const { name, start, end, description } = req.body;
+    const projectId = req.params.id;
+
+    const maxReleaseId = await models.Release.max("id");
+
+    // Tạo một bản ghi test run mới trong cơ sở dữ liệu
+    const newRelease = await models.Release.create({
+      id: maxReleaseId + 1,
+      name,
+      description,
+      project_id: projectId, // Sử dụng projectId từ req.params.id
+      released_at: end,
+      start_at: start,
+    });
+
+
+    // Return the newly created test run to the client
+    res.status(201).json({ success: true, newRelease});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create release" });
+  }
+};
+
+controller.deleteRelease = async (req, res) => {
+  try {
+      const releaseId = req.params.releaseId;
+
+      // Xóa release từ cơ sở dữ liệu
+      const deletedRelease = await models.Release.destroy({
+          where: {
+              id: releaseId
+          }
+      });
+
+      if (deletedRelease) {
+          res.status(204).json({ success: true });
+      } else {
+          res.status(404).json({ error: "Release not found" });
+      }
+  } catch (error) {
+      console.error('Error deleting release:', error.message);
+      res.status(500).json({ error: "Failed to delete release" });
+  }
+};
+
+
+controller.editRelease = async (req, res) => {
+  const projectId = req.params.projectId;
+  const releaseId = req.params.releaseId;
+
+  try {
+      // Assuming you have middleware to handle JSON parsing for request body
+      const { name, start_at, released_at, description } = req.body;
+
+      // Find the release by releaseId and update its attributes
+      const release = await models.Release.findByPk(releaseId);
+      if (!release) {
+          return res.status(404).json({ message: "Release not found" });
+      }
+
+      // Update release attributes
+      release.name = name;
+      release.start_at = start_at;
+      release.released_at = released_at;
+      release.description = description;
+
+      // Save changes to the database
+      await release.save();
+
+      // Optionally, you can send back the updated release as response
+      res.json({ message: "Release updated successfully", release });
+
+  } catch (error) {
+      console.error('Error updating release:', error);
+      res.status(500).json({ message: "Failed to update release" });
+  }
+};
+
+
 
 
 

@@ -2,7 +2,7 @@ const { format } = require('date-fns');
 
 module.exports = {
   formatDate: (timestamp) => {
-        return format(new Date(timestamp), 'M/dd/yyyy, h:mm:ss a');
+        return format(new Date(timestamp), 'dd/M/yyyy');
   },
   range: (start, end) => {
     let array = [];

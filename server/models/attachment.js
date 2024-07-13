@@ -42,6 +42,11 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'Users',
                 key: 'id'
             }
+        },
+        isRequirement: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     }, {
         sequelize,

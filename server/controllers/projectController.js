@@ -318,26 +318,6 @@ controller.deleteProject = async (req, res) => {
     }
 };
 
-controller.requirementView = async (req, res, next) => {
-    try {
-        const userId = req.userid;
-        const projectId = req.params.id;
-
-        const user = await models.User.findByPk(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        const project = await models.Project.findByPk(projectId);
-        if (!project) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-        res.render("tester/requirement", {
-            user, project
-        });
-    } catch (error) {
-        next(error);
-    }
-}
 
 controller.attachmentView = async (req, res, next) => {
     try {
@@ -352,7 +332,7 @@ controller.attachmentView = async (req, res, next) => {
         const project = await models.Project.findByPk(projectId, {
             include: {
                 model: models.Attachment,
-                attributes: ['id', 'data_link'] // Include id and data_link attributes
+                attributes: ['id', 'data_link', 'isRequirement'] // Include id, data_link, and isRequirement attributes
             }
         });
 
@@ -360,8 +340,8 @@ controller.attachmentView = async (req, res, next) => {
             return res.status(404).json({ message: "Project not found" });
         }
 
-        // Extract attachments with id, data_link, and filename
-        const attachments = project.Attachments.map(attachment => {
+        // Filter attachments where isRequirement is false
+        const attachments = project.Attachments.filter(attachment => !attachment.isRequirement).map(attachment => {
             const data_link = attachment.data_link;
             const filename = data_link.split('/').pop(); // Extract filename from data_link
             return {
@@ -381,10 +361,58 @@ controller.attachmentView = async (req, res, next) => {
     }
 };
 
+
+controller.requirementView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const project = await models.Project.findByPk(projectId, {
+            include: {
+                model: models.Attachment,
+                attributes: ['id', 'data_link', 'isRequirement'] 
+            }
+        });
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        
+        const requirements = project.Attachments.filter(attachment => attachment.isRequirement).map(attachment => {
+            const data_link = attachment.data_link;
+            const filename = data_link.split('/').pop(); 
+            return {
+                id: attachment.id, 
+                data_link,
+                filename
+            };
+        });
+
+        res.render("tester/requirement", {
+            user,
+            project,
+            requirements 
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 controller.uploadAttachment = async (req, res) => {
     try {
         if (req.file == undefined) {
-            return res.status(400).send({ message: "Please upload a file!" });
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Please upload a file!",
+                });
         }
 
         const userId = req.userid;
@@ -395,7 +423,8 @@ controller.uploadAttachment = async (req, res) => {
         const newAttachment = await models.Attachment.create({
             project_id: projectId,
             data_link: attachmentUrl,
-            uploaded_by: userId
+            uploaded_by: userId,
+            isRequirement: false
         });
 
         res.status(200).json({
@@ -410,6 +439,48 @@ controller.uploadAttachment = async (req, res) => {
     }
 };
 
+controller.uploadRequirement = async (req, res) => {
+    try {
+        if (req.file == undefined) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Please upload a text file!",
+                });
+        }
+
+        const userId = req.userid;
+        const projectId = req.params.id;
+        const requirementUrl = `/upload/attachment/${req.file.filename}`;
+
+        // Save the attachment data to the database
+        const newAttachment = await models.Attachment.create({
+            project_id: projectId,
+            data_link: requirementUrl,
+            uploaded_by: userId,
+            isRequirement: true
+        });
+
+        res.status(200).json({
+            success: true,
+            requirementUrl: newAttachment.data_link
+        });
+    } catch (err) {
+        if (err instanceof multer.MulterError) {
+            return res.status(400).json({
+                success: false,
+                message: "Multer error: " + err.message
+            });
+        }
+        // Handle other errors
+        console.error("Error uploading file:", err);
+        res.status(500).json({
+            success: false,
+            message: "Could not upload the file. Please try again later."
+        });
+    }
+};
 
 
 controller.deleteAttachment = async (req, res, next) => {
@@ -444,6 +515,34 @@ controller.deleteAttachment = async (req, res, next) => {
         res.status(200).json({ message: "Attachment deleted successfully" });
     } catch (error) {
         next(error);
+    }
+};
+
+controller.updateRequirementContent = async (req, res) => {
+    try {
+        const attachmentId = req.params.attachmentId;
+        const updatedContent = req.body.content; // Assuming 'content' is sent in the request body
+
+        // Find the attachment by ID
+        const attachment = await models.Attachment.findByPk(attachmentId);
+        if (!attachment) {
+            return res.status(404).json({ success: false, message: 'Attachment not found' });
+        }
+
+        // Determine the file path based on 'data_link'
+        const filePath = path.join(__dirname, '/../../client/assets', attachment.data_link);
+
+        // Write updated content to the file
+        fs.writeFile(filePath, updatedContent, err => {
+            if (err) {
+                console.error('Error updating file content:', err);
+                return res.status(500).json({ success: false, message: 'Failed to update file content' });
+            }
+            res.status(200).json({ success: true, message: 'File content updated successfully' });
+        });
+    } catch (error) {
+        console.error('Error updating requirement content:', error);
+        res.status(500).json({ success: false, message: 'Failed to update requirement content' });
     }
 };
 

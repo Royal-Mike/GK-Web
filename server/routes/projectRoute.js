@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/projectController');
 const verifyToken = require('../middleware/account');
-const { uploadFile } = require('../middleware/upload'); 
+const { uploadFile, uploadReq } = require('../middleware/upload'); 
+const { verify } = require('jsonwebtoken');
 
 router.get('/', verifyToken, controller.projectView);
 router.get("/search", verifyToken, controller.getProjectByKey);
@@ -13,10 +14,13 @@ router.get('/:id', verifyToken, controller.projectDetailView);
 router.post('/:id/update', verifyToken, controller.updateProject);
 
 router.get('/:id/requirement', verifyToken, controller.requirementView);
+router.post('/:id/requirement/upload', verifyToken, uploadReq.single('data_link'), controller.uploadRequirement);
+router.delete('/:projectId/requirement/:attachmentId',verifyToken, controller.deleteAttachment);
+router.put('/:projectId/requirement/:attachmentId/content', verifyToken, controller.updateRequirementContent);
 
 router.get('/:id/attachment', verifyToken, controller.attachmentView);
 router.post('/:id/attachment/upload', verifyToken, uploadFile.single('data_link'), controller.uploadAttachment);
-router.delete('/:projectId/attachment/:attachmentId', controller.deleteAttachment);
+router.delete('/:projectId/attachment/:attachmentId',verifyToken, controller.deleteAttachment);
 
 
 router.get('/:id/release', verifyToken, controller.releaseView);

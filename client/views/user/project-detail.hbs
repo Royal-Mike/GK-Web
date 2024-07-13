@@ -1,351 +1,395 @@
-﻿     <main>
-        <!-- Page hiện tại -->
-        <div class="container-fluid bg-grey">
-            <div class="row">
-                <!-- Side bar -->
-                {{> sidebar}}
+﻿<main>
+    <!-- Page hiện tại -->
+    <div class="container-fluid bg-grey">
+        <div class="row">
+            <!-- Side bar -->
+            {{> sidebar}}
 
-                <!-- Main content -->
-                <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
+            <!-- Main content -->
+            <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
 
-                    <div class="content-box">
-                        {{> project-nav-bar}}
+                <div class="content-box">
+                    {{> project-nav-bar}}
 
-                        <div class="container-fluid bg-light p-3 rounded-3">
-                            <div class="align-items-center d-flex">
-                                <div class="d-inline-block">
-                                    <div class="d-flex py-2 align-items-center">
-                                        {{!-- <i class="bi bi-chevron-right"></i> --}}
-                                        <h5 class="ms-3 fw-bold">ID : {{project.id}}</h5>
-                                    </div>
+                    <div class="container-fluid bg-light p-3 rounded-3">
+                        <div class="align-items-center d-flex">
+                            <div class="d-inline-block">
+                                <div class="d-flex py-2 align-items-center">
+                                    {{!-- <i class="bi bi-chevron-right"></i> --}}
+                                    <h5 class="ms-3 fw-bold">ID : {{project.id}}</h5>
                                 </div>
-
-                                <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
-                                    <div class="mx-2">
-                                        <i class="bi bi-chevron-left"></i>
-                                        Previous
-                                    </div>
-                                    <div class="mx-3">
-                                        Next
-                                        <i class="bi bi-chevron-right"></i>
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                                <div class="mx-2">
+                                    <i class="bi bi-chevron-left"></i>
+                                    Previous
+                                </div>
+                                <div class="mx-3">
+                                    Next
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </div>
+
                         </div>
+                    </div>
 
-                        <div class="container-fluid bg-light mt-4 py-2 rounded-3">
-                            <div class="row mt-3">
+                    <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+                        <div class="row mt-3">
 
-                                <div class="col-md-8" style="width:1200px">
+                            <div class="col-md-8" style="width:1200px">
 
-                                    <div class="row">
-                                        <div class="col-md-7 bg-white p-3 me-3 border rounded-3">
-                                            <div class="row justify-content-center align-items-center">
-                                                <div class="col d-flex justify-content-center align-items-center">
-                                                    <img src="/images/project-list.svg" alt="none" class="img-fluid" style="width: 100px; height: 100px">
-                                                </div>
-                                                <div class="col mx-auto">
-                                                    <h3 class="fw-bold">Project {{project.name_project}}</h3>
-                                                    <p>{{project.created_at}}</p>
-                                                    <p>{{project.description}}</p>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-md-7 bg-white p-3 me-3 border rounded-3">
+                                        <div class="row justify-content-center align-items-center">
+                                            <div class="col-2 d-flex justify-content-center align-items-center">
+                                                <img src="/images/project-list.svg" alt="none" class="img-fluid" style="width: 100px; height: 100px">
                                             </div>
+                                            <div class="col-8 mx-auto">
+                                                <h3 class="fw-bold">Project {{project.name_project}}</h3>
+                                                <p>{{project.created_at}}</p>
+                                                <p>{{project.description}}</p>
+                                            </div>
+                                            <div class="col-2 mx-auto">
+                                                <button class="btn btn-primary btn-sm d-flex align-items-center" id="edit-project">
+                                                    <i class="bi bi-pencil"></i> Edit
+                                                </button>
+                                            </div>
+                                        </div>
 
-                                            <!-- Members list -->
-                                            <div class="mt-4" style="padding : 10px">
+                                        <!-- Members list -->
+                                        <div class="mt-4" style="padding : 10px">
+                                            <div class="d-flex justify-content-between align-items-center">
                                                 <p class="mb-0">
                                                     <i class="bi bi-person-circle text-primary fs-5 mx-2"></i>
                                                     <strong>Team: </strong> 3 members
                                                 </p>
-
-                                                <ul class="list-unstyled ms-2 mx-auto p-2">
-                                                    <li>
-                                                        <div class="row mt-2">
-                                                            <div class="col">Nguyen Tuan Phong</div>
-                                                            <div class="col text-center">Manager <i class="bi bi-pencil mx-2"></i> </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="row">
-                                                            <div class="col">Tran Ky Thanh</div>
-                                                            <div class="col text-center">Tester  <i class="bi bi-pencil mx-2"></i> </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="row">
-                                                            <div class="col">Tran Minh Hoang</div>
-                                                            <div class="col text-center">Developer  <i class="bi bi-pencil mx-2"></i></div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-
+                                                <button class="btn btn-primary btn-sm d-flex align-items-center">
+                                                    <i class="bi bi-plus-lg h5 fw-bold ms-auto"></i> Add member
+                                                </button>
                                             </div>
-                                        </div>
 
-                                        <div class="col container-fluid bg-white me-3 pt-3 border rounded-3" style="width : 650px">
-                                            <div class="row align-items-center">
-                                                <h4 class="mx-auto text-center">Release status</h4>
-                                                <hr class="mx-auto">
-                                                <div class="col-auto" style="width:250px">
-                                                    <div class="text-center">
-                                                        <img src="/images/pie-chart.png" alt="" class="img-fluid w-75 h-auto">
+                                            <ul class="list-unstyled ms-2 mx-auto p-2">
+                                                <li>
+                                                    <div class="row mt-2">
+                                                        <div class="col">Nguyen Tuan Phong - Manager</div>
                                                     </div>
-                                                </div>
-                                                <div class="col p-3">
-                                                    <div class="row align-items-center justify-content-center">
-                                                        <!-- Passed -->
-                                                        <div class="col-md-5 text-md-start align-items-center">
-                                                            <h3 class="d-inline text-success"> 5 </h3>
-                                                            <i class="bi bi-circle-fill text-success d-inline-block"></i>
-                                                            <p class="text-muted"> Passed </p>
-                                                        </div>
-                                                        <!-- Untested -->
-                                                        <div class="col-md-5 text-md-start align-items-center">
-                                                            <h3 class="d-inline text-primary"> 2 </h3>
-                                                            <i class="bi bi-circle-fill text-primary d-inline-block"></i>
-                                                            <p class="text-muted"> Untested </p>
-                                                        </div>
-                                                        <!-- Blocked -->
-                                                        <div class="col-md-5 text-md-start align-items-center">
-                                                            <h3 class="d-inline text-muted"> 0 </h3>
-                                                            <i class="bi bi-circle-fill text-muted d-inline-block"></i>
-                                                            <p class="text-muted"> Blocked </p>
-                                                        </div>
-                                                        <!-- Retest -->
-                                                        <div class="col-md-5 text-md-start align-items-center">
-                                                            <h3 class="d-inline text-warning"> 0 </h3>
-                                                            <i class="bi bi-circle-fill text-warning d-inline-block"></i>
-                                                            <p class="text-muted"> Retest </p>
-                                                        </div>
-                                                        <!-- Failed -->
-                                                        <div class="col-md-5 text-md-start align-items-center">
-                                                            <h3 class="d-inline text-danger"> 0 </h3>
-                                                            <i class="bi bi-circle-fill text-danger d-inline-block"></i>
-                                                            <p class="text-muted"> Failed </p>
-                                                        </div>
+                                                </li>
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col">Tran Ky Thanh - Tester</div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </li>
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col">Tran Minh Hoang - Developer</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-
                                     </div>
-                                    <!-- <div class="container-fluid"> -->
-                                    <div class="row mt-4 justify-content-between">
-                                        <div class="col p-0 bg-white border p-3 rounded-3">
-                                            <div class="d-flex flex-column bg-white h-100 px-0">
 
-                                                <div class="mt-3 mx-auto bg-release rounded-circle d-flex justify-content-center align-items-center align-self-center "
-                                                     style="width: 75px; height: 75px;">
-                                                    <h1 class="fw-bold"> 5</h1>
+                                    <div class="col container-fluid bg-white me-3 pt-3 border rounded-3" style="width : 650px">
+                                        <div class="row align-items-center">
+                                            <h4 class="mx-auto text-center">Release status</h4>
+                                            <hr class="mx-auto">
+                                            <div class="col-auto" style="width:250px">
+                                                <div class="text-center">
+                                                    <img src="/images/pie-chart.png" alt="" class="img-fluid w-75 h-auto">
                                                 </div>
-                                                <h5 class="fw-bold text-center"> Releases</h5>
-
-
-                                                <div class="d-flex">
-                                                    <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                            </div>
+                                            <div class="col p-3">
+                                                <div class="row align-items-center justify-content-center">
+                                                    <!-- Passed -->
+                                                    <div class="col-md-5 text-md-start align-items-center">
+                                                        <h3 class="d-inline text-success"> 5 </h3>
+                                                        <i class="bi bi-circle-fill text-success d-inline-block"></i>
+                                                        <p class="text-muted"> Passed </p>
+                                                    </div>
+                                                    <!-- Untested -->
+                                                    <div class="col-md-5 text-md-start align-items-center">
+                                                        <h3 class="d-inline text-primary"> 2 </h3>
+                                                        <i class="bi bi-circle-fill text-primary d-inline-block"></i>
+                                                        <p class="text-muted"> Untested </p>
+                                                    </div>
+                                                    <!-- Blocked -->
+                                                    <div class="col-md-5 text-md-start align-items-center">
+                                                        <h3 class="d-inline text-muted"> 0 </h3>
+                                                        <i class="bi bi-circle-fill text-muted d-inline-block"></i>
+                                                        <p class="text-muted"> Blocked </p>
+                                                    </div>
+                                                    <!-- Retest -->
+                                                    <div class="col-md-5 text-md-start align-items-center">
+                                                        <h3 class="d-inline text-warning"> 0 </h3>
+                                                        <i class="bi bi-circle-fill text-warning d-inline-block"></i>
+                                                        <p class="text-muted"> Retest </p>
+                                                    </div>
+                                                    <!-- Failed -->
+                                                    <div class="col-md-5 text-md-start align-items-center">
+                                                        <h3 class="d-inline text-danger"> 0 </h3>
+                                                        <i class="bi bi-circle-fill text-danger d-inline-block"></i>
+                                                        <p class="text-muted"> Failed </p>
+                                                    </div>
                                                 </div>
-                                                <div class="release-list-container mt-3">
-                                                    <div class="container d-flex px-0 mx-1 mb-2">
-                                                        <p class="d-inline"> Release 1</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 12 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Release 2</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 12 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Release 3</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 12 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Release 4</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 12 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Release 5</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 12 d ago </p>
-                                                    </div>
-
-                                                </div>
-                                                <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="../release/release.html"> More</a>
                                             </div>
                                         </div>
-                                        <div class="col p-0 ms-3 bg-white p-3 border rounded-3">
-                                            <div class="d-flex flex-column bg-white h-100 px-0">
-                                                <div class="mt-3 mx-auto bg-test-case rounded-circle d-flex justify-content-center align-items-center align-self-center"
-                                                     style="width: 75px; height: 75px;">
-                                                    <h1 class="mb-0 fw-bold"> 3</h1>
-                                                </div>
-                                                <h5 class="mt-1 fw-bold text-center"> Test Case</h5>
-                                                <div class="d-flex">
-                                                    <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
-                                                </div>
-                                                <div class="release-list-container mt-3">
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Test case 1</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Test case 2</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Test case 3</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted"> 10 d ago </p>
-                                                    </div>
+                                    </div>
 
+                                </div>
+                                <!-- <div class="container-fluid"> -->
+                                <div class="row mt-4 justify-content-between">
+                                    <div class="col p-0 bg-white border p-3 rounded-3">
+                                        <div class="d-flex flex-column bg-white h-100 px-0">
 
-                                                </div>
-                                                <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="../testcase/testcase.html"> More</a>
+                                            <div class="mt-3 mx-auto bg-release rounded-circle d-flex justify-content-center align-items-center align-self-center "
+                                                 style="width: 75px; height: 75px;">
+                                                <h1 class="fw-bold"> 5</h1>
                                             </div>
-                                        </div>
-                                        <div class="col p-0 ms-3 bg-white border p-3 rounded-3">
-                                            <div class="d-flex flex-column bg-white h-100 px-0">
-                                                <div class="mt-3 mx-auto bg-test-run rounded-circle d-flex justify-content-center align-items-center align-self-center"
-                                                     style="width: 75px; height: 75px;">
-                                                    <h1 class="mb-0 fw-bold"> 2</h1>
+                                            <h5 class="fw-bold text-center"> Releases</h5>
+
+
+                                            <div class="d-flex">
+                                                <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                            </div>
+                                            <div class="release-list-container mt-3">
+                                                <div class="container d-flex px-0 mx-1 mb-2">
+                                                    <p class="d-inline"> Release 1</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 12 d ago </p>
                                                 </div>
-                                                <h5 class="mt-1 fw-bold text-center"> Test plans</h5>
-                                                <div class="d-flex">
-                                                    <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Release 2</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 12 d ago </p>
                                                 </div>
-                                                <div class="release-list-container mt-3">
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Test run 1</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Test run 2</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Release 3</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 12 d ago </p>
                                                 </div>
-                                                <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="../test-run/test-run.html"> More</a>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Release 4</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 12 d ago </p>
+                                                </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Release 5</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 12 d ago </p>
+                                                </div>
 
                                             </div>
+                                            <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="/project/{{project.id}}/release"> More</a>
                                         </div>
-                                        <div class="col p-0 mx-3 bg-white p-3 border rounded-3">
-                                            <div class="d-flex flex-column bg-white h-100 px-0">
-                                                <div class="mt-3 mx-auto bg-issue rounded-circle d-flex justify-content-center align-items-center align-self-center"
-                                                     style="width: 75px; height: 75px;">
-                                                    <h1 class="mb-0 fw-bold"> 4</h1>
+                                    </div>
+                                    <div class="col p-0 ms-3 bg-white p-3 border rounded-3">
+                                        <div class="d-flex flex-column bg-white h-100 px-0">
+                                            <div class="mt-3 mx-auto bg-test-case rounded-circle d-flex justify-content-center align-items-center align-self-center"
+                                                 style="width: 75px; height: 75px;">
+                                                <h1 class="mb-0 fw-bold"> 3</h1>
+                                            </div>
+                                            <h5 class="mt-1 fw-bold text-center"> Test Case</h5>
+                                            <div class="d-flex">
+                                                <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                            </div>
+                                            <div class="release-list-container mt-3">
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Test case 1</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted"> 10 d ago </p>
                                                 </div>
-                                                <h5 class="mt-1 fw-bold text-center"> Issues</h5>
-                                                <div class="d-flex">
-                                                    <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Test case 2</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted"> 10 d ago </p>
                                                 </div>
-                                                <div class="release-list-container mt-3">
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Issue 1</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Issue 2</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Issue 3</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
-                                                    <div class="container d-flex px-0 mb-2">
-                                                        <p class="d-inline"> Issue 4</p>
-                                                        <i class="bi bi-eye d-inline-block ms-auto"></i>
-                                                        <p class="text-muted mx-1"> 10 d ago </p>
-                                                    </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Test case 3</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted"> 10 d ago </p>
+                                                </div>
 
-                                                </div>
-                                                <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="../issues/issues.html"> More</a>
 
                                             </div>
+                                            <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="/project/{{project.id}}/test-case"> More</a>
                                         </div>
+                                    </div>
+                                    <div class="col p-0 ms-3 bg-white border p-3 rounded-3">
+                                        <div class="d-flex flex-column bg-white h-100 px-0">
+                                            <div class="mt-3 mx-auto bg-test-run rounded-circle d-flex justify-content-center align-items-center align-self-center"
+                                                 style="width: 75px; height: 75px;">
+                                                <h1 class="mb-0 fw-bold"> 2</h1>
+                                            </div>
+                                            <h5 class="mt-1 fw-bold text-center"> Test runs</h5>
+                                            <div class="d-flex">
+                                                <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                            </div>
+                                            <div class="release-list-container mt-3">
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Test run 1</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Test run 2</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
+                                            </div>
+                                            <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="/project/{{project.id}}/test-run"> More</a>
 
+                                        </div>
+                                    </div>
+                                    <div class="col p-0 mx-3 bg-white p-3 border rounded-3">
+                                        <div class="d-flex flex-column bg-white h-100 px-0">
+                                            <div class="mt-3 mx-auto bg-issue rounded-circle d-flex justify-content-center align-items-center align-self-center"
+                                                 style="width: 75px; height: 75px;">
+                                                <h1 class="mb-0 fw-bold"> 4</h1>
+                                            </div>
+                                            <h5 class="mt-1 fw-bold text-center"> Issues</h5>
+                                            <div class="d-flex">
+                                                <i class="bi bi-plus-lg h5 fw-bold ms-auto "></i>
+                                            </div>
+                                            <div class="release-list-container mt-3">
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Issue 1</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Issue 2</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Issue 3</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
+                                                <div class="container d-flex px-0 mb-2">
+                                                    <p class="d-inline"> Issue 4</p>
+                                                    <i class="bi bi-eye d-inline-block ms-auto"></i>
+                                                    <p class="text-muted mx-1"> 10 d ago </p>
+                                                </div>
 
+                                            </div>
+                                            <a class="text-center text-info mt-auto fs-4 text-decoration-none" href="/project/{{project.id}}/issues"> More</a>
+
+                                        </div>
                                     </div>
 
 
                                 </div>
-                                <div class="col-md-4 bg-white border p-3 rounded-3" style="width:450px">
-                                    <div class="mt-2 d-flex">
-                                        <h4 class="d-inline"> Activity Log</h4>
-                                        <a class="text-info d-inline ms-auto fs-4 text-decoration-none" href="activity-log.html"> View more</a>
-                                    </div>
-                                    <hr>
-                                    <div id="test-run"
-                                         class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="test-run"
-                                         class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="test-run"
-                                         class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="test-run"
-                                         class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="test-run"
-                                         class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="release"
-                                         class=" bg-release d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Minh Hoang created Releases 2 </p>
-                                        <p class="ms-auto d-inline my-3">21/4/2024</p>
-                                    </div>
-                                    <div id="issue"
-                                         class=" bg-issue d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh uploaded Issue 1</p>
-                                        <p class="ms-auto d-inline my-3">20/4/2024</p>
-                                    </div>
-                                    <div id="test-case"
-                                         class=" bg-test-case d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Ky Thanh created Test-case 1 </p>
-                                        <p class="ms-auto d-inline my-3">20/4/2024</p>
-                                    </div>
 
-                                    <div id="release"
-                                         class=" bg-release d-flex align-items-center justify-content-center my-3 px-3"
-                                         style="filter: saturate(50%);">
-                                        <p class="d-inline my-3"> Tran Minh Hoang created Releases 1 </p>
-                                        <p class="ms-auto d-inline my-3">18/4/2024</p>
-                                    </div>
+
+                            </div>
+                            <div class="col-md-4 bg-white border p-3 rounded-3" style="width:450px">
+                                <div class="mt-2 d-flex">
+                                    <h4 class="d-inline"> Activity Log</h4>
+                                    <a class="text-info d-inline ms-auto fs-4 text-decoration-none" href="activity-log.html"> View more</a>
+                                </div>
+                                <hr>
+                                <div id="test-run"
+                                     class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="test-run"
+                                     class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="test-run"
+                                     class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="test-run"
+                                     class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="test-run"
+                                     class=" bg-test-run d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="release"
+                                     class=" bg-release d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Minh Hoang created Releases 2 </p>
+                                    <p class="ms-auto d-inline my-3">21/4/2024</p>
+                                </div>
+                                <div id="issue"
+                                     class=" bg-issue d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh uploaded Issue 1</p>
+                                    <p class="ms-auto d-inline my-3">20/4/2024</p>
+                                </div>
+                                <div id="test-case"
+                                     class=" bg-test-case d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Ky Thanh created Test-case 1 </p>
+                                    <p class="ms-auto d-inline my-3">20/4/2024</p>
+                                </div>
+
+                                <div id="release"
+                                     class=" bg-release d-flex align-items-center justify-content-center my-3 px-3"
+                                     style="filter: saturate(50%);">
+                                    <p class="d-inline my-3"> Tran Minh Hoang created Releases 1 </p>
+                                    <p class="ms-auto d-inline my-3">18/4/2024</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="customProjectPopup"
+         class="position-fixed overlay top-0 bottom-0 start-0 end-0">
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+            <div class="w-50 shadow bg-white rounded-4">
+                <div class="m-2 mt-2 bg-white semi-rounded">
+                    <div class="container p-4 position-relative">
+                        <h6 class="text-left fs-4">Update Project</h6>
+                        <div class="justify-content-between gap-5 mb-4">
+                            <div class="flex-fill">
+                                <span class="fs-6 font-weight-semibold">Name<span class="text-danger">*</span></span>
+                                <div class="input-group w-100 mb-4 mt-2">
+                                    <textarea class="form-control" id="project-name" rows="3">{{project.name_project}}</textarea>
+                                </div>
+                            </div>
+                            <div class="flex-fill">
+                                <span class="fs-6 font-weight-semibold">Description</span>
+                                <div class="input-group w-100 mb-4 mt-2">
+                                    <textarea class="form-control" id="project-description" rows="3">{{project.description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="ps-3 pe-3 ms-4 d-flex btn save-btn"
+                                 id="customEditProject">
+                                Update
+                            </div>
+                            <div class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn">
+                                Cancel
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
                 </div>
             </div>
-            </main>
+        </div>
+    </div>
+
+
+</main>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <script>
@@ -363,3 +407,5 @@
         window.addEventListener('pageshow', handlePageShow);
     });
 </script>
+
+<script src="/js/edit-project.js"></script>

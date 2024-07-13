@@ -1,6 +1,8 @@
 ﻿const controller = {};
 const { where } = require('sequelize');
 const models = require('../models');
+const fs = require("fs");
+const path = require('path');
 
 controller.getAccountControl = async (req, res, next) => {
     try {
@@ -20,10 +22,32 @@ controller.getAccountControl = async (req, res, next) => {
     }
 };
 
+controller.uploadAvatar = (req, res) => {
+    try {
+        if (req.file == undefined) {
+            return res.status(400).send({ message: "Please upload an image file!" });
+        }
+
+        const avatarUrl = `/upload/avatar/${req.file.filename}`;
+        // Optionally, save avatarUrl to user profile in your database
+
+        // Respond with JSON indicating success and the new avatar URL
+        res.status(200).json({
+            success: true,
+            avatarUrl: avatarUrl
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: "Could not upload the avatar. Please try again later."
+        });
+    }
+};
+
 // Define the controller function for profile update
 controller.updateProfile = async (req, res) => {
     try {
-        const { firstName, lastName, headline, language, link } = req.body;
+        const { firstName, lastName, headline, language, link, avatar } = req.body;
         const userId = req.userid; // Assuming you have userId stored in req.userid
 
         // Find the user by userId
@@ -39,6 +63,7 @@ controller.updateProfile = async (req, res) => {
         user.headline = headline;
         user.language = language;
         user.website_link = link;
+        user.avatar = avatar;
 
         // Save the updated user profile to the database
         await user.save();

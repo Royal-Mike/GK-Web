@@ -1,0 +1,22 @@
+.container-fluid.bg-light.rounded-3 {
+    margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.requirement-item {
+    margin-bottom: 10px; /* Add margin between individual items */
+}
+
+.requirement-list {
+    padding: 10px; /* Add padding inside the list container */
+}
+
+.bg-light.rounded-3 {
+    /* Add background and rounding to individual parts */
+    background-color: #f8f9fa; /* Adjust background color as needed */
+    border-radius: 10px;
+}
+
+.border-end {
+    border-right: 1px solid #000000; /* Add right border */
+}
+

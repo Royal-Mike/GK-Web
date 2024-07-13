@@ -7,25 +7,24 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin: 0 5px;
     }
-   
 </style>
 
 <nav class="navbar navbar-expand navbar-light">
     <ul class="nav navbar-nav" id="navbar-in-project">
         <li class="nav-item">
-            <a class="nav-link active-tab" data-tab="overview" href="/project/{{project.id}}">Overview</a>
+            <a class="nav-link" data-tab="overview" href="/project/{{project.id}}">Overview</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="requirements" href="#">Requirements</a>
+            <a class="nav-link" data-tab="requirements" href="/project/{{project.id}}/requirement">Requirements</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="attachments" href="#">Attachments</a>
+            <a class="nav-link" data-tab="attachments" href="/project/{{project.id}}/attachment">Attachments</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="releases" href="#">Releases</a>
+            <a class="nav-link" data-tab="releases" href="/project/{{project.id}}/release">Releases</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="modules" href="#">Modules</a>
+            <a class="nav-link" data-tab="modules" href="/project/{{project.id}}/module">Modules</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-tab="test-cases" href="/project/{{project.id}}/test-case">Test Cases</a>
@@ -45,9 +44,6 @@
     </ul>
 </nav>
 
-<script src="/js/toast.js"></script>
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const navLinks = document.querySelectorAll('#navbar-in-project .nav-item a');
@@ -59,31 +55,63 @@
             });
         }
 
-        // Function to set active tab based on current URL pathname
-        function setActiveTabFromUrl() {
-            const pathName = window.location.pathname;
-            const activeTabLink = document.querySelector(`#navbar-in-project .nav-link[href="${pathName}"]`);
-
+        // Function to set active tab based on data-tab attribute
+        function setActiveTab(tabName) {
+            removeAllActiveTabs();
+            const activeTabLink = document.querySelector(`#navbar-in-project .nav-link[data-tab="${tabName}"]`);
             if (activeTabLink) {
-                removeAllActiveTabs();
                 activeTabLink.classList.add('active-tab');
             }
         }
 
-        // Set active tab when page loads
-        setActiveTabFromUrl();
+        // Set active tab on page load based on URL
+        function setActiveTabBasedOnURL() {
+            const pathArray = window.location.pathname.split('/');
+            const projectIdIndex = pathArray.indexOf('project');
+            const activeTab = pathArray[projectIdIndex + 2]; // phần tử tiếp theo sau project
+
+            switch (activeTab) {
+                case 'requirement':
+                    setActiveTab('requirements');
+                    break;
+                case 'attachment':
+                    setActiveTab('attachments');
+                    break;
+                case 'release':
+                    setActiveTab('releases');
+                    break;
+                case 'module':
+                    setActiveTab('modules');
+                    break;
+                case 'test-case':
+                    setActiveTab('test-cases');
+                    break;
+                case 'test-run':
+                    setActiveTab('test-runs');
+                    break;
+                case 'issues':
+                    setActiveTab('issues');
+                    break;
+                case 'report':
+                    setActiveTab('reports');
+                    break;
+                case 'activity':
+                    setActiveTab('activity');
+                    break;
+                default:
+                    setActiveTab('overview');
+                    break;
+            }
+        }
+
+        setActiveTabBasedOnURL();
 
         // Event listener for clicking on tabs
         navLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                // Remove active state from all tabs
+            link.addEventListener('click', function () {
                 removeAllActiveTabs();
-
-                // Add active state to the clicked tab
                 this.classList.add('active-tab');
             });
         });
     });
-
-
 </script>

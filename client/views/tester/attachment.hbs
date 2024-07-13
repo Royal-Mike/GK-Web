@@ -29,26 +29,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid bg-light rounded-3">
-                        {{#if attachments}}
-                        <div class="attachment-list">
-                            {{#each attachments}}
-                            <div class="attachment-item" data-id="{{this.id}}">
-                                <button class="delete-btn" onclick="deleteAttachment('{{this.id}}')">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <a href="{{this.data_link}}" download="{{this.filename}}" class="attachment-link">
-                                    <i class="bi bi-file-earmark"></i> {{this.filename}}
-                                </a>
-                            </div>
-                            {{/each}}
+                </div>
+                <div class="container-fluid bg-light rounded-3">
+                    {{#if attachments}}
+                    <div class="attachment-list">
+                        {{#each attachments}}
+                        <div class="attachment-item" data-id="{{this.id}}">
+                            <button class="delete-btn" onclick="deleteAttachment('{{this.id}}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <a href="{{this.data_link}}" download="{{this.filename}}" class="attachment-link">
+                                <i class="bi bi-file-earmark"></i> {{this.filename}}
+                            </a>
                         </div>
-
-
-                        {{else}}
-                        <p>No attachments found.</p>
-                        {{/if}}
+                        {{/each}}
                     </div>
+
+
+                    {{else}}
+                    <p>No attachments found.</p>
+                    {{/if}}
                 </div>
             </div>
         </div>

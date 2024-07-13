@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/requirement.css">
 
 <main>
     <div class="container-fluid bg-grey">
@@ -19,7 +20,7 @@
                             </div>
                         </div>
 
-                        <div class="d-inline-block me-3" id="add-testcase-btn">
+                        <div class="d-inline-block me-3" id="open-requirement-popup">
                             <div class="mx-4 my-3 d-flex btn custom-bold-btn">
                                 <div class="me-2 p-1">
                                     <i class="bi bi-plus"></i>
@@ -29,12 +30,66 @@
                         </div>
                     </div>
                 </div>
+                <div class="container-fluid">
+                    <div class="row align-items-start">
+                        <!-- First Part: List of Requirements (4 columns) -->
+                        <div class="col-md-4 border-end">
+                            <div class="bg-light rounded-3 p-3">
+                                {{#if requirements}}
+                                <div class="requirement-list">
+                                    {{#each requirements}}
+                                    <div class="requirement-item" data-id="{{this.id}}">
+                                        <button class="delete-btn" onclick="deleteRequirement('{{this.id}}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <a href="#" class="requirement-link" onclick="showRequirementContent('{{this.id}}', '{{this.data_link}}', '{{this.filename}}')">
+                                            <i class="bi bi-file-earmark"></i> {{this.filename}}
+                                        </a>
+                                        <a href="{{this.data_link}}" download class="download-link">
+                                            <i class="bi bi-cloud-download"></i>
+                                        </a>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                {{else}}
+                                <p>No Requirements found.</p>
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        <!-- Second Part: Content of Clicked File (8 columns) -->
+                        <div class="col-md-8">
+                            <div class="bg-light rounded-3 p-3" id="requirementContent">
+                                <!-- Content will be displayed here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="requirementPopup" class="position-fixed overlay top-0 bottom-0 start-0 end-0">
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+            <div class="w-50 shadow bg-white rounded-4">
+                <div class="m-2 mt-2 bg-white semi-rounded">
+                    <div class="container p-4 position-relative">
+                        <h6 class="text-left fs-4">Upload Requirement</h6>
+                        <input type="file" id="requirementFileInput" accept="image/*" class="form-control">
+                        <div class="d-flex justify-content-center mt-4">
+                            <div class="ps-3 pe-3 ms-4 d-flex btn save-btn" id="customSaveRequirement">
+                                Save
+                            </div>
+                            <div class="closePopup btn text-center ps-3 pe-3 ms-4 cancel-btn">
+                                Cancel
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -44,5 +99,7 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="/js/add-test-case.js"></script>
-
+<script src="/js/toast.js"></script>
+<script src="/js/upload-requirement.js"></script>
+<script src="/js/delete-requirement.js"></script>
+<script src="/js/edit-requirement.js"></script>

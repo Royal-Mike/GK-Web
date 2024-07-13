@@ -559,7 +559,7 @@ controller.getAllActivities = async (req, res,next) => {
 
 
 // Thêm issue
-exports.createIssue = async (req, res) => {
+controller.createIssue = async (req, res) => {
   const { projectId, title, description, test_run_id, status, priority, assigned_to_user_id } = req.body;
   try {
       const newIssue = await models.Issue.create({

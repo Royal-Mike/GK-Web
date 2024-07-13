@@ -1291,7 +1291,7 @@ controller.editIssue = async (req, res) => {
         }
 
         // Delete the test case
-        await testCase.destroy();
+        await Issue.destroy();
 
         // Send a success response
         res.status(200).json({ message: "Test case deleted successfully" });

@@ -1,6 +1,14 @@
 const { format } = require('date-fns');
 
 module.exports = {
+    roleName: (roleId) => {
+        const roleMapping = {
+            1: 'Manager',
+            2: 'Developer',
+            3: 'Tester'
+        };
+        return roleMapping[roleId] || 'Member';
+    },
   formatDate: (timestamp) => {
         return format(new Date(timestamp), 'M/dd/yyyy, h:mm:ss a');
   },
@@ -25,14 +33,15 @@ module.exports = {
   },
   subtract: (a, b) => {
     return a - b;
-  },
+    },
+
   isNumericString(str) {
-  for (var i = 0; i < str.length; i++) {
-      if (!/^\d$/.test(str[i])) {
-          return false;
+      for (var i = 0; i < str.length; i++) {
+          if (!/^\d$/.test(str[i])) {
+              return false;
+          }
       }
+      return true;
   }
-return true;
-}
 
 };

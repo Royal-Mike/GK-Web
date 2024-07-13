@@ -171,12 +171,14 @@ controller.projectDetailView = async (req, res, next) => {
         const usersInProject = await models.User_Project.findAll({
             where: { project_id: projectId },
             include: {
-                model: models.User 
+                model: models.User
             },
             order: [
                 ['role_id', 'ASC']
             ]
         });
+
+        const usersInProjectCount = usersInProject.length;
 
         // Lấy danh sách các user không trong current project
         const usersNotInProject = await models.User.findAll({
@@ -186,7 +188,13 @@ controller.projectDetailView = async (req, res, next) => {
         });
 
         // Truyền thông tin project và danh sách user không trong project tới view
-        res.render("user/project-detail", { user, project, usersInProject, usersNotInProject });
+        res.render("user/project-detail", {
+            user,
+            project,
+            usersInProject,
+            usersNotInProject,
+            usersInProjectCount
+        });
     } catch (error) {
         next(error);
     }

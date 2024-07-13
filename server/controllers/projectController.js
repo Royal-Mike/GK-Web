@@ -904,12 +904,19 @@ controller.issuesView = async (req, res, next) => {
     // Extract test run IDs
     const testRunIds = testRuns.map((testRun) => testRun.id);
 
-    // Fetch all issues related to the test runs
     const issues = await models.Issue.findAll({
         where: {
-        test_run_id: testRunIds,
+            test_run_id: testRunIds,
         },
+        include: [
+            {
+                model: models.User,
+                as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+                attributes: ["id", "username"],
+            },
+        ],
     });
+    console.log(issues);
 
 
     // sort issues
@@ -962,7 +969,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { user, project, issues });
+    res.render("developer/issues", { user, projectId, project, issues });
   } catch (error) {
     next(error);
   }
@@ -1337,35 +1344,6 @@ controller.reportView = async (req, res, next) => {
 
 
 
-
-// Thêm issue
-// controller.createReport = async (req, res,next) => {
-//   const { name, status, priority, note } = req.body;
-//   const project_id = parseInt(req.session.project_id);
-//   const member_id = req.session.projects[project_id].memberId
-//   console.log(name, project_id, status, priority, note, member_id)
-//   if (!project_id || !name || !status || !priority || !note) {
-//     return res.status(400).message({ error: "Missing some fields" });
-//   }
-
-//   try {
-
-//     const newIssue = await models.Issue.create({
-//       name,
-//       project_id,
-//       status,
-//       priority,
-//       note,
-//       member_id
-//     });
-//     console.log('Test Run created:', newIssue.toJSON());
-//     res.redirect(`/project/${project_id}/issues`)
-//   } catch (error) {
-//     console.error("Error adding issue:", error);
-//     res.send("Can not add issue!");
-//     console.error(error);
-//   }
-// };
 
 
 controller.getActivities = async (req, res, next) => {

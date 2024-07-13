@@ -167,13 +167,48 @@ controller.projectDetailView = async (req, res, next) => {
             return res.redirect('/project');
         }
 
-        // Truyền thông tin project tới view
-        res.render("user/project-detail", { user, project });
+        // Lấy danh sách các user trong current project
+        const usersInProject = await models.User_Project.findAll({
+            where: { project_id: projectId },
+            include: {
+                model: models.User 
+            },
+            order: [
+                ['role_id', 'ASC']
+            ]
+        });
+
+        // Lấy danh sách các user không trong current project
+        const usersNotInProject = await models.User.findAll({
+            where: {
+                id: { [Op.notIn]: usersInProject.map(up => up.user_id) }
+            }
+        });
+
+        // Truyền thông tin project và danh sách user không trong project tới view
+        res.render("user/project-detail", { user, project, usersInProject, usersNotInProject });
     } catch (error) {
         next(error);
     }
 };
 
+controller.addMemberToProject = async (req, res) => {
+    try {
+        const { userId, projectId, role } = req.body;
+
+        // Add the user to the project
+        await models.User_Project.create({
+            user_id: userId,
+            project_id: projectId,
+            role_id: role,
+        });
+
+        res.status(200).json({ message: 'Member added to the project' });
+    } catch (error) {
+        console.error('Error adding member to project:', error);
+        res.status(500).json({ error: 'An error occurred while adding the member' });
+    }
+};
 
 const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 

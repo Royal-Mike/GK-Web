@@ -878,149 +878,6 @@ controller.createTestRun = async (req, res) => {
     }
 };
 
-// Lấy chi tiết dự án
-controller.issuesView = async (req, res, next) => {
-  try {
-      const userId = req.userid;
-      const projectId = req.params.id;
-
-      const user = await models.User.findByPk(userId);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-       // Fetch project to ensure it exists
-       const project = await models.Project.findByPk(projectId);
-       if (!project) {
-         return res.status(404).json({ message: "Project not found" });
-       }
-
-       // Fetch all test runs related to the project
-       const testRuns = await models.TestRun.findAll({
-           where: { project_id: projectId },
-           attributes: ["id"],
-       });
-
-    // Extract test run IDs
-    const testRunIds = testRuns.map((testRun) => testRun.id);
-
-    const issues = await models.Issue.findAll({
-        where: {
-            test_run_id: testRunIds,
-        },
-        include: [
-            {
-                model: models.User,
-                as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
-                attributes: ["id", "username"],
-            },
-        ],
-    });
-    console.log(issues);
-
-
-    // sort issues
-  //   const projectId = req.params.id;
-  //   const sortType = req.query.sortType || "CreatedAt"; 
-  //   const sortOrder = req.query.sortOrder || "Asc"; 
-  //   console.log(sortType, sortOrder)
-  //   let issues = await models.Issue.findAll({
-  //     where: {
-  //       project_id: projectId,
-  //     },
-  //     include: [
-  //       {
-  //         model: models.Member,
-  //         as: "Creator",
-  //         include: [
-  //           {
-  //             model: models.User,
-  //             attributes: ["first_name", "last_name"],
-  //             required: false,
-  //           },
-  //         ],
-  //         required: false,
-  //       },
-  //     ],
-  //   });
-    
-  //   issues = issues.sort((a, b) => {
-  //     switch (sortType) {
-  //       case "Priority":
-  //         return sortOrder === "Asc"
-  //           ? a.priority.localeCompare(b.priority)
-  //           : b.priority.localeCompare(a.priority);
-  //       case "Code":
-  //         return sortOrder === "Asc" ? a.id - b.id : b.id - a.id;
-  //       case "CreatedAt":         
-  //         return sortOrder === "Asc"
-  //           ? new Date(a.createdAt) - new Date(b.createdAt)
-  //           : new Date(b.createdAt) - new Date(a.createdAt);
-  //       default:
-  //         return 0;
-  //       }
-  //     })
-  //   res.render("issue", {
-  //     layout: "main_layout",
-  //     issues: issues,
-  //   });
-  // } catch (error) {
-  //   console.error("Error fetching issues:", error);
-  //   res.status(500).send("An error occurred while fetching issues.");
-  // }
-    // Render issues view and pass data
-    res.render("developer/issues", { user, projectId, project, issues });
-  } catch (error) {
-    next(error);
-  }
-};
-
-controller.issueDetailView = async (req, res, next) => {
-  try {
-      const userId = req.userid;
-      const projectId = req.params.id;
-
-      const user = await models.User.findByPk(userId);
-      if (!user) {
-          return res.status(404).json({ message: "User not found" });
-      }
-      const issueId = req.params.issueId;
-
-    // Fetch project to ensure it exists
-    const project = await models.Project.findByPk(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
-
-    // Fetch issue to ensure it exists
-    const issue = await models.Issue.findOne({
-      where: {
-        id: issueId,
-      },
-      include: [
-        {
-          model: models.TestRun,
-          where: { project_id: projectId },
-          attributes: ["id", "project_id"],
-        },
-        {
-          model: models.User,
-          as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
-          attributes: ["id", "username"],
-        },
-      ],
-    });
-
-    if (!issue) {
-      return res.status(404).json({ message: "Issue not found" });
-    }
-
-    // Render issue detail view and pass data
-    res.render("developer/issues-detail", { user, project, issue, projectId });
-  } catch (error) {
-    next(error);
-  }
-};
 
 
 controller.releaseView = async (req, res, next) => {
@@ -1242,76 +1099,194 @@ controller.getAllActivities = async (req, res,next) => {
 };
 
 
+
+// Lấy chi tiết dự án
+controller.issuesView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+  
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+  
+         // Fetch project to ensure it exists
+         const project = await models.Project.findByPk(projectId);
+         if (!project) {
+           return res.status(404).json({ message: "Project not found" });
+         }
+  
+         // Fetch all test runs related to the project
+         const testRuns = await models.TestRun.findAll({
+             where: { project_id: projectId },
+             attributes: ["id"],
+         });
+  
+      // Extract test run IDs
+      const testRunIds = testRuns.map((testRun) => testRun.id);
+  
+      const issues = await models.Issue.findAll({
+          where: {
+              test_run_id: testRunIds,
+          },
+          include: [
+              {
+                  model: models.User,
+                  as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+                  attributes: ["id", "username"],
+              },
+          ],
+      });
+  
+      // Render issues view and pass data
+      res.render("developer/issues", { user, projectId, project, issues });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  controller.issueDetailView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+  
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const issueId = req.params.issueId;
+  
+      // Fetch project to ensure it exists
+      const project = await models.Project.findByPk(projectId);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+  
+      // Fetch issue to ensure it exists
+      const issue = await models.Issue.findOne({
+        where: {
+          id: issueId,
+        },
+        include: [
+          {
+            model: models.TestRun,
+            where: { project_id: projectId },
+            attributes: ["id", "project_id"],
+          },
+          {
+            model: models.User,
+            as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+            attributes: ["id", "username"],
+          },
+        ],
+      });
+  
+      if (!issue) {
+        return res.status(404).json({ message: "Issue not found" });
+      }
+  
+      // Render issue detail view and pass data
+      res.render("developer/issues-detail", { user, project, issue, projectId });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  
+
 // Thêm issue
 controller.createIssue = async (req, res) => {
-  const { name, status, priority, note } = req.body;
-  const project_id = parseInt(req.session.project_id);
-  const member_id = req.session.projects[project_id].memberId
-  console.log(name, project_id, status, priority, note, member_id)
-  if (!project_id || !name || !status || !priority || !note) {
-    return res.status(400).message({ error: "Missing some fields" });
-  }
-
-  try {
-
-    const newIssue = await models.Issue.create({
-      name,
-      project_id,
-      status,
-      priority,
-      note,
-      member_id
-    });
-    console.log('Test Run created:', newIssue.toJSON());
-    res.redirect(`/project/${project_id}/issues`)
-  } catch (error) {
-    console.error("Error adding issue:", error);
-    res.send("Can not add issue!");
-    console.error(error);
-  }
-};
+    try {
+      const { title, status, priority, description } = req.body;
+      const projectId = req.params.id;
+      const testRunId = projectId; // Use the same :id as test_run_id
+      const userId = req.userid; // Get the logged-in user ID from the middleware
+  
+      // Validate input data
+      if (!title || !status || !priority || !projectId || !testRunId) {
+        return res.status(400).json({ success: false, message: "Missing required fields" });
+      }
+  
+      // Check if the project exists
+      const project = await models.Project.findByPk(projectId);
+      if (!project) {
+        return res.status(404).json({ success: false, message: "Project not found" });
+      }
+  
+      // Check if the test run exists
+      const testRun = await models.TestRun.findByPk(testRunId);
+      if (!testRun) {
+        return res.status(404).json({ success: false, message: "Test Run not found" });
+      }
+  
+      // Get the maximum ID from the Issue table to generate a new unique ID
+      const maxIssueId = await models.Issue.max("id");
+  
+      // Create a new issue in the database
+      const newIssue = await models.Issue.create({
+        id: maxIssueId + 1,
+        project_id: projectId,
+        title: title,
+        status: status,
+        priority: priority,
+        description: description,
+        created_at: new Date(),
+        test_run_id: testRunId,
+        assigned_to_user_id: userId, // Assign the issue to the logged-in user
+      });
+  
+      // Return the newly created issue to the client
+      return res.status(201).json({ success: true, issue: newIssue });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
+    }
+  };
+  
 
 // edit issue
 controller.editIssue = async (req, res) => {
-  const { title, status, priority, note } = req.body;
-  const id = req.params.id;
-  console.log(title, status, priority, note, id)
-  try {
-    const issue = await models.Issue.findByPk(id);
-    if (!issue) {
-      return res.status(404).json({ message: "Issue not found" });
-    }
-    if (title !== undefined) issue.name = title;
-    if (status !== undefined) issue.status = status;
-    if (priority !== undefined) issue.priority = priority;
-    if (note !== undefined) issue.note = note;
-    await issue.save();
-    console.log('Issue updated:', issue.toJSON());
-    return res.status(200).json(issue);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
-  }
-};
-
-
-controller.deleteIssue = async(req, res) => {
-  console.log(req.params.id)
-  try {
-      const issue = await models.Issue.findByPk(req.params.id)
+    const { title, status, priority, note } = req.body;
+    const id = req.params.id;
+    console.log(title, status, priority, note, id)
+    try {
+      const issue = await models.Issue.findByPk(id);
       if (!issue) {
-          return res.status(404).send("Issue not found");
+        return res.status(404).json({ message: "Issue not found" });
       }
-      await issue.destroy();
-      req.flash("success", `Delete Issue ${issue.name} successfully!`);
-      res.status(204).send();
-  } catch (error) {
+      if (title !== undefined) issue.name = title;
+      if (status !== undefined) issue.status = status;
+      if (priority !== undefined) issue.priority = priority;
+      if (note !== undefined) issue.note = note;
+      await issue.save();
+      console.log('Issue updated:', issue.toJSON());
+      return res.status(200).json(issue);
+    } catch (error) {
       return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+        .status(500)
+        .json({ message: "Internal server error", error: error.message });
+    }
+  };
+
+
+  controller.deleteIssue = async(req, res) => {
+    console.log(req.params.id)
+    try {
+        const issue = await models.Issue.findByPk(req.params.id)
+        if (!issue) {
+            return res.status(404).send("Issue not found");
+        }
+        await issue.destroy();
+        req.flash("success", `Delete Issue ${issue.name} successfully!`);
+        res.status(204).send();
+    } catch (error) {
+        return res
+        .status(500)
+        .json({ message: "Internal server error", error: error.message });
+    }
   }
-}
+  
 
 
 

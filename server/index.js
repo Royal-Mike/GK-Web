@@ -29,7 +29,7 @@ app.engine('hbs', expressHbs.engine({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
     },
-    helpers: helpers,
+    helpers: helpers,  // Use helpers here
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../client/views'));
@@ -61,9 +61,6 @@ app.use('/project', require('./routes/projectRoute'));
 
 // Routes for board
 app.use('/board', require('./routes/boardRoute'));
-
-
-//Routes for activity
 
 // Error handling middleware
 app.use((err, req, res, next) => {

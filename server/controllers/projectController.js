@@ -167,13 +167,80 @@ controller.projectDetailView = async (req, res, next) => {
             return res.redirect('/project');
         }
 
-        // Truyền thông tin project tới view
-        res.render("user/project-detail", { user, project });
+        // Lấy danh sách các user trong current project
+        const usersInProject = await models.User_Project.findAll({
+            where: { project_id: projectId },
+            include: {
+                model: models.User
+            },
+            order: [
+                ['role_id', 'ASC']
+            ]
+        });
+
+        const usersInProjectCount = usersInProject.length;
+
+        // Lấy danh sách các user không trong current project
+        const usersNotInProject = await models.User.findAll({
+            where: {
+                id: { [Op.notIn]: usersInProject.map(up => up.user_id) }
+            }
+        });
+
+        // Truyền thông tin project và danh sách user không trong project tới view
+        res.render("user/project-detail", {
+            user,
+            project,
+            usersInProject,
+            usersNotInProject,
+            usersInProjectCount
+        });
     } catch (error) {
         next(error);
     }
 };
 
+controller.addMemberToProject = async (req, res) => {
+    try {
+        const { userId, projectId, role } = req.body;
+
+        // Add the user to the project
+        await models.User_Project.create({
+            user_id: userId,
+            project_id: projectId,
+            role_id: role,
+        });
+
+        res.status(200).json({ message: 'Member added to the project' });
+    } catch (error) {
+        console.error('Error adding member to project:', error);
+        res.status(500).json({ error: 'An error occurred while adding the member' });
+    }
+};
+
+controller.removeMemberFromProject = async (req, res) => {
+    try {
+        const { userId, projectId } = req.body;
+
+        // Ensure both userId and projectId are valid
+        if (!userId || !projectId) {
+            return res.status(400).json({ message: 'Invalid input' });
+        }
+
+        // Remove the user from the project
+        await models.User_Project.destroy({
+            where: {
+                user_id: userId,
+                project_id: projectId
+            }
+        });
+
+        res.status(200).json({ message: 'Member removed successfully' });
+    } catch (error) {
+        console.error('Error removing member:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 const specialSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
 

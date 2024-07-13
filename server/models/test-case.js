@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         steps: DataTypes.TEXT,
         created_at: DataTypes.DATE,
         updated_at: DataTypes.DATE,
-        linked_requirements: DataTypes.TEXT,
+        linked_requirements: DataTypes.INTEGER,
         linked_issues: DataTypes.TEXT,
         project_id: DataTypes.INTEGER,
         created_by_user_id: DataTypes.INTEGER

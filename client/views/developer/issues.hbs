@@ -189,49 +189,49 @@
     <!-- Overlay -->
     <div class="overlay"></div>
     <!-- Bảng add Issues-->
-    <div class="add-issue-table">
-        <div class="container">
+     <div class="add-issue-table">
+            <div class="container">
+                <div class="d-flex align-item-center justify-content-between p-3">
+                    <h3 class="mx-auto">Add issue</h3>
+                    <button type="button" class="btn-close" id="close-issue-btn" aria-label="Close"></button>
+                </div>
 
-            <div class="d-flex align-item-center justify-content-between p-3">
-                <h3 class="mx-auto">Add issue</h3>
-                <button type="button" class="btn-close" id="close-issue-btn" aria-label="Close"></button>
+                <form id="add-issue-form" method="POST" action="/project/{{project.id}}/issues/create">
+                    <div class="row p-3">
+                        <div class="col">
+                            <p>Issue title <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="" aria-label="title" name="title" required />
+                            <p>Status <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="" aria-label="status" name="status" required />
+                            <p>Priority <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="" aria-label="priority" name="priority" required />
+                            <p>Test Run ID <span class="text-danger">*</span></p>
+                            <input type="number" class="form-control" placeholder="" aria-label="test_run_id" name="test_run_id" required />
+                        </div>
+                        <div class="col d-flex flex-column">
+                            <p>Description</p>
+                            <textarea class="form-control flex-grow-1" name="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="justify-content-center">
+                        <div class="text-center">
+                            <button class="btn custom-bold-btn rounded-3 me-3" type="submit" id="save-issue-btn">
+                                Save
+                            </button>
+                            <button class="btn border rounded-3" type="button" id="cancel-issue-btn">
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p><strong>Note:</strong> <em>Please do not hesitate to provide a detailed title and description for
+                                    the issue. Ensure to select the appropriate status, priority, and assignee. Attach any
+                                    necessary files if required before saving and completing the process.</em></p>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="row p-3">
-                <div class="col">
-                    <p>Issue title <span class="text-danger">*</span></p>
-                    <input type="text" class="form-control" placeholder="" aria-label="title" />
-                    <p>Status <span class="text-danger">*</span></p>
-                    <input type="text" class="form-control" placeholder="" aria-label="status" />
-                    <p>Priority <span class="text-danger">*</span></p>
-                    <input type="text" class="form-control" placeholder="" aria-label="priority" />
-                </div>
-                <div class="col d-flex flex-column">
-                    <p>Description</p>
-                    <textarea class="form-control flex-grow-1"></textarea>
-                </div>
-            </div>
-
-            <div class="justify-content-center">
-                <div class="text-center">
-                    <button class="btn custom-bold-btn rounded-3 me-3" id="save-issue-btn">
-                        Save
-                    </button>
-                    <button class="btn border rounded-3" id="cancel-issue-btn">
-                        Cancel
-                    </button>
-                </div>
-                <div class="text-center mt-3">
-                    <p><strong>Note:</strong> <em>Please do not hesitate to provide a detailed title and description for
-                            the issue. Ensure to select the appropriate status, priority, and assignee. Attach any
-                            necessary files if required before saving and completing the process.</em></p>
-                </div>
-            </div>
-
-
-
-
         </div>
+
 
 
 </main>
@@ -245,3 +245,37 @@
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/js/add-issue.js"></script>
+<script>
+        $(document).ready(function() {
+            $('#add-issue-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Collect form data
+                var formData = $(this).serialize();
+                var projectId = {{project.id}};
+                var url = '/project/' + projectId + '/issues/create';
+
+                // Send form data via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    success: function(response) {
+                        // Handle success response
+                        alert('Issue added successfully!');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        // Handle error response
+                        alert('Error adding issue. Please try again.');
+                    }
+                });
+            });
+
+            $('#cancel-issue-btn').on('click', function() {
+                // Clear form fields and close the form
+                $('#add-issue-form')[0].reset();
+                $('.add-issue-table').hide();
+            });
+        });
+    </script>

@@ -560,23 +560,53 @@ controller.getAllActivities = async (req, res,next) => {
 
 // Thêm issue
 controller.createIssue = async (req, res) => {
-  const { projectId, title, description, test_run_id, status, priority, assigned_to_user_id } = req.body;
   try {
-      const newIssue = await models.Issue.create({
-          projectId,
-          title,
-          description,
-          test_run_id,
-          status,
-          priority,
-          assigned_to_user_id
-      });
-      return res.status(201).json({ success: true, message: 'Issue created successfully', issue: newIssue });
+    const { title, status, priority, description, test_run_id } = req.body;
+    const projectId = req.params.id;
+    const userId = req.userid; // Get the logged-in user ID from the middleware
+
+    // Validate input data
+    if (!title || !status || !priority || !projectId || !test_run_id) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    // Check if the project exists
+    const project = await models.Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ success: false, message: "Project not found" });
+    }
+
+    // Check if the test run exists
+    const testRun = await models.TestRun.findByPk(test_run_id);
+    if (!testRun) {
+      return res.status(404).json({ success: false, message: "Test Run not found" });
+    }
+
+    // Get the maximum ID from the Issue table to generate a new unique ID
+    const maxIssueId = await models.Issue.max("id");
+
+    // Create a new issue in the database
+    const newIssue = await models.Issue.create({
+      id: maxIssueId + 1,
+      project_id: projectId,
+      title: title,
+      status: status,
+      priority: priority,
+      description: description,
+      created_at: new Date(),
+      test_run_id: test_run_id,
+      assigned_to_user_id: 5, // Assign the issue to the logged-in user
+    });
+
+    // Return the newly created issue to the client
+    return res.status(201).json({ success: true, issue: newIssue });
   } catch (error) {
-      console.error('Detailed Error: ', error);
-      return res.status(500).json({ success: false, message: 'Failed to create issue', error: error.message });
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
 };
+
+
 // edit issue
 controller.editIssue = async (req, res) => {
   const { title, status, priority, note } = req.body;

@@ -634,22 +634,26 @@ controller.editIssue = async (req, res) => {
 };
 
 
-controller.deleteIssue = async(req, res) => {
-  console.log(req.params.id)
+controller.deleteIssue = async (req, res) => {
   try {
-      const issue = await models.Issue.findByPk(req.params.id)
-      if (!issue) {
-          return res.status(404).send("Issue not found");
-      }
-      await issue.destroy();
-      req.flash("success", `Delete Issue ${issue.name} successfully!`);
-      res.status(204).send();
+    const issueId = req.params.issueId;
+    const projectId = req.params.id; // Ensure you verify the project ID if necessary
+
+    // Check if the issue belongs to the project
+    const issue = await models.Issue.findOne({ where: { id: issueId, project_id: projectId } });
+    if (!issue) {
+      console.error(`Issue not found: ID ${issueId}, Project ID ${projectId}`);
+      return res.status(404).json({ message: "Issue not found" });
+    }
+
+    await issue.destroy();
+    res.status(204).send();
   } catch (error) {
-      return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    console.error('Error deleting issue:', error);
+    return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
-}
+};
+
 
 
 

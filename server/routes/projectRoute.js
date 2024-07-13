@@ -18,6 +18,7 @@ router.get('/:id/issues', verifyToken, controller.issuesView);
 router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 router.post('/:id/issues/create', verifyToken, controller.createIssue);
 
+// Correctly define the delete route
 router.delete('/:id/issues/:issueId/delete', verifyToken, controller.deleteIssue);
 
 router.get('/:id/report', verifyToken, controller.reportView);

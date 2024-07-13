@@ -1,408 +1,486 @@
+<link rel="stylesheet" href="/css/testcase.css">
 
-    <main>
-      <div class="container-fluid">
-          <div class="row">
-              <!-- Side bar -->
-              {{> sidebar}}
-              <!-- Main content -->
-              <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
-                  {{> project-nav-bar}}
-                  <div class="container-fluid bg-light rounded-3">
-                      <div class="align-items-center d-flex">
-                          <div class="d-inline-block">
-                              <h5 class="ms-4 my-3">Test Runs & Results</h5>
-                          </div>
-                          <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
-                              <div class="mx-3">
-                                  <i class="bi bi-book"></i>
-                                  <span class="fw-bold">Guide</span>
-                              </div>
-                              <div class="mx-3">
-                                  <i class="bi bi-archive">Archived</i>
-                              </div>
-                              <div class="mx-3">
-                                  <i class="bi bi-search">Search</i>
-                              </div>
-                              <div class="mx-3">
-                                  <i class="bi bi-cloud-upload"></i>
-                                  Import
-                              </div>
-                              <div class="mx-3">
-                                  <i class="bi bi-three-dots-vertical"></i>
-                              </div>
-                          </div>
+<main>
+    <div class="container-fluid bg-grey">
+        <div class="row">
+            <!-- Side bar -->
+            {{> sidebar}}
+            <!-- Main content -->
+            <div class="col-md-11 col-lg-11 col-xl-11 bg-grey px-4">
+                {{> project-nav-bar}}
+                <div class="container-fluid bg-light rounded-3">
+                    <div class="align-items-center d-flex">
+                        <div class="d-inline-block">
+                            <h5 class="ms-4 my-3">Test Cases</h5>
+                        </div>
+                        <div class="d-inline-block ms-auto fw-bold d-flex align-items-center">
+                            <div class="mx-3">
+                                <i class="bi bi-book"></i>
+                                <span class="fw-bold">Guide</span>
+                            </div>
+                            <div class="mx-3">
+                                <i class="bi bi-archive">Archived</i>
+                            </div>
+                            <div class="mx-3">
+                                <i class="bi bi-search">Search</i>
+                            </div>
+                            <div class="mx-3">
+                                <i class="bi bi-cloud-upload"></i>
+                                Import
+                            </div>
+                            <div class="mx-3">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </div>
+                        </div>
 
-                          <div class="d-inline-block me-3" id="add-testcase-btn">
-                              <div class="mx-4 my-3 d-flex btn custom-bold-btn">
-                                  <div class="me-2 p-1">
-                                      <i class="bi bi-plus"></i>
-                                      Add test case
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="min-h-50 row gx-3 d-flex justify-content-between">
-                      <div class="col-4">
-                          <div class="h-100 d-flex flex-column p-3 bg-semi-grey semi-rounded">
-                              <div class="d-flex">
-                                  <div class="flex-fill">Module</div>
-                                  <div class="d-flex flex-fill ml-2 justify-content-end">
-                                      <i class="col-2 bi bi-arrows-angle-expand"></i>
-                                      <i class="col-2 bi bi-plus"></i>
-                                      <i class="bi bi-arrow-right"></i>
-                                  </div>
-                              </div>
-
-                              <hr />
-                              <div class="p-3">
-                                  <input class="w-100 p-3 pt-1 pb-1"
-                                         type="text"
-                                         placeholder="Type to Fliter Module" />
-                              </div>
-                              <div id="modulesContainer" class="d-flex flex-column">
-                                  <div id="module1"
-                                       class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
-                                      <i class="col-2 bi bi-folder" style="color: blue"></i>
-                                      <h6 class="col-3">Home Page</h6>
-                                      <h6 class="col-3">(10)</h6>
-                                      <i class="col-1 bi bi-usb-symbol"></i>
-                                      <i class="col-1 bi bi-plus"></i>
-                                      <i class="bi bi-usb-drive-fill"></i>
-                                  </div>
-                                  <div id="module2"
-                                       class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
-                                      <i class="col-2 bi bi-folder" style="color: blue"></i>
-                                      <h6 class="col-3">Home Page</h6>
-                                      <h6 class="col-3">(10)</h6>
-                                      <i class="col-1 bi bi-usb-symbol"></i>
-                                      <i class="col-1 bi bi-plus"></i>
-                                      <i class="bi bi-usb-drive-fill"></i>
-                                  </div>
-                                  <div id="module3"
-                                       class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
-                                      <i class="col-2 bi bi-folder" style="color: blue"></i>
-                                      <h6 class="col-3">Home Page</h6>
-                                      <h6 class="col-3">(10)</h6>
-                                      <i class="col-1 bi bi-usb-symbol"></i>
-                                      <i class="col-1 bi bi-plus"></i>
-                                      <i class="bi bi-usb-drive-fill"></i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <!-- right side of main -->
-                      <div class="col-8">
-                          <div class="h-100 flex bg-semi-grey semi-rounded p-3">
-                              <!-- action bar -->
-                              <div class="container-fluid bg-light mt-4 py-2 rounded-3">
-                                  <div class="align-items-center d-flex mt-2">
-                                      <h5 class="ms-4 my-3">Show</h5>
-                                      <div class="ms-2">
-                                          <div class="dropdown">
-                                              <button class="btn dropdown-toggle p-1"
-                                                      type="button"
-                                                      id="dropdownMenu1"
-                                                      data-bs-toggle="dropdown"
-                                                      aria-expanded="false"
-                                                      style="min-width: 100px">
-                                                  5
-                                              </button>
-                                              <ul class="dropdown-menu"
-                                                  aria-labelledby="dropdownMenu1">
-                                                  <li>
-                                                      <button class="dropdown-item" type="button">
-                                                          5
-                                                      </button>
-                                                  </li>
-                                                  <li>
-                                                      <button class="dropdown-item" type="button">
-                                                          15
-                                                      </button>
-                                                  </li>
-                                                  <li>
-                                                      <button class="dropdown-item" type="button">
-                                                          20
-                                                      </button>
-                                                  </li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                      <div>entries</div>
-                                      <div class="col-md-6 d-flex justify-content-end">
-                                          <div class="mr-3">
-                                              <style>
-                                                  /* Custom styling for select elements */
-                                                  .custom-select {
-                                                      border: 1px solid #ced4da;
-                                                      border-radius: 4px;
-                                                      padding: 8px 12px;
-                                                      width: auto;
-                                                  }
-
-                                                  .sort-label {
-                                                      font-weight: bold;
-                                                  }
-
-                                                  /* Styling for sort input group */
-                                                  .sort-input-group {
-                                                      display: flex;
-                                                      justify-content: space-between;
-                                                  }
-
-                                                  /* Styling for sort button */
-                                                  .sort-button {
-                                                      cursor: pointer;
-                                                      color: #fff;
-                                                      border: none;
-                                                      border-radius: 4px;
-                                                      padding: 8px 12px;
-                                                      transition: background-color 0.3s ease;
-                                                  }
-                                              </style>
-
-                                              <div role="group"
-                                                   class="d-flex form-group mb-0 sort-container">
-                                                  <label for="sort-by-select"
-                                                         class="d-block align-self-center text-sm-right sort-label text-center">Sort</label>
-                                                  <div class="bv-no-focus-ring sort-input-group ml-2">
-                                                      <div role="group" class="input-group">
-                                                          <select id="sort-by-select"
-                                                                  class="custom-select"
-                                                                  label="name"
-                                                                  reduce="function(t){return t.id}">
-                                                              <option value="created_at">
-                                                                  Created Date
-                                                              </option>
-                                                              <option value="project_name">
-                                                                  Project Name
-                                                              </option>
-                                                          </select>
-                                                          <select class="custom-select" id="__BVID__150">
-                                                              <option value="false">Asc</option>
-                                                              <option value="true">Desc</option>
-                                                          </select>
-                                                      </div>
-                                                  </div>
-                                              </div>
-
-                                              <script>
-                                                  // JavaScript for sorting functionality
-                                                  function sortItems() {
-                                                      const sortBySelect =
-                                                          document.getElementById("sort-by-select");
-                                                      const sortOrderSelect =
-                                                          document.getElementById("__BVID__150");
-                                                      const sortBy = sortBySelect.value;
-                                                      const sortOrder =
-                                                          sortOrderSelect.value === "true"
-                                                              ? "desc"
-                                                              : "asc";
-
-                                                      console.log("Sort by:", sortBy);
-                                                      console.log("Sort order:", sortOrder);
-                                                  }
-                                              </script>
-                                          </div>
-                                      </div>
-
-                                  </div>
-                              </div>
-
-                              <!-- table -->
-                              <table class="table mt-4 me-2">
-                                  <thead>
-                                      <tr class="semi-rounded blur-green-theme">
-                                          <th scope="col">Case Code</th>
-                                          <th scope="col">Title</th>
-                                          <th scope="col">Steps</th>
-                                          <th scope="col">Created By</th>
-
-                                          <th scope="col"
-                                              style="
-                            max-width: 100px;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                          ">
-                                              Created At
-                                          </th>
-                                          <th scope="col"></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody id="testcasesContainer">
-                                      {{#each testcases}}
-                                      <tr>
-                                          <th scope="row">TC00{{this.id}}</th>
-                                          <td>{{this.title}}</td>
-                                          <td><i class="bi bi-file-earmark-fill"></i></td>
-
-                                          <td style="max-width: 20%">{{this.CreatedByUser.username}}</td>
-
-                                          <td style="max-width: 10%" class="eclipsis-overflow">
-                                              {{formatDate this.created_at}}
-                                          </td>
-
-                                          <td class="ps-0">
-                                              <div class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end">
-                                                  <i class="bi bi-eye"></i>
-                                                  <i class="bi bi-archive"></i>
-                                              </div>
-                                          </td>
-                                      </tr>
-                                      {{/each}}
-
-
-                                  </tbody>
-                              </table>
-
-                              <!-- pagination -->
-                              <div class="d-flex justify-content-center">
-                                  <nav aria-label="Page navigation">
-                                      <ul class="pagination">
-                                          {{#if (gt currentPage 1)}}
-                                          <li class="page-item">
-                                              <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
-                                                  <span aria-hidden="true">&laquo;</span>
-                                              </a>
-                                          </li>
-                                          {{/if}}
-
-                                          {{#each (range 1 totalPages)}}
-                                          <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
-                                              <a class="page-link" href="?page={{this}}">{{this}}</a>
-                                          </li>
-                                          {{/each}}
-
-                                          {{#if (lt currentPage totalPages)}}
-                                          <li class="page-item">
-                                              <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
-                                                  <span aria-hidden="true">&raquo;</span>
-                                              </a>
-                                          </li>
-                                          {{/if}}
-                                      </ul>
-                                  </nav>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </main>
-    
-
-
-    <div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestcasePopup">
-      <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0 ">
-        <div class="container bg-white rounded-3 p-3">
-          <div class="d-flex align-item-center justify-content-between p-3">
-            <h3 class="mx-auto">Add Test Case</h3>
-          </div>
-
-          <div class="row p-3">
-              <div class="col">
-                  <span class="fs-6 font-weight-semibold">
-                      Title test-case<span class="text-danger">*</span>
-                  </span>
-                  <div class="input-group mb-3 w-30">
-                      <input type="text"
-                             class="form-control"
-                             aria-label="Testcase name"
-                             id="testcase-name" />
-                  </div>
-                  <span class="fs-6 font-weight-semibold">
-                      Description<span class="text-danger"></span>
-                  </span>
-                  <div class="input-group w-100">
-                      <textarea class="form-control"
-                                aria-label="With textarea"
-                                id="testcase-description"></textarea>
-                  </div>
-              </div>
-            <div class="col d-flex flex-column">
-              <div class="flex-fill flex-column">
-                <div
-                  class="test-step d-flex justify-content-start align-items-center gap-1"
-                >
-                  <div class="col">
-                    <span
-                      >Step Description</span
-                    >
-                  </div>
-                  <div class="col">
-                    <span>Expected Result</span>
-                  </div>
+                        <div class="d-inline-block me-3" id="add-testcase-btn">
+                            <div class="mx-4 my-3 d-flex btn custom-bold-btn">
+                                <div class="me-2 p-1">
+                                    <i class="bi bi-plus"></i>
+                                    Add test case
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="min-h-50 row gx-3 d-flex justify-content-between">
+                    <div class="col-4">
+                        <div class="h-100 d-flex flex-column p-3 bg-semi-grey semi-rounded">
+                            <div class="d-flex">
+                                <div class="flex-fill">Module</div>
+                                <div class="d-flex flex-fill ml-2 justify-content-end">
+                                    <i class="col-2 bi bi-arrows-angle-expand"></i>
+                                    <i class="col-2 bi bi-plus"></i>
+                                    <i class="bi bi-arrow-right"></i>
+                                </div>
+                            </div>
 
-                <div class="test-step d-flex justify-content-around gap-3">
-                  <div class="input-group w-50">
-                    <textarea
-                      class="form-control"
-                      aria-label="With textarea"
-                      name="step-description"
-                    ></textarea>
-                  </div>
-                  <div class="input-group w-50">
-                    <textarea
-                      class="form-control"
-                      aria-label="With textarea"
-                      name="expected-result"
-                    ></textarea>
-                  </div>
+                            <hr />
+                            <div class="p-3">
+                                <input class="w-100 p-3 pt-1 pb-1"
+                                       type="text"
+                                       placeholder="Type to Fliter Module" />
+                            </div>
+                            <div id="modulesContainer" class="d-flex flex-column">
+                                <div id="module1"
+                                     class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
+                                    <i class="col-2 bi bi-folder" style="color: blue"></i>
+                                    <h6 class="col-3">Home Page</h6>
+                                    <h6 class="col-3">(10)</h6>
+                                    <i class="col-1 bi bi-usb-symbol"></i>
+                                    <i class="col-1 bi bi-plus"></i>
+                                    <i class="bi bi-usb-drive-fill"></i>
+                                </div>
+                                <div id="module2"
+                                     class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
+                                    <i class="col-2 bi bi-folder" style="color: blue"></i>
+                                    <h6 class="col-3">Home Page</h6>
+                                    <h6 class="col-3">(10)</h6>
+                                    <i class="col-1 bi bi-usb-symbol"></i>
+                                    <i class="col-1 bi bi-plus"></i>
+                                    <i class="bi bi-usb-drive-fill"></i>
+                                </div>
+                                <div id="module3"
+                                     class="d-flex pointer-cursor align-items-center col m-4 mt-4 mb-0 font-weight-semibold">
+                                    <i class="col-2 bi bi-folder" style="color: blue"></i>
+                                    <h6 class="col-3">Home Page</h6>
+                                    <h6 class="col-3">(10)</h6>
+                                    <i class="col-1 bi bi-usb-symbol"></i>
+                                    <i class="col-1 bi bi-plus"></i>
+                                    <i class="bi bi-usb-drive-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- right side of main -->
+                    <div class="col-8">
+                        <div class="h-100 flex bg-semi-grey semi-rounded p-3">
+                            <!-- action bar -->
+                            <div class="container-fluid bg-light mt-4 py-2 rounded-3">
+                                <div class="align-items-center d-flex mt-2">
+                                    <h5 class="ms-4 my-3">Show</h5>
+                                    <div class="ms-2">
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle p-1"
+                                                    type="button"
+                                                    id="dropdownMenu1"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    style="min-width: 100px">
+                                                5
+                                            </button>
+                                            <ul class="dropdown-menu"
+                                                aria-labelledby="dropdownMenu1">
+                                                <li>
+                                                    <button class="dropdown-item" type="button">
+                                                        5
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" type="button">
+                                                        15
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" type="button">
+                                                        20
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div>entries</div>
+                                    <div class="col-md-6 d-flex justify-content-end">
+                                        <div class="mr-3">
+                                            <style>
+                                                /* Custom styling for select elements */
+                                                .custom-select {
+                                                    border: 1px solid #ced4da;
+                                                    border-radius: 4px;
+                                                    padding: 8px 12px;
+                                                    width: auto;
+                                                }
+
+                                                .sort-label {
+                                                    font-weight: bold;
+                                                }
+
+                                                /* Styling for sort input group */
+                                                .sort-input-group {
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                }
+
+                                                /* Styling for sort button */
+                                                .sort-button {
+                                                    cursor: pointer;
+                                                    color: #fff;
+                                                    border: none;
+                                                    border-radius: 4px;
+                                                    padding: 8px 12px;
+                                                    transition: background-color 0.3s ease;
+                                                }
+                                            </style>
+
+                                            <div role="group"
+                                                 class="d-flex form-group mb-0 sort-container">
+                                                <label for="sort-by-select"
+                                                       class="d-block align-self-center text-sm-right sort-label text-center">Sort</label>
+                                                <div class="bv-no-focus-ring sort-input-group ml-2">
+                                                    <div role="group" class="input-group">
+                                                        <select id="sort-by-select"
+                                                                class="custom-select"
+                                                                label="name"
+                                                                reduce="function(t){return t.id}">
+                                                            <option value="created_at">
+                                                                Created Date
+                                                            </option>
+                                                            <option value="project_name">
+                                                                Project Name
+                                                            </option>
+                                                        </select>
+                                                        <select class="custom-select" id="__BVID__150">
+                                                            <option value="false">Asc</option>
+                                                            <option value="true">Desc</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                // JavaScript for sorting functionality
+                                                function sortItems() {
+                                                    const sortBySelect =
+                                                        document.getElementById("sort-by-select");
+                                                    const sortOrderSelect =
+                                                        document.getElementById("__BVID__150");
+                                                    const sortBy = sortBySelect.value;
+                                                    const sortOrder =
+                                                        sortOrderSelect.value === "true"
+                                                            ? "desc"
+                                                            : "asc";
+
+                                                    console.log("Sort by:", sortBy);
+                                                    console.log("Sort order:", sortOrder);
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- table -->
+                            <table class="table mt-4 me-2">
+                                <thead>
+                                    <tr class="semi-rounded blur-green-theme">
+                                        <th scope="col">Case Code</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Steps</th>
+                                        <th scope="col">Created By</th>
+
+                                        <th scope="col"
+                                            style="
+                        max-width: 100px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        ">
+                                            Created At
+                                        </th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="testcasesContainer">
+                                    {{#each testcases}}
+                                    <tr id="testcase-{{this.id}}">
+                                        <th scope="row">TC00{{this.id}}</th>
+                                        <td>{{this.title}}</td>
+                                        <td><i class="bi bi-file-earmark-fill"></i></td>
+                                        <td style="max-width: 20%">{{this.CreatedByUser.username}}</td>
+                                        <td style="max-width: 10%" class="eclipsis-overflow">
+                                            {{formatDate this.created_at}}
+                                        </td>
+                                        <td class="ps-0">
+                                            <div class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end icon-group">
+                                                <i class="bi bi-eye" data-id="{{this.id}}"></i>
+                                                <i class="bi bi-trash trash-icon" data-id="{{this.id}}"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+
+
+
+
+                                </tbody>
+                            </table>
+
+                            <!-- pagination -->
+                            <div class="d-flex justify-content-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        {{#if (gt currentPage 1)}}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{subtract currentPage 1}}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        {{/if}}
+
+                                        {{#each (range 1 totalPages)}}
+                                        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
+                                            <a class="page-link" href="?page={{this}}">{{this}}</a>
+                                        </li>
+                                        {{/each}}
+
+                                        {{#if (lt currentPage totalPages)}}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{add currentPage 1}}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                        {{/if}}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-
-          <div class="justify-content-center">
-            <div class="text-center">
-              <button
-                class="btn custom-bold-btn rounded-3 me-3"
-                id="save-testcase-btn"
-              >
-                Save
-              </button>
-              <button class="btn border rounded-3" id="cancel-testcase-btn">
-                Cancel
-              </button>
-            </div>
-            <div class="text-center mt-3">
-              <p>
-                <strong>Note:</strong>
-                <em
-                  >Please do not hesitate to provide a detailed title and
-                  description for the issue. Ensure to select the appropriate
-                  status, priority, and assignee. Attach any necessary files if
-                  required before saving and completing the process.</em
-                >
-              </p>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-    
-    <div
-      class="alert alert-success position-fixed top-0 end-0 mt-3 me-3"
-      id="successMessage"
-      style="display: none"
-    >
-      Saved successfully!
+</main>
+
+
+
+<div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestcasePopup">
+    <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0 ">
+        <div class="container bg-white rounded-3 p-3">
+            <div class="d-flex align-item-center justify-content-between p-3">
+                <h3 class="mx-auto">Add Test Case</h3>
+            </div>
+
+            <div class="row p-3">
+                <div class="col">
+                    <span class="fs-6 font-weight-semibold">
+                        Title test-case<span class="text-danger">*</span>
+                    </span>
+                    <div class="input-group mb-3 w-30">
+                        <input type="text"
+                               class="form-control"
+                               aria-label="Testcase name"
+                               id="testcase-name" />
+                    </div>
+                    <span class="fs-6 font-weight-semibold">
+                        Description<span class="text-danger"></span>
+                    </span>
+                    <div class="input-group w-100">
+                        <textarea class="form-control"
+                                  aria-label="With textarea"
+                                  id="testcase-description"></textarea>
+                    </div>
+                </div>
+                <div class="col d-flex flex-column">
+                    <div class="flex-fill flex-column">
+                        <div class="test-step d-flex justify-content-start align-items-center gap-1">
+                            <div class="col">
+                                <span>Step Description</span>
+                            </div>
+                            <div class="col">
+                                <span>Expected Result</span>
+                            </div>
+                        </div>
+
+                        <div class="test-step d-flex justify-content-around gap-3">
+                            <div class="input-group w-50">
+                                <textarea class="form-control"
+                                          aria-label="With textarea"
+                                          name="step-description"></textarea>
+                            </div>
+                            <div class="input-group w-50">
+                                <textarea class="form-control"
+                                          aria-label="With textarea"
+                                          name="expected-result"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-content-center">
+                <div class="text-center">
+                    <button class="btn custom-bold-btn rounded-3 me-3"
+                            id="save-testcase-btn">
+                        Save
+                    </button>
+                    <button class="btn border rounded-3" id="cancel-testcase-btn">
+                        Cancel
+                    </button>
+                </div>
+                <div class="text-center mt-3">
+                    <p>
+                        <strong>Note:</strong>
+                        <em>
+                            Please do not hesitate to provide a detailed title and
+                            description for the issue. Ensure to select the appropriate
+                            status, priority, and assignee. Attach any necessary files if
+                            required before saving and completing the process.
+                        </em>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
+<!-- Test Case Detail Popup -->
+<div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="testcaseDetailPopup" style="display: none;">
+    <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+        <div class="container bg-white rounded-3 p-3">
+            <div class="d-flex align-item-center justify-content-between p-3">
+                <h3 class="mx-auto">Test Case Details</h3>
+                <button class="btn-close" id="closeDetailPopup"></button>
+            </div>
+            <div class="row p-3">
+                <div class="col">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">ID</span>
+                            <input type="text" class="form-control px-2" aria-label="Testcase ID" id="detail-id" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">Created By</span>
+                            <input type="text" class="form-control px-2" aria-label="Created By" id="detail-created-by" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">Created At</span>
+                            <input type="text" class="form-control px-2" aria-label="Created At" id="detail-created-at" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">Updated At</span>
+                            <input type="text" class="form-control px-2" aria-label="Updated At" id="detail-updated-at" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Title</span>
+                            <input type="text" class="form-control px-2" aria-label="Testcase title" id="detail-title" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Module</span>
+                            <input type="text" class="form-control px-2" aria-label="Testcase module" id="detail-module" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Linked Requirements</span>
+                            <textarea class="form-control px-2" aria-label="Linked Requirements" id="detail-linked-requirements" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Linked Issues</span>
+                            <textarea class="form-control px-2" aria-label="Linked Issues" id="detail-linked-issues" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Description</span>
+                            <textarea class="form-control px-2" aria-label="Testcase description" id="detail-description" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Pre-condition</span>
+                            <textarea class="form-control px-2" aria-label="Testcase pre-condition" id="detail-precondition" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <span class="fs-6 font-weight-semibold">Steps</span>
+                            <textarea class="form-control px-2" aria-label="Testcase steps" id="detail-steps" readonly></textarea>
+                        </div>
+                    </div>
+                    <!-- Edit, Save, and Cancel Buttons -->
+                    <div class="row mb-3">
+                        <div class="col">
+                            <button class="btn btn-primary" id="editTestCaseButton">Edit</button>
+                            <button class="btn btn-success" id="saveTestCaseButton" style="display: none;">Save</button>
+                            <button class="btn btn-secondary" id="cancelEditTestCaseButton" style="display: none;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="/js/add-test-case.js"></script>
+
+
+
+
+
+<div class="alert alert-success position-fixed top-0 end-0 mt-3 me-3"
+     id="successMessage"
+     style="display: none">
+    Saved successfully!
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/add-test-case.js"></script>
+<script src="/js/edit-test-case.js"></script>
+<script src="/js/delete-test-case.js"></script>
 

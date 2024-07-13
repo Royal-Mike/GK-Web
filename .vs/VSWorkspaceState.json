@@ -4,13 +4,13 @@
     "\\client",
     "\\client\\views",
     "\\client\\views\\developer",
+    "\\client\\views\\layouts",
     "\\client\\views\\partials",
-    "\\client\\views\\tester",
     "\\client\\views\\user",
     "\\server",
-    "\\server\\routes",
-    "\\server\\utils"
+    "\\server\\migrations",
+    "\\server\\models"
   ],
-  "SelectedNode": "\\client\\views\\tester\\test-case.hbs",
+  "SelectedNode": "\\server\\routes\\projectRoute.js",
   "PreviewInSolutionExplorer": false
 }

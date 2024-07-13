@@ -15,16 +15,16 @@
             <a class="nav-link" data-tab="overview" href="/project/{{project.id}}">Overview</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="requirements" href="#">Requirements</a>
+            <a class="nav-link" data-tab="requirements" href="/project/{{project.id}}/requirement">Requirements</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="attachments" href="#">Attachments</a>
+            <a class="nav-link" data-tab="attachments" href="/project/{{project.id}}/attachment">Attachments</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active-tab" data-tab="releases" href="/project/{{project.id}}/release">Releases</a>
+            <a class="nav-link" data-tab="releases" href="/project/{{project.id}}/release">Releases</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-tab="modules" href="#">Modules</a>
+            <a class="nav-link" data-tab="modules" href="/project/{{project.id}}/module">Modules</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-tab="test-cases" href="/project/{{project.id}}/test-case">Test Cases</a>
@@ -64,19 +64,53 @@
             }
         }
 
+        // Set active tab on page load based on URL
+        function setActiveTabBasedOnURL() {
+            const pathArray = window.location.pathname.split('/');
+            const projectIdIndex = pathArray.indexOf('project');
+            const activeTab = pathArray[projectIdIndex + 2]; // phần tử tiếp theo sau project
+
+            switch (activeTab) {
+                case 'requirement':
+                    setActiveTab('requirements');
+                    break;
+                case 'attachment':
+                    setActiveTab('attachments');
+                    break;
+                case 'release':
+                    setActiveTab('releases');
+                    break;
+                case 'module':
+                    setActiveTab('modules');
+                    break;
+                case 'test-case':
+                    setActiveTab('test-cases');
+                    break;
+                case 'test-run':
+                    setActiveTab('test-runs');
+                    break;
+                case 'issues':
+                    setActiveTab('issues');
+                    break;
+                case 'report':
+                    setActiveTab('reports');
+                    break;
+                case 'activity':
+                    setActiveTab('activity');
+                    break;
+                default:
+                    setActiveTab('overview');
+                    break;
+            }
+        }
+
+        setActiveTabBasedOnURL();
 
         // Event listener for clicking on tabs
         navLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                // Remove active state from all tabs
+            link.addEventListener('click', function () {
                 removeAllActiveTabs();
-
-                // Add active state to the clicked tab
                 this.classList.add('active-tab');
-
-                // Update the active tab based on data-tab attribute
-                const tabName = this.getAttribute('data-tab');
-                setActiveTab(tabName);
             });
         });
     });

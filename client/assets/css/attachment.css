@@ -1,0 +1,52 @@
+.attachment-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.attachment-item {
+    margin: 10px;
+    padding: 15px; /* Increase padding for more space inside each item */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    width: 200px; /* Increase width for larger items */
+    text-align: center;
+    overflow: hidden; /* Ensure the text is contained within the box */
+    position: relative;
+}
+
+.attachment-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+    .attachment-link:hover {
+        text-decoration: none;
+    }
+
+.attachment-item i {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 5px; /* Adjust top and left values as needed */
+    left: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+    color: red;
+}
+
+.attachment-item:hover .delete-btn {
+    display: block; /* Show on hover */
+}

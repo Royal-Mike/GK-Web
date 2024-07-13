@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           ${project.name_project}
                       </h4>
                       <p style="font-size: 0.75rem">Created on ${new Date(project.created_at).toLocaleString()}</p>
-                      <p style="font-size: 0.75rem">Created by <b>Hoang</b></p>
+                      <p style="font-size: 0.75rem">Created by <b>${project.projectFounder}</b></p>
                     </div>
                   </div>
                 </div>
@@ -88,9 +88,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
                 </div>
                 <hr/>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
                   <button type="button" class="btn btn-primary" style="background-color: #034f75">
                     <i class="bi bi-person-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary delete-project">
+                    <i class="bi bi-trash"></i>
                   </button>
                 </div>
               </div>

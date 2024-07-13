@@ -3,57 +3,79 @@ const { where } = require("sequelize");
 const models = require("../models");
 const { Op } = require("sequelize");
 const { isNumericString } = require('../utils/helpers'); 
+const fs = require('fs');
+const path = require('path');
 
 controller.projectView = async (req, res, next) => {
-  try {
-    const userId = req.userid;
-    let { page, sortBy, sortOrder, searchTerm } = req.query;
+    try {
+        const userId = req.userid;
+        let { page, sortBy, sortOrder, searchTerm } = req.query;
 
-    page = page ? parseInt(page) : 1;
-    const pageSize = 8;
-    const offset = (page - 1) * pageSize;
+        page = page ? parseInt(page) : 1;
+        const pageSize = 8;
+        const offset = (page - 1) * pageSize;
 
-    const user = await models.User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const userProjects = await models.User_Project.findAll({
+            where: { user_id: userId },
+        });
+        const projectIds = userProjects.map((up) => up.project_id);
+
+        let whereCondition = { id: projectIds };
+        if (searchTerm) {
+            whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
+        }
+
+        let orderCondition = [["created_at", "DESC"]];
+        if (sortBy && ["name_project", "created_at"].includes(sortBy)) {
+            orderCondition = [[sortBy, sortOrder === "asc" ? "ASC" : "DESC"]];
+        }
+
+        const count = await models.Project.count({ where: whereCondition });
+
+        const projects = await models.Project.findAll({
+            where: whereCondition,
+            order: orderCondition,
+            limit: pageSize,
+            offset: offset,
+        });
+
+        const projectsWithFounders = await Promise.all(
+            projects.map(async (project) => {
+                const founder = await models.User_Project.findOne({
+                    where: {
+                        project_id: project.id,
+                        role_id: 1, // Assuming role_id 1 indicates the founder
+                    },
+                    include: {
+                        model: models.User,
+                        attributes: ['username'],
+                    },
+                });
+
+                const projectData = project.toJSON();
+                projectData.projectFounder = founder ? founder.User.username : null;
+
+                return projectData;
+            })
+        );
+
+        const totalPages = Math.ceil(count / pageSize);
+
+        res.render("tester/project-view", {
+            user,
+            userProjects,
+            projects: projectsWithFounders,
+            currentPage: page,
+            totalPages,
+        });
+    } catch (error) {
+        next(error);
     }
-
-    const userProjects = await models.User_Project.findAll({
-      where: { user_id: userId },
-    });
-    const projectIds = userProjects.map((up) => up.project_id);
-
-    let whereCondition = { id: projectIds };
-    if (searchTerm) {
-      whereCondition.name_project = { [Op.iLike]: `%${searchTerm}%` };
-    }
-
-    let orderCondition = [["created_at", "DESC"]];
-    if (sortBy && ["name_project", "created_at"].includes(sortBy)) {
-      orderCondition = [[sortBy, sortOrder === "asc" ? "ASC" : "DESC"]];
-    }
-
-    const count = await models.Project.count({ where: whereCondition });
-
-    const projects = await models.Project.findAll({
-      where: whereCondition,
-      order: orderCondition,
-      limit: pageSize,
-      offset: offset,
-    });
-
-    const totalPages = Math.ceil(count / pageSize);
-
-    res.render("tester/project-view", {
-      user,
-      userProjects,
-      projects,
-      currentPage: page,
-      totalPages,
-    });
-  } catch (error) {
-    next(error);
-  }
 };
 
 controller.getProjectByKey = async (req, res, next) => {
@@ -93,9 +115,29 @@ controller.getProjectByKey = async (req, res, next) => {
       offset: offset,
     });
 
+      const projectsWithFounders = await Promise.all(
+          projects.map(async (project) => {
+              const founder = await models.User_Project.findOne({
+                  where: {
+                      project_id: project.id,
+                      role_id: 1, // Assuming role_id 1 indicates the founder
+                  },
+                  include: {
+                      model: models.User,
+                      attributes: ['username'],
+                  },
+              });
+
+              const projectData = project.toJSON();
+              projectData.projectFounder = founder ? founder.User.username : null;
+
+              return projectData;
+          })
+      );
+
     const totalPages = Math.ceil(count / pageSize);
 
-    res.json({ projects, currentPage: page, totalPages });
+      res.json({ projects: projectsWithFounders, currentPage: page, totalPages });
   } catch (error) {
     next(error);
   }
@@ -104,12 +146,18 @@ controller.getProjectByKey = async (req, res, next) => {
 
 controller.projectDetailView = async (req, res, next) => {
     try {
+        const userId = req.userid;
         const projectId = req.params.id;
 
-        // if (!isNumericString(projectId)) {
-        //     res.cookie('error', 'Invalid Project ID type');
-        //     return res.redirect('/project');
-        // }
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (!isNumericString(projectId)) {
+            res.cookie('error', 'Invalid Project ID type');
+            return res.redirect('/project');
+        }
 
         // Lấy thông tin project từ cơ sở dữ liệu
         const project = await models.Project.findByPk(projectId);
@@ -120,7 +168,7 @@ controller.projectDetailView = async (req, res, next) => {
         }
 
         // Truyền thông tin project tới view
-        res.render("user/project-detail", { project });
+        res.render("user/project-detail", { user, project });
     } catch (error) {
         next(error);
     }
@@ -187,23 +235,281 @@ controller.createProject = async (req, res) => {
   }
 };
 
-
-controller.testCaseView = async (req, res, next) => {
+controller.updateProject = async (req, res) => {
     try {
+        const { name, description } = req.body;
         const projectId = req.params.id;
-        const page = isNaN(req.query.page)
-            ? 1
-            : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
-        const pageSize = 5; // Số lượng testcase trên mỗi trang
-        const offset = (page - 1) * pageSize;
 
-        // Lấy thông tin project từ cơ sở dữ liệu
+        if (!name) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Project name is required." });
+        }
+
+        // Check if name contains special symbols
+        if (specialSymbolsRegex.test(name)) {
+            return res
+                .status(401)
+                .json({
+                    success: false,
+                    message: "Project name cannot contain special symbols.",
+                });
+        }
+
+        // Find the project to be updated
+        const project = await models.Project.findOne({ where: { id: projectId } });
+
+        if (!project) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Project not found." });
+        }
+
+        // Update the project
+        await project.update({
+            name_project: name,
+            description,
+        });
+
+        // Return the updated project to the client
+        res.status(201).json({ success: true, project });
+    } catch (error) {
+        console.error(error);
+        // Handle specific validation errors
+        if (error.name === "SequelizeValidationError") {
+            return res
+                .status(400)
+                .json({ success: false, message: error.errors[0].message });
+        }
+        res
+            .status(500)
+            .json({
+                success: false,
+                message:
+                    "An error occurred while updating the project. Please try again.",
+            });
+    }
+};
+
+controller.deleteProject = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        const project = await models.Project.findByPk(id);
+
+        if (!project) {
+            return res.status(404).json({ success: false, message: "Project not found." });
+        }
+
+        // Delete associated entries in User_Project table
+        await models.User_Project.destroy({ where: { project_id: id } });
+
+        // Now delete the project itself
+        await project.destroy();
+
+        // Return success response
+        res.status(200).json({ success: true, message: "Project deleted successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while deleting the project. Please try again.",
+        });
+    }
+};
+
+controller.requirementView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/requirement", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.attachmentView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const project = await models.Project.findByPk(projectId, {
+            include: {
+                model: models.Attachment,
+                attributes: ['id', 'data_link'] // Include id and data_link attributes
+            }
+        });
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Extract attachments with id, data_link, and filename
+        const attachments = project.Attachments.map(attachment => {
+            const data_link = attachment.data_link;
+            const filename = data_link.split('/').pop(); // Extract filename from data_link
+            return {
+                id: attachment.id, // Include attachment ID
+                data_link,
+                filename
+            };
+        });
+
+        res.render("tester/attachment", {
+            user,
+            project,
+            attachments // Pass the attachments array with id, data_link, and filename
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+controller.uploadAttachment = async (req, res) => {
+    try {
+        if (req.file == undefined) {
+            return res.status(400).send({ message: "Please upload a file!" });
+        }
+
+        const userId = req.userid;
+        const projectId = req.params.id;
+        const attachmentUrl = `/upload/attachment/${req.file.filename}`;
+
+        // Save the attachment data to the database
+        const newAttachment = await models.Attachment.create({
+            project_id: projectId,
+            data_link: attachmentUrl,
+            uploaded_by: userId
+        });
+
+        res.status(200).json({
+            success: true,
+            attachmentUrl: newAttachment.data_link
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: "Could not upload the file. Please try again later."
+        });
+    }
+};
+
+
+
+controller.deleteAttachment = async (req, res, next) => {
+    try {
+        const { projectId, attachmentId } = req.params;
+
         const project = await models.Project.findByPk(projectId);
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
 
-        // Tìm tất cả các testcase có project_id bằng project.id
+        const attachment = await models.Attachment.findOne({
+            where: {
+                id: attachmentId,
+                project_id: projectId
+            }
+        });
+        if (!attachment) {
+            return res.status(404).json({ message: "Attachment not found" });
+        }
+
+        // Delete the file from the upload directory
+        const filePath = path.join(__dirname, '/../../client/assets', attachment.data_link);
+
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        // Delete the attachment record from the database
+        await attachment.destroy();
+
+        res.status(200).json({ message: "Attachment deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+controller.releaseView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/release", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.moduleView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        res.render("tester/module", {
+            user, project
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+controller.testCaseView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page));
+        const pageSize = 5;
+        const offset = (page - 1) * pageSize;
+
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Fetch only basic test case info for pagination
         const testcases = await models.Testcase.findAndCountAll({
             where: { project_id: project.id },
             limit: pageSize,
@@ -213,16 +519,16 @@ controller.testCaseView = async (req, res, next) => {
                 {
                     model: models.User,
                     as: 'CreatedByUser',
-                    attributes: ['username'] // Fetch only 'name' attribute of User
+                    attributes: ['username'] // Fetch only 'username' attribute of User
                 }
             ]
         });
 
-        // Tính toán tổng số trang
         const totalPages = Math.ceil(testcases.count / pageSize);
 
-        // Truyền thông tin project và danh sách testcase tới view
+        // Render the view with project, user, and test cases data
         res.render("tester/test-case", {
+            user,
             project,
             testcases: testcases.rows,
             currentPage: page,
@@ -233,38 +539,151 @@ controller.testCaseView = async (req, res, next) => {
     }
 };
 
+// Controller to fetch full test case details
+controller.fetchTestCaseDetails = async (req, res) => {
+    try {
+        const testCaseId = req.params.testCaseId;
 
-// Tạo mới testcase
-controller.createTestCase = async (req, res) => {
-  try {
-    const { name, description } = req.body;
-    const projectId = req.params.id;
-    const userId = req.userid;
+        // Fetch the test case details including created by user
+        const testCase = await models.Testcase.findByPk(testCaseId, {
+            include: [
+                {
+                    model: models.User,
+                    as: 'CreatedByUser',
+                    attributes: ['username']
+                }
+            ]
+        });
 
+        if (!testCase) {
+            return res.status(404).json({ message: "Test case not found" });
+        }
 
-    const maxTestCaseId = await models.Testcase.max("id");
-
-    // Tạo mới testcase
-    const testCase = await models.Testcase.create({
-      id: maxTestCaseId + 1,
-      project_id: projectId,
-      title: name,
-      description,
-      created_at: new Date(),
-      created_by_user_id: userId,
-    });
-
-    // Trả về testcase mới tạo cho máy khách
-    res.status(201).json({ success: true, testCase });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Server Error" });
-  }
+        res.json(testCase); // Return the fetched test case as JSON
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
 };
+
+
+controller.createTestCase = async (req, res) => {
+    try {
+        const { name, description, module, precondition, steps, linkedRequirements, linkedIssues } = req.body;
+        const projectId = req.params.id;
+        const userId = req.userid;
+
+        const maxTestCaseId = await models.Testcase.max("id");
+
+        const testCase = await models.Testcase.create({
+            id: maxTestCaseId + 1,
+            project_id: projectId,
+            title: name,
+            description,
+            module,
+            precondition,
+            steps,
+            linked_requirements: linkedRequirements,
+            linked_issues: linkedIssues,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by_user_id: userId,
+        });
+
+        res.status(201).json({ success: true, testCase });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+// Controller function to edit a test case
+controller.editTestCase = async (req, res, next) => {
+    const projectId = req.params.projectId;
+    const testCaseId = req.params.testCaseId;
+    const {
+        title,
+        module,
+        linkedRequirements,
+        linkedIssues,
+        description,
+        precondition,
+        steps
+    } = req.body;
+
+    try {
+        // Find the test case by ID and project ID
+        const testCase = await models.Testcase.findOne({
+            where: {
+                id: testCaseId,
+                project_id: projectId
+            }
+        });
+
+        if (!testCase) {
+            return res.status(404).json({ message: 'Test case not found' });
+        }
+
+        // Update test case fields
+        testCase.title = title;
+        testCase.module = module;
+        testCase.linked_requirements = linkedRequirements;
+        testCase.linked_issues = linkedIssues;
+        testCase.description = description;
+        testCase.precondition = precondition;
+        testCase.steps = steps;
+        testCase.updated_at = new Date();
+
+        // Save the updated test case
+        await testCase.save();
+
+        // Respond with updated test case data
+        res.status(200).json(testCase);
+    } catch (error) {
+        next(error);
+    }
+};
+
+controller.deleteTestCase = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { testCaseId } = req.body;
+
+        // Log the testCaseId
+        console.log(`Attempting to delete test case with ID: ${testCaseId}`);
+
+        // Check if the project exists
+        const project = await models.Project.findByPk(id);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Find the test case to delete
+        const testCase = await models.Testcase.findByPk(testCaseId);
+        if (!testCase) {
+            return res.status(404).json({ message: "Test case not found" });
+        }
+
+        // Delete the test case
+        await testCase.destroy();
+
+        // Send a success response
+        res.status(200).json({ message: "Test case deleted successfully" });
+    } catch (error) {
+        next(error); // Pass any errors to the error handling middleware
+    }
+};
+
 
 controller.testRunView = async (req, res, next) => {
   try {
+    const userId = req.userid;
     const projectId = req.params.id;
+
+    const user = await models.User.findByPk(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
     const page = isNaN(req.query.page)
       ? 1
       : Math.max(1, parseInt(req.query.page));
@@ -276,7 +695,6 @@ controller.testRunView = async (req, res, next) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-    const userId = req.userid;
 
     // Fetch test runs associated with the project
     const testRuns = await models.TestRun.findAndCountAll({
@@ -311,78 +729,87 @@ controller.testRunView = async (req, res, next) => {
     const totalPages = Math.ceil(testRuns.count / pageSize);
 
     // Pass project and test run information to the view
-    res.render("tester/test-run", {
-      project,
-      testRuns: testRuns.rows,
-      currentPage: page,
-      totalPages,
-      users,
-      testcases,
+      res.render("tester/test-run", {
+          user,
+          project,
+          testRuns: testRuns.rows,
+          currentPage: page,
+          totalPages,
+          users,
+          testcases,
     });
   } catch (error) {
     next(error);
   }
 };
 
-// Create new test run
 controller.createTestRun = async (req, res) => {
-  try {
-    const { name, test_case_id, assigned_to_user_id, release_description } =
-      req.body;
-    const projectId = req.params.id;
+    try {
+        const { name, test_case_id, assigned_to_user_id, release_description } =
+            req.body;
+        const projectId = req.params.id;
+        const userID = req.userid;
+        const maxTestRunId = await models.TestRun.max("id");
 
-    const maxTestRunId = await models.TestRun.max("id");
+        // Set the assigned_to_user_id to a default value if not provided
+        const assignedToUserId = assigned_to_user_id || userID; // Use a default user ID, e.g., 1
 
-    // Tạo một bản ghi test run mới trong cơ sở dữ liệu
-    const newTestRun = await models.TestRun.create({
-      id: maxTestRunId + 1,
-      project_id: projectId, // Sử dụng projectId từ req.params.id
-      test_case_id,
-      status: "Pending", // Trạng thái mặc định hoặc thay đổi tùy theo yêu cầu
-      assigned_to_user_id,
-      started_at: new Date(), // hoặc để là null nếu chưa bắt đầu
-    });
+        // Create a new test run record in the database
+        const newTestRun = await models.TestRun.create({
+            id: maxTestRunId + 1,
+            project_id: projectId,
+            test_case_id,
+            status: "Pending",
+            assigned_to_user_id: assignedToUserId,
+            started_at: new Date(),
+        });
 
-    // Sau khi tạo thành công, lấy lại danh sách test runs mới nhất
-    const testRuns = await models.TestRun.findAll({
-      where: { project_id: projectId },
-      order: [["started_at", "DESC"]], // Sắp xếp theo thời gian tạo mới nhất
-      limit: 10, // Giới hạn số lượng test runs lấy về
-    });
+        // Fetch the latest list of test runs
+        const testRuns = await models.TestRun.findAll({
+            where: { project_id: projectId },
+            order: [["started_at", "DESC"]],
+            limit: 10,
+        });
 
-    // Return the newly created test run to the client
-    res.status(201).json({ success: true, newTestRun, testRuns });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to create test run" });
-  }
+        // Return the newly created test run to the client
+        res.status(201).json({ success: true, newTestRun, testRuns });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to create test run" });
+    }
 };
 
 // Lấy chi tiết dự án
 controller.issuesView = async (req, res, next) => {
   try {
-    const projectId = req.params.id;
+      const userId = req.userid;
+      const projectId = req.params.id;
 
-    // Fetch project to ensure it exists
-    const project = await models.Project.findByPk(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
 
-    // Fetch all test runs related to the project
-    const testRuns = await models.TestRun.findAll({
-      where: { project_id: projectId },
-      attributes: ["id"],
-    });
+       // Fetch project to ensure it exists
+       const project = await models.Project.findByPk(projectId);
+       if (!project) {
+         return res.status(404).json({ message: "Project not found" });
+       }
+
+       // Fetch all test runs related to the project
+       const testRuns = await models.TestRun.findAll({
+           where: { project_id: projectId },
+           attributes: ["id"],
+       });
 
     // Extract test run IDs
     const testRunIds = testRuns.map((testRun) => testRun.id);
 
     // Fetch all issues related to the test runs
     const issues = await models.Issue.findAll({
-      where: {
+        where: {
         test_run_id: testRunIds,
-      },
+        },
     });
 
 
@@ -436,7 +863,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { project, issues, projectId });
+    res.render("developer/issues", { user, project, issues });
   } catch (error) {
     next(error);
   }
@@ -444,8 +871,14 @@ controller.issuesView = async (req, res, next) => {
 
 controller.issueDetailView = async (req, res, next) => {
   try {
-    const projectId = req.params.id;
-    const issueId = req.params.issueId;
+      const userId = req.userid;
+      const projectId = req.params.id;
+
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+      const issueId = req.params.issueId;
 
     // Fetch project to ensure it exists
     const project = await models.Project.findByPk(projectId);
@@ -477,7 +910,7 @@ controller.issueDetailView = async (req, res, next) => {
     }
 
     // Render issue detail view and pass data
-    res.render("developer/issues-detail", { project, issue });
+    res.render("developer/issues-detail", { user, project, issue, projectId });
   } catch (error) {
     next(error);
   }
@@ -704,7 +1137,7 @@ controller.getAllActivities = async (req, res,next) => {
 
 
 // Thêm issue
-controller.createIssue = async (req, res,next) => {
+controller.createIssue = async (req, res) => {
   const { name, status, priority, note } = req.body;
   const project_id = parseInt(req.session.project_id);
   const member_id = req.session.projects[project_id].memberId
@@ -778,8 +1211,14 @@ controller.deleteIssue = async(req, res) => {
 
 
 controller.reportView = async (req, res, next) => {
-  const projectId = req.params.id;
   try {
+      const userId = req.userid;
+      const projectId = req.params.id;
+
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
       // Fetch project to ensure it exists
     const project = await models.Project.findByPk(projectId);
     if (!project) {
@@ -791,7 +1230,7 @@ controller.reportView = async (req, res, next) => {
       where: { related_project_id: projectId }
         });
       // Pass project and test run information to the view
-      res.render('user/reports', {reports, project});
+      res.render('user/reports', {user, project, reports});
   } catch (error) {
       next(error);
   }
@@ -872,7 +1311,15 @@ controller.getActivities = async (req, res, next) => {
     // }
     try {
         // Pass project and test run information to the view
-        res.render("user/activity");
+        const userId = req.userid;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.render("user/activity", {
+            user
+        });
     } catch (error) {
         next(error);
     }
@@ -896,7 +1343,15 @@ controller.getAllActivities = async (req, res, next) => {
     // }
     try {
         // Pass project and test run information to the view
-        res.render("user/activity");
+        const userId = req.userid;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.render("user/activity", {
+            user
+        });
     } catch (error) {
         next(error);
     }

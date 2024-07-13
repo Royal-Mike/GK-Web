@@ -147,7 +147,7 @@
 
                 <div class="container-fluid bg-light py-3 mb-3 rounded-3">
                     {{#each issues}}
-                    <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark">
+                    {{!-- <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark"> --}}
                         <div class="row">
                             <div class="col">IS00{{this.id}}</div>
                             <div class="col-3">{{this.title}}</div>
@@ -159,7 +159,7 @@
                             <div class="col d-flex">
                                 <i class="bi bi-eye"></i>
                                 <i class="bi bi-pencil mx-3"></i>
-                                <i class="bi bi-trash" data-issue-id="{{this.id}}"></i>
+                                <i class="bi bi-trash"  data-id="{{this.id}}"></i>
                             </div>
                         </div>
                     </a>
@@ -266,27 +266,6 @@
         });
 
         // Add event listener for delete buttons
-        $('.bi-trash').on('click', function() {
-            var issueId = $(this).data('issue-id');
-            var projectId = {{project.id}};
-            var url = '/project/' + projectId + '/issues/' + issueId + '/delete';
-
-            if (confirm('Are you sure you want to delete this issue?')) {
-                // Send delete request via AJAX
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    success: function(response) {
-                        // Handle success response
-                        alert('Issue deleted successfully!');
-                        location.reload();
-                    },
-                    error: function(error) {
-                        // Handle error response
-                        alert('Error deleting issue. Please try again.');
-                    }
-                });
-            }
-        });
+        
     });
 </script>

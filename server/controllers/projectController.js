@@ -499,19 +499,17 @@ controller.testCaseView = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        const page = isNaN(req.query.page)
-            ? 1
-            : Math.max(1, parseInt(req.query.page)); // Lấy số trang từ query, mặc định là 1
-        const pageSize = 5; // Số lượng testcase trên mỗi trang
+
+        const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page));
+        const pageSize = 5;
         const offset = (page - 1) * pageSize;
 
-        // Lấy thông tin project từ cơ sở dữ liệu
         const project = await models.Project.findByPk(projectId);
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
 
-        // Tìm tất cả các testcase có project_id bằng project.id
+        // Fetch only basic test case info for pagination
         const testcases = await models.Testcase.findAndCountAll({
             where: { project_id: project.id },
             limit: pageSize,
@@ -521,15 +519,14 @@ controller.testCaseView = async (req, res, next) => {
                 {
                     model: models.User,
                     as: 'CreatedByUser',
-                    attributes: ['username'] // Fetch only 'name' attribute of User
+                    attributes: ['username'] // Fetch only 'username' attribute of User
                 }
             ]
         });
 
-        // Tính toán tổng số trang
         const totalPages = Math.ceil(testcases.count / pageSize);
 
-        // Truyền thông tin project và danh sách testcase tới view
+        // Render the view with project, user, and test cases data
         res.render("tester/test-case", {
             user,
             project,
@@ -542,34 +539,141 @@ controller.testCaseView = async (req, res, next) => {
     }
 };
 
+// Controller to fetch full test case details
+controller.fetchTestCaseDetails = async (req, res) => {
+    try {
+        const testCaseId = req.params.testCaseId;
 
-// Tạo mới testcase
-controller.createTestCase = async (req, res) => {
-  try {
-    const { name, description } = req.body;
-    const projectId = req.params.id;
-    const userId = req.userid;
+        // Fetch the test case details including created by user
+        const testCase = await models.Testcase.findByPk(testCaseId, {
+            include: [
+                {
+                    model: models.User,
+                    as: 'CreatedByUser',
+                    attributes: ['username']
+                }
+            ]
+        });
 
+        if (!testCase) {
+            return res.status(404).json({ message: "Test case not found" });
+        }
 
-    const maxTestCaseId = await models.Testcase.max("id");
-
-    // Tạo mới testcase
-    const testCase = await models.Testcase.create({
-      id: maxTestCaseId + 1,
-      project_id: projectId,
-      title: name,
-      description,
-      created_at: new Date(),
-      created_by_user_id: userId,
-    });
-
-    // Trả về testcase mới tạo cho máy khách
-    res.status(201).json({ success: true, testCase });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Server Error" });
-  }
+        res.json(testCase); // Return the fetched test case as JSON
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
 };
+
+
+controller.createTestCase = async (req, res) => {
+    try {
+        const { name, description, module, precondition, steps, linkedRequirements, linkedIssues } = req.body;
+        const projectId = req.params.id;
+        const userId = req.userid;
+
+        const maxTestCaseId = await models.Testcase.max("id");
+
+        const testCase = await models.Testcase.create({
+            id: maxTestCaseId + 1,
+            project_id: projectId,
+            title: name,
+            description,
+            module,
+            precondition,
+            steps,
+            linked_requirements: linkedRequirements,
+            linked_issues: linkedIssues,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by_user_id: userId,
+        });
+
+        res.status(201).json({ success: true, testCase });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+// Controller function to edit a test case
+controller.editTestCase = async (req, res, next) => {
+    const projectId = req.params.projectId;
+    const testCaseId = req.params.testCaseId;
+    const {
+        title,
+        module,
+        linkedRequirements,
+        linkedIssues,
+        description,
+        precondition,
+        steps
+    } = req.body;
+
+    try {
+        // Find the test case by ID and project ID
+        const testCase = await models.Testcase.findOne({
+            where: {
+                id: testCaseId,
+                project_id: projectId
+            }
+        });
+
+        if (!testCase) {
+            return res.status(404).json({ message: 'Test case not found' });
+        }
+
+        // Update test case fields
+        testCase.title = title;
+        testCase.module = module;
+        testCase.linked_requirements = linkedRequirements;
+        testCase.linked_issues = linkedIssues;
+        testCase.description = description;
+        testCase.precondition = precondition;
+        testCase.steps = steps;
+        testCase.updated_at = new Date();
+
+        // Save the updated test case
+        await testCase.save();
+
+        // Respond with updated test case data
+        res.status(200).json(testCase);
+    } catch (error) {
+        next(error);
+    }
+};
+
+controller.deleteTestCase = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { testCaseId } = req.body;
+
+        // Log the testCaseId
+        console.log(`Attempting to delete test case with ID: ${testCaseId}`);
+
+        // Check if the project exists
+        const project = await models.Project.findByPk(id);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Find the test case to delete
+        const testCase = await models.Testcase.findByPk(testCaseId);
+        if (!testCase) {
+            return res.status(404).json({ message: "Test case not found" });
+        }
+
+        // Delete the test case
+        await testCase.destroy();
+
+        // Send a success response
+        res.status(200).json({ message: "Test case deleted successfully" });
+    } catch (error) {
+        next(error); // Pass any errors to the error handling middleware
+    }
+};
+
 
 controller.testRunView = async (req, res, next) => {
   try {

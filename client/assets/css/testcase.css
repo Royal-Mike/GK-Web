@@ -1,0 +1,12 @@
+.icon-group i {
+    margin-left: 10px; /* Adjust the value as needed */
+}
+
+    .icon-group i:first-child {
+        margin-left: 0; /* No margin for the first icon */
+    }
+
+#testcaseDetailPopup .container {
+    max-height: 80vh; /* Example: Limiting height to 80% of viewport height */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+}

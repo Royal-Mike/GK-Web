@@ -24,6 +24,9 @@ router.get('/:id/module', verifyToken, controller.moduleView);
 
 router.get('/:id/test-case', verifyToken, controller.testCaseView);
 router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
+router.get('/:id/test-case/:testCaseId', verifyToken, controller.fetchTestCaseDetails);
+router.post('/:projectId/test-case/:testCaseId/edit', verifyToken, controller.editTestCase);
+router.delete('/:id/testcase/delete', verifyToken, controller.deleteTestCase);
 
 router.get('/:id/test-run', verifyToken, controller.testRunView);
 router.post('/:id/test-run/create', verifyToken, controller.createTestRun);

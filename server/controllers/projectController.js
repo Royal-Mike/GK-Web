@@ -301,30 +301,13 @@ controller.deleteProject = async (req, res) => {
             return res.status(404).json({ success: false, message: "Project not found." });
         }
 
-        // Lấy tất cả các test runs liên quan đến dự án
-        const testRuns = await models.TestRun.findAll({ where: { project_id: id } });
-
-        if (testRuns.length > 0) {
-            // Lấy tất cả các test run IDs
-            const testRunIds = testRuns.map(testRun => testRun.id);
-
-            // Xóa tất cả các test results liên quan đến test runs
-            await models.Test_Result.destroy({ where: { test_run_id: testRunIds } });
-
-            // Xóa tất cả các issues liên quan đến test runs
-            await models.Issue.destroy({ where: { test_run_id: testRunIds } });
-
-            // Xóa tất cả các test runs liên quan
-            await models.TestRun.destroy({ where: { project_id: id } });
-        }
-
-        // Xóa các bản ghi liên quan trong bảng User_Project
+        // Delete associated entries in User_Project table
         await models.User_Project.destroy({ where: { project_id: id } });
 
-        // Cuối cùng, xóa dự án
+        // Now delete the project itself
         await project.destroy();
 
-        // Trả về phản hồi thành công
+        // Return success response
         res.status(200).json({ success: true, message: "Project deleted successfully." });
     } catch (error) {
         console.error(error);
@@ -334,7 +317,6 @@ controller.deleteProject = async (req, res) => {
         });
     }
 };
-
 
 
 controller.attachmentView = async (req, res, next) => {

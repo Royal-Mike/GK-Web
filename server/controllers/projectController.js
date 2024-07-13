@@ -436,7 +436,7 @@ controller.issuesView = async (req, res, next) => {
   //   res.status(500).send("An error occurred while fetching issues.");
   // }
     // Render issues view and pass data
-    res.render("developer/issues", { project, issues });
+    res.render("developer/issues", { project, issues, projectId });
   } catch (error) {
     next(error);
   }
@@ -477,7 +477,7 @@ controller.issueDetailView = async (req, res, next) => {
     }
 
     // Render issue detail view and pass data
-    res.render("developer/issues-detail", { project, issue, projectId });
+    res.render("developer/issues-detail", { project, issue });
   } catch (error) {
     next(error);
   }

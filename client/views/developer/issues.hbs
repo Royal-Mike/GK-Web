@@ -147,7 +147,7 @@
 
                 <div class="container-fluid bg-light py-3 mb-3 rounded-3">
                     {{#each issues}}
-                    {{!-- <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark"> --}}
+                    
                         <div class="row">
                             <div class="col">IS00{{this.id}}</div>
                             <div class="col-3">{{this.title}}</div>
@@ -157,7 +157,7 @@
                             <div class="col">{{this.priority}}</div>
                             <div class="col-2">{{formatDate this.created_at }}</div>
                             <div class="col d-flex">
-                                <i class="bi bi-eye"></i>
+                                <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark"><i class="bi bi-eye"></i></a>
                                 <i class="bi bi-pencil mx-3 "></i>
                                 <i class="bi bi-trash"  data-id="{{this.id}}"></i>
                             </div>

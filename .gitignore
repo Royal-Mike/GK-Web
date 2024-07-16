@@ -2,3 +2,5 @@
 node_modules
 /.vs/GK-Web/v17/.wsuo
 /.vs/GK-Web/FileContentIndex
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json

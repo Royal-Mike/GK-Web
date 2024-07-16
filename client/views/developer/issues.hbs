@@ -162,7 +162,6 @@
                                 <i class="bi bi-trash"  data-id="{{this.id}}"></i>
                             </div>
                         </div>
-                    </a>
                     <hr />
                     {{/each}}
 
@@ -234,13 +233,19 @@
 <script src="/js/add-issue.js"></script>
 <script src="/js/delete-issue.js"></script>
 <script>
+    function getProjectIdFromURL() {
+        const pathArray = window.location.pathname.split('/');
+        const projectId = pathArray[2];
+        return projectId;
+    }
+
     $(document).ready(function() {
         $('#add-issue-form').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
             // Collect form data
             var formData = $(this).serialize();
-            var projectId = {{project.id}};
+            var projectId = getProjectIdFromURL();
             var url = '/project/' + projectId + '/issues/create';
 
             // Send form data via AJAX

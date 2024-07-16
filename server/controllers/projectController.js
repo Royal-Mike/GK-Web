@@ -841,109 +841,179 @@ controller.deleteTestCase = async (req, res, next) => {
 };
 
 
-controller.testRunView = async (req, res, next) => {
-  try {
-    const userId = req.userid;
-    const projectId = req.params.id;
+controller.testPlanView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
 
-    const user = await models.User.findByPk(userId);
-    if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        const testPlans = await models.TestPlan.findAll({
+            where: { project_id: project.id }
+        });
+
+        res.render("tester/test-plan", {
+            user, project, testPlans
+        });
+    } catch (error) {
+        next(error);
     }
-    const page = isNaN(req.query.page)
-      ? 1
-      : Math.max(1, parseInt(req.query.page));
-    const pageSize = 5;
-    const offset = (page - 1) * pageSize;
+}
 
-    // Fetch project info from the database
-    const project = await models.Project.findByPk(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+controller.createTestPlan = async (req, res) => {
+    try {
+        const { name, description } = req.body;
+        const projectId = req.params.id;
+
+        const maxTestPlanId = await models.TestPlan.max("id");
+
+        const testPlan = await models.TestPlan.create({
+            id: maxTestPlanId + 1,
+            project_id: projectId,
+            name,
+            description,
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
+
+        res.status(201).json({ success: true, testPlan });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
     }
-
-    // Fetch test runs associated with the project
-    const testRuns = await models.TestRun.findAndCountAll({
-      where: { project_id: project.id },
-      limit: pageSize,
-      offset: offset,
-    });
-
-    // Tìm tất cả các testcase có project_id bằng project.id
-    const testcases = await models.Testcase.findAll({
-      where: { project_id: project.id },
-    });
-
-    // Fetch users with role_id = 3 associated with the project from the User_Project table
-    const usersWithRole = await models.User_Project.findAll({
-      where: {
-        project_id: projectId,
-        role_id: 3,
-      },
-      include: [
-        {
-          model: models.User,
-          attributes: ["id", "username"], // Select only necessary attributes
-        },
-      ],
-    });
-
-    // Extract the user data from the result
-    const users = usersWithRole.map((up) => up.User);
-
-    // Calculate total pages
-    const totalPages = Math.ceil(testRuns.count / pageSize);
-
-    // Pass project and test run information to the view
-      res.render("tester/test-run", {
-          user,
-          project,
-          testRuns: testRuns.rows,
-          currentPage: page,
-          totalPages,
-          users,
-          testcases,
-    });
-  } catch (error) {
-    next(error);
-  }
 };
+
+
+controller.testRunView = async (req, res, next) => {
+    try {
+        const userId = req.userid;
+        const projectId = req.params.id;
+
+        const user = await models.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const page = isNaN(req.query.page)
+            ? 1
+            : Math.max(1, parseInt(req.query.page));
+        const pageSize = 5;
+        const offset = (page - 1) * pageSize;
+
+        const project = await models.Project.findByPk(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        const testcases = await models.Testcase.findAll({
+            where: { project_id: project.id },
+        });
+
+        const issues = await models.Issue.findAll({
+            where: { project_id: project.id },
+        });
+
+        const releases = await models.Release.findAll({
+            where: { project_id: project.id },
+        });
+
+        const testPlans = await models.TestPlan.findAll({
+            where: { project_id: project.id }
+        });
+
+        const testPlanIds = testPlans.map(plan => plan.id);
+
+        const usersWithRole = await models.User_Project.findAll({
+            where: {
+                project_id: projectId,
+                role_id: 3,
+            },
+            include: [
+                {
+                    model: models.User,
+                    attributes: ["id", "username"],
+                },
+            ],
+        });
+
+        const users = usersWithRole.map((up) => up.User);
+
+        testRuns = [];
+
+        if (testPlanIds.length != 0) {
+            testRuns = await models.TestRun.findAndCountAll({
+                where: { test_plan_id: testPlanIds },
+                limit: pageSize,
+                offset: offset,
+            });
+        }
+
+        const totalPages = Math.ceil(testRuns.count / pageSize);
+
+        res.render("tester/test-run", {
+            user,
+            project,
+            testRuns: testRuns.rows,
+            currentPage: page,
+            totalPages,
+            users,
+            testcases,
+            issues,
+            releases,
+            testPlans
+        });
+    } catch (error) {
+        console.error("Error fetching test runs:", error);
+        next(error);
+    }
+};
+
 
 controller.createTestRun = async (req, res) => {
     try {
-        const { name, test_case_id, assigned_to_user_id, release_description } =
-            req.body;
+        const { name, test_plan_id, test_case_id, issue_id, assigned_to_user_id, release_id } = req.body;
         const projectId = req.params.id;
-        const userID = req.userid;
         const maxTestRunId = await models.TestRun.max("id");
 
-        // Set the assigned_to_user_id to a default value if not provided
-        const assignedToUserId = assigned_to_user_id || userID; // Use a default user ID, e.g., 1
+        if (!test_plan_id) {
+            return res.status(401).json({
+                success: false,
+                message: "Please select a test plan for this test run",
+            });
+        }
 
-        // Create a new test run record in the database
+        if (!assigned_to_user_id) {
+            return res.status(402).json({
+                success: false,
+                message: "Please assign a tester for this test run, if there are no tester then please add some",
+            });
+        }
+
         const newTestRun = await models.TestRun.create({
+            name,
             id: maxTestRunId + 1,
             project_id: projectId,
-            test_case_id,
+            test_plan_id,
+            testcase_assigned: test_case_id,
+            issue_assigned: issue_id,
             status: "Pending",
-            assigned_to_user_id: assignedToUserId,
+            assigned_to_user_id,
+            release_id,
             started_at: new Date(),
         });
 
-        // Fetch the latest list of test runs
-        const testRuns = await models.TestRun.findAll({
-            where: { project_id: projectId },
-            order: [["started_at", "DESC"]],
-            limit: 10,
-        });
-
-        // Return the newly created test run to the client
-        res.status(201).json({ success: true, newTestRun, testRuns });
+        res.status(201).json({ success: true, newTestRun });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: "Failed to create test run" });
     }
 };
+
 
 
 
@@ -1184,34 +1254,25 @@ controller.issuesView = async (req, res, next) => {
            return res.status(404).json({ message: "Project not found" });
          }
   
-         // Fetch all test runs related to the project
-         const testRuns = await models.TestRun.findAll({
-             where: { project_id: projectId },
-             attributes: ["id"],
-         });
-  
-      // Extract test run IDs
-      const testRunIds = testRuns.map((testRun) => testRun.id);
-  
-      const issues = await models.Issue.findAll({
-          where: {
-              test_run_id: testRunIds,
-          },
-          include: [
-              {
-                  model: models.User,
-                  as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
-                  attributes: ["id", "username"],
+          const issues = await models.Issue.findAll({
+              where: {
+                  project_id: projectId,
               },
-          ],
-      });
-  
-      // Render issues view and pass data
-      res.render("developer/issues", { user, projectId, project, issues });
+              include: [
+                  {
+                      model: models.User,
+                      as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+                      attributes: ["id", "username"],
+                  },
+              ],
+          });
+
+          res.render("developer/issues", { user, projectId, project, issues });
     } catch (error) {
-      next(error);
+        next(error);
     }
-  };
+
+};
   
   controller.issueDetailView = async (req, res, next) => {
     try {
@@ -1267,11 +1328,10 @@ controller.createIssue = async (req, res) => {
     try {
       const { title, status, priority, description } = req.body;
       const projectId = req.params.id;
-      const testRunId = projectId; // Use the same :id as test_run_id
-      const userId = req.userid; // Get the logged-in user ID from the middleware
+      const userId = req.userid; 
   
       // Validate input data
-      if (!title || !status || !priority || !projectId || !testRunId) {
+      if (!title || !status || !priority || !projectId) {
         return res.status(400).json({ success: false, message: "Missing required fields" });
       }
   
@@ -1281,11 +1341,6 @@ controller.createIssue = async (req, res) => {
         return res.status(404).json({ success: false, message: "Project not found" });
       }
   
-      // Check if the test run exists
-      const testRun = await models.TestRun.findByPk(testRunId);
-      if (!testRun) {
-        return res.status(404).json({ success: false, message: "Test Run not found" });
-      }
   
       // Get the maximum ID from the Issue table to generate a new unique ID
       const maxIssueId = await models.Issue.max("id");
@@ -1299,7 +1354,6 @@ controller.createIssue = async (req, res) => {
         priority: priority,
         description: description,
         created_at: new Date(),
-        test_run_id: testRunId,
         assigned_to_user_id: userId, // Assign the issue to the logged-in user
       });
   

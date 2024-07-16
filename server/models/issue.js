@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Issue extends Model {
     static associate(models) {
       // Define associations here
-      Issue.belongsTo(models.TestRun, { foreignKey: 'test_run_id' });
+      Issue.belongsTo(models.Project, { foreignKey: 'project_id' });
       Issue.belongsTo(models.User, { foreignKey: 'assigned_to_user_id' });
     }
   }
@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    test_run_id: {
+    project_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'TestRun', // Ensures the reference to the TestRuns table
+        model: 'Project', // Ensures the reference to the TestRuns table
         key: 'id'
       },
       allowNull: false
@@ -51,6 +51,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW
+    },
+    linked_testcase: {
+        type: DataTypes.INTEGER,
     }
   }, {
     sequelize,

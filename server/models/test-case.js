@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         description: DataTypes.TEXT,
         precondition: DataTypes.TEXT,
         steps: DataTypes.TEXT,
+        expected_result: DataTypes.TEXT,
         created_at: DataTypes.DATE,
         updated_at: DataTypes.DATE,
         linked_requirements: DataTypes.INTEGER,

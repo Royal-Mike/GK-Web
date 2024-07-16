@@ -34,6 +34,9 @@ router.get('/:id/test-case/:testCaseId', verifyToken, controller.fetchTestCaseDe
 router.post('/:projectId/test-case/:testCaseId/edit', verifyToken, controller.editTestCase);
 router.delete('/:id/testcase/delete', verifyToken, controller.deleteTestCase);
 
+router.get('/:id/test-plan', verifyToken, controller.testPlanView);
+router.post('/:id/test-plan/create', verifyToken, controller.createTestPlan);
+
 router.get('/:id/test-run', verifyToken, controller.testRunView);
 router.post('/:id/test-run/create', verifyToken, controller.createTestRun);
 

@@ -1,27 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const testcasePopup = document.getElementById("customTestcasePopup");
-    const createBtn = document.getElementById("save-testcase-btn");
-    const cancelBtn = document.getElementById("cancel-testcase-btn");
-    const addTestcaseBtn = document.getElementById("add-testcase-btn"); 
+    const testplanPopup = document.getElementById("customTestplanPopup");
+    const createBtn = document.getElementById("save-testplan-btn");
+    const cancelBtn = document.getElementById("cancel-testplan-btn");
+    const addTestplanBtn = document.getElementById("add-testplan-btn"); 
     const successMessage = document.getElementById("successMessage");
 
     cancelBtn.addEventListener("click", function () {
         closePopup();
     });
 
-    addTestcaseBtn.addEventListener("click", function () { 
+    addTestplanBtn.addEventListener("click", function () { 
         showPopup();
     });
 
     function closePopup() {
-        testcasePopup.style.display = "none";
-        document.getElementById('testcase-name').value = "";
-        document.getElementById('testcase-description').value = "";
+        testplanPopup.style.display = "none";
+        document.getElementById('testplan-name').value = "";
+        document.getElementById('testplan-description').value = "";
         // Reset các giá trị khác nếu cần
     }
 
     function showPopup() {
-        testcasePopup.style.display = "block";
+        testplanPopup.style.display = "block";
     }
 
     function getProjectIdFromURL() {
@@ -31,26 +31,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     createBtn.addEventListener("click", async function () {
-        const testcaseName = document.getElementById('testcase-name').value;
-        const testcaseDescription = document.getElementById('testcase-description').value;
+        const testplanName = document.getElementById('testplan-name').value;
+        const testplanDescription = document.getElementById('testplan-description').value;
         const projectId = getProjectIdFromURL();
 
-        if (testcaseName === '') {
-            alert('Test case name is required.');
+        if (testplanName === '') {
+            alert('Test plan name is required.');
             return;
         }
 
         try {
-            const response = await fetch(`/project/${projectId}/test-case/create`, {
+            const response = await fetch(`/project/${projectId}/test-plan/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: testcaseName, description: testcaseDescription })
+                body: JSON.stringify({ name: testplanName, description: testplanDescription })
             });
 
             if (!response.ok) {
-                throw new Error('Failed to create testcase');
+                throw new Error('Failed to create testplan');
             }
 
             const data = await response.json();
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             closePopup(); // Đóng cửa sổ popup sau khi tạo thành công
             window.location.reload();
         } catch (error) {
-            showToast('Error creating testcase:', error.message);
+            showToast('Error creating testplan:', error.message);
             // Xử lý lỗi ở đây
         }
     });

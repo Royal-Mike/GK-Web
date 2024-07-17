@@ -1,0 +1,216 @@
+public class VariableDictionary
+{
+    // Tự điển các biến được quản lý, mỗi biến có định danh dạng string phân biệt
+    private Dictionary<string, string> variables = new Dictionary<string, string>();
+
+    // Cho phép tự động bổ sung biến mới vào tự điển
+    public bool bAddNew = true;
+
+    // Truy cập (get/set) giá trị các biến trong tự điển
+    public string this[string strVarName]
+    {
+        get
+        {
+            // Kiểm tra nếu tự điển có chứa khóa là strVarName thì trả về giá trị tương ứng
+            if (variables.ContainsKey(strVarName))
+            {
+                return variables[strVarName];
+            }
+            // Ngược lại, trả về chuỗi rỗng hoặc NULL
+            else
+            {
+                return string.Empty; // hoặc null nếu muốn
+            }
+        }
+        set
+        {
+            // Nếu tự điển có chứa khóa là strVarName thì cập nhật giá trị tương ứng
+            if (variables.ContainsKey(strVarName))
+            {
+                variables[strVarName] = value;
+            }
+            // Ngược lại, nếu tự điển cho phép tự động bổ sung biến mới
+            else if (bAddNew)
+            {
+                variables[strVarName] = value;
+            }
+        }
+    }
+}
+
+
+public class VariableMapping
+{
+    public string strSourceVariableName; // Tên biến nguồn
+    public string strTargetVariableName; // Tên biến đích
+
+    public VariableMapping(string strSourceVariableName, string strTargetVariableName)
+    {
+        this.strSourceVariableName = strSourceVariableName;
+        this.strTargetVariableName = strTargetVariableName;
+    }
+
+    // Ánh xạ các biến từ tự điển nguồn source sang tự điển đích target, 
+    // sử dụng danh sách các quy tắc ánh xạ biến
+    public static void CopyVariableValues(VariableDictionary source, VariableDictionary target, List<VariableMapping> mappings)
+    {
+        foreach (var mapping in mappings)
+        {
+            // Lấy giá trị từ tự điển nguồn theo tên biến nguồn
+            string sourceValue = source[mapping.strSourceVariableName];
+
+            // Nếu giá trị không phải là chuỗi rỗng hoặc NULL, thì sao chép sang tự điển đích
+            if (!string.IsNullOrEmpty(sourceValue))
+            {
+                target[mapping.strTargetVariableName] = sourceValue;
+            }
+        }
+    }
+}
+
+
+public class IsVisible : MyFunction
+{
+    public override VariableDictionary Execute(VariableDictionary input)
+    {
+        // Lấy giá trị từ các biến đầu vào
+        int left = int.Parse(input["Left"]);
+        int right = int.Parse(input["Right"]);
+        int top = int.Parse(input["Top"]);
+        int bottom = int.Parse(input["Bottom"]);
+        int minArea = int.Parse(input["MinArea"]);
+
+        // Tính diện tích của hình chữ nhật
+        int width = right - left;
+        int height = bottom - top;
+        int area = width * height;
+
+        // Kiểm tra diện tích có lớn hơn minArea không
+        bool isVisible = area > minArea;
+
+        // Tạo tự điển output và lưu kết quả
+        VariableDictionary output = new VariableDictionary();
+        output["output"] = isVisible.ToString().ToLower(); // kết quả "true" hoặc "false" dưới dạng chuỗi
+
+        return output;
+    }
+}
+
+
+public abstract class MyFunction
+{
+    // Tự điển các tác vụ/module xử lý. Mỗi tác vụ/module có tên phân biệt
+    private static Dictionary<string, MyFunction> functions = new Dictionary<string, MyFunction>();
+
+    // Khởi gán tự điển functions với đầy đủ các tác vụ/module xử lý mà hệ thống cung cấp
+    public static void Initialize()
+    {
+        // Khởi tạo các tác vụ/module xử lý cụ thể và thêm vào tự điển
+        functions["MultiplyTwoIntegers"] = new MultiplyTwoIntegers();
+        functions["IsVisible"] = new IsVisible();
+    }
+
+    // Phương thức thuần ảo này sẽ được cài đặt lại cho mỗi tác vụ/module xử lý cụ thể
+    public abstract VariableDictionary Execute(VariableDictionary input);
+
+    // Trả về tác vụ/module xử lý có tên cho trước
+    public static MyFunction GetInstance(string strFunctionName)
+    {
+        if (functions.ContainsKey(strFunctionName))
+        {
+            return functions[strFunctionName];
+        }
+        else
+        {
+            throw new ArgumentException($"Function {strFunctionName} not found.");
+        }
+    }
+}
+
+public abstract class MyFunction
+{
+    // Tự điển các tác vụ/module xử lý. Mỗi tác vụ/module có tên phân biệt
+    private static Dictionary<string, MyFunction> functions = new Dictionary<string, MyFunction>();
+
+    // Tên định danh của tác vụ/module xử lý
+    protected string functionName;
+
+    // Constructor để tự động đăng ký đối tượng vào từ điển functions
+    protected MyFunction(string functionName)
+    {
+        this.functionName = functionName;
+        RegisterFunction(this);
+    }
+
+    // Phương thức đăng ký đối tượng vào từ điển functions
+    private void RegisterFunction(MyFunction function)
+    {
+        if (!functions.ContainsKey(function.functionName))
+        {
+            functions[function.functionName] = function;
+        }
+        else
+        {
+            throw new ArgumentException($"Function {function.functionName} is already registered.");
+        }
+    }
+
+    // Khởi gán tự điển functions với đầy đủ các tác vụ/module xử lý mà hệ thống cung cấp
+    public static void Initialize()
+    {
+        // Không cần làm gì ở đây, vì các đối tượng sẽ tự động đăng ký khi được tạo ra
+    }
+
+    // Phương thức thuần ảo này sẽ được cài đặt lại cho mỗi tác vụ/module xử lý cụ thể
+    public abstract VariableDictionary Execute(VariableDictionary input);
+
+    // Trả về tác vụ/module xử lý có tên cho trước
+    public static MyFunction GetInstance(string strFunctionName)
+    {
+        if (functions.ContainsKey(strFunctionName))
+        {
+            return functions[strFunctionName];
+        }
+        else
+        {
+            throw new ArgumentException($"Function {strFunctionName} not found.");
+        }
+    }
+}
+
+// Cài đặt cụ thể lớp MultiplyTwoIntegers
+public class MultiplyTwoIntegers : MyFunction
+{
+    public MultiplyTwoIntegers() : base("MultiplyTwoIntegers") { }
+
+    public override VariableDictionary Execute(VariableDictionary input)
+    {
+        int x = int.Parse(input["v1"]);
+        int y = int.Parse(input["v2"]);
+        VariableDictionary output = new VariableDictionary();
+        output["result"] = (x * y).ToString();
+        return output;
+    }
+}
+
+// Cài đặt cụ thể lớp IsVisible
+public class IsVisible : MyFunction
+{
+    public IsVisible() : base("IsVisible") { }
+
+    public override VariableDictionary Execute(VariableDictionary input)
+    {
+        int left = int.Parse(input["Left"]);
+        int right = int.Parse(input["Right"]);
+        int top = int.Parse(input["Top"]);
+        int bottom = int.Parse(input["Bottom"]);
+        int minArea = int.Parse(input["MinArea"]);
+        int width = right - left;
+        int height = bottom - top;
+        int area = width * height;
+        bool isVisible = area > minArea;
+        VariableDictionary output = new VariableDictionary();
+        output["output"] = isVisible.ToString().ToLower();
+        return output;
+    }
+}

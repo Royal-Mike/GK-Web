@@ -57,8 +57,8 @@
                             <hr />
                             <div class="p-3">
                                 <input class="w-100 p-3 pt-1 pb-1"
-                                        type="text"
-                                        placeholder="Type Test Plan name and choose to start filter" />
+                                       type="text"
+                                       placeholder="Type Test Plan name and choose to start filter" />
                             </div>
                             <div id="testPlansContainer" class="d-flex flex-column">
                                 <!-- test plans -->
@@ -137,9 +137,9 @@
                                             </style>
 
                                             <div role="group"
-                                                class="d-flex form-group mb-0 sort-container">
+                                                 class="d-flex form-group mb-0 sort-container">
                                                 <label for="sort-by-select"
-                                                        class="d-block align-self-center text-sm-right sort-label text-center">Sort</label>
+                                                       class="d-block align-self-center text-sm-right sort-label text-center">Sort</label>
                                                 <div class="bv-no-focus-ring sort-input-group ml-2">
                                                     <div role="group" class="input-group">
                                                         <select id="sort-by-select"
@@ -263,88 +263,88 @@
             </div>
         </div>
     </div>
-    
 
 
-<div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestrunPopup">
-  <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
-    <div class="container bg-white rounded-3 p-3">
-      <div class="d-flex align-item-center justify-content-between p-3">
-        <h3 class="mx-auto">Add Test Run</h3>
-      </div>
+    <!-- Create Test Run Popup -->
+    <div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestrunPopup">
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0">
+            <div class="container bg-white rounded-3 p-3">
+                <div class="d-flex align-item-center justify-content-between p-3">
+                    <h3 class="mx-auto">Add Test Run</h3>
+                </div>
 
-      <div class="row p-3 justify-content-center">
-          <div class="col-md-8">
-              <span class="fs-6 font-weight-semibold">Name<span class="text-danger"></span></span>
-              <div class="input-group w-100 mb-3">
-                  <textarea class="form-control"
-                            aria-label="With textarea"
-                            id="test-run-name"
-                            placeholder="Test Run Name"></textarea>
-              </div>
+                <div class="row p-3 justify-content-center">
+                    <div class="col-md-8">
+                        <span class="fs-6 font-weight-semibold">Name<span class="text-danger"></span></span>
+                        <div class="input-group w-100 mb-3">
+                            <textarea class="form-control"
+                                      aria-label="With textarea"
+                                      id="test-run-name"
+                                      placeholder="Test Run Name"></textarea>
+                        </div>
 
-              <span class="fs-6 font-weight-semibold">Selected test-plan</span>
-              <div class="input-group mb-3 w-100">
-                  <select class="form-select" id="testplan-select" aria-label="Select testplan">
-                      {{#each testPlans}}
-                      <option value="{{this.id}}">{{this.name}}</option>
-                      {{/each}}
-                  </select>
-              </div>
+                        <span class="fs-6 font-weight-semibold">Selected test-plan</span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="testplan-select" aria-label="Select testplan">
+                                {{#each testPlans}}
+                                <option value="{{this.id}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
 
-              <span class="fs-6 font-weight-semibold">Selected test-case</span>
-              <div class="input-group mb-3 w-100">
-                  <select class="form-select" id="testcase-select" aria-label="Select testcase">
-                      {{#each testcases}}
-                      <option value="{{this.id}}">{{this.title}}</option>
-                      {{/each}}
-                  </select>
-              </div>
+                        <span class="fs-6 font-weight-semibold">Selected test-case</span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="testcase-select" aria-label="Select testcase">
+                                {{#each testcases}}
+                                <option value="{{this.id}}">{{this.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
 
-              <span class="fs-6 font-weight-semibold">Selected issue</span>
-              <div class="input-group mb-3 w-100">
-                  <select class="form-select" id="issue-select" aria-label="Select issue">
-                      {{#each issues}}
-                      <option value="{{this.id}}">{{this.title}}</option>
-                      {{/each}}
-                  </select>
-              </div>
+                        <span class="fs-6 font-weight-semibold">Selected issue</span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="issue-select" aria-label="Select issue">
+                                {{#each issues}}
+                                <option value="{{this.id}}">{{this.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
 
-              <span class="fs-6 font-weight-semibold">Assigned to</span>
-              <div class="input-group mb-3 w-100">
-                  <select class="form-select" id="user-select" aria-label="Select user">
-                      {{#each users}}
-                      <option value="{{this.id}}">{{this.username}}</option>
-                      {{/each}}
-                  </select>
-              </div>
+                        <span class="fs-6 font-weight-semibold">Assigned to</span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="user-select" aria-label="Select user">
+                                {{#each users}}
+                                <option value="{{this.id}}">{{this.username}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
 
-              <span class="fs-6 font-weight-semibold">Selected Release</span>
-              <div class="input-group mb-3 w-100">
-                  <select class="form-select" id="release-select" aria-label="Select release">
-                      {{#each releases}}
-                      <option value="{{this.id}}">{{this.name}}</option>
-                      {{/each}}
-                  </select>
-              </div>
-          </div>
-      </div>
+                        <span class="fs-6 font-weight-semibold">Selected Release</span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="release-select" aria-label="Select release">
+                                {{#each releases}}
+                                <option value="{{this.id}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-      <div class="justify-content-center">
-        <div class="text-center">
-          <button class="btn custom-bold-btn rounded-3 me-3" id="save-testrun-btn">Save</button>
-          <button class="btn border rounded-3" id="cancel-testrun-btn">Cancel</button>
+                <div class="justify-content-center">
+                    <div class="text-center">
+                        <button class="btn custom-bold-btn rounded-3 me-3" id="save-testrun-btn">Save</button>
+                        <button class="btn border rounded-3" id="cancel-testrun-btn">Cancel</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p>
+                            <strong>Note:</strong>
+                            <em>Ensure to select the appropriate status, priority, and assignee. Attach any necessary files if required before saving and completing the process.</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="text-center mt-3">
-          <p>
-            <strong>Note:</strong>
-            <em>Ensure to select the appropriate status, priority, and assignee. Attach any necessary files if required before saving and completing the process.</em>
-          </p>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
 
 </main>
     

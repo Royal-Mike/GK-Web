@@ -293,7 +293,7 @@
 </main>
 
 
-
+<!-- Create Test Case Popup -->
 <div class="position-fixed overlay top-0 bottom-0 start-0 end-0" id="customTestcasePopup">
     <div class="d-flex justify-content-center align-items-center w-100 position-absolute top-0 bottom-0 start-0 end-0 ">
         <div class="container bg-white rounded-3 p-3">
@@ -405,6 +405,16 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">Linked Requirements</span>
+                            <input type="text" class="form-control px-2" aria-label="Linked Requirements" id="detail-linked-requirements" readonly/>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="fs-6 font-weight-semibold">Linked Issues</span>
+                            <input type="text" class="form-control px-2" aria-label="Linked Issues" id="detail-linked-issues" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col">
                             <span class="fs-6 font-weight-semibold">Title</span>
                             <input type="text" class="form-control px-2" aria-label="Testcase title" id="detail-title" readonly />
@@ -416,18 +426,7 @@
                             <input type="text" class="form-control px-2" aria-label="Testcase module" id="detail-module" readonly />
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <span class="fs-6 font-weight-semibold">Linked Requirements</span>
-                            <textarea class="form-control px-2" aria-label="Linked Requirements" id="detail-linked-requirements" readonly></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <span class="fs-6 font-weight-semibold">Linked Issues</span>
-                            <textarea class="form-control px-2" aria-label="Linked Issues" id="detail-linked-issues" readonly></textarea>
-                        </div>
-                    </div>
+
                     <div class="row mb-3">
                         <div class="col">
                             <span class="fs-6 font-weight-semibold">Description</span>

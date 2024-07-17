@@ -26,7 +26,16 @@ router.delete('/:projectId/attachment/:attachmentId',verifyToken, controller.del
 
 
 router.get('/:id/release', verifyToken, controller.releaseView);
+router.post('/:id/release/create', verifyToken, controller.createRelease);
+router.delete('/:id/release/:releaseId/delete', verifyToken, controller.deleteRelease);
+router.put('/:id/release/:releaseId/edit', verifyToken, controller.editRelease);
+router.get('/:id/release/:releaseId', verifyToken, controller.releaseDetailView);
+
 router.get('/:id/module', verifyToken, controller.moduleView);
+router.post('/:id/module/create', verifyToken, controller.createModule);
+//router.get('/:id/module/:moduleId', verifyToken, controller.fetchTestCaseDetails);
+//router.post('/:projectId/module/:moduleId/edit', verifyToken, controller.editTestCase);
+//router.delete('/:id/module/delete', verifyToken, controller.deleteTestCase);
 
 router.get('/:id/test-case', verifyToken, controller.testCaseView);
 router.post('/:id/test-case/create', verifyToken, controller.createTestCase);
@@ -45,11 +54,7 @@ router.get('/:id/issues/:issueId', verifyToken, controller.issueDetailView);
 router.post('/:id/issues/create', verifyToken, controller.createIssue);
 router.delete('/:id/issues/delete', verifyToken, controller.deleteIssue);
 
-router.get('/:id/release', verifyToken, controller.releaseView);
-router.post('/:id/release/create', verifyToken, controller.createRelease);
-router.delete('/:id/release/:releaseId/delete', verifyToken, controller.deleteRelease);
-router.put('/:id/release/:releaseId/edit', verifyToken, controller.editRelease);
-router.get('/:id/release/:releaseId', verifyToken, controller.releaseDetailView);
+
 
 router.get('/:id/report', verifyToken, controller.reportView);
 

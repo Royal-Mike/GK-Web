@@ -63,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
         detailDescription.removeAttribute('readonly');
         detailPrecondition.removeAttribute('readonly');
         detailSteps.removeAttribute('readonly');
-        detailLinkedRequirements.removeAttribute('readonly');
-        detailLinkedIssues.removeAttribute('readonly');
 
         // Show save and cancel buttons
         editButton.style.display = 'none';
@@ -100,8 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 detailDescription.value = updatedTestCase.description;
                 detailPrecondition.value = updatedTestCase.precondition;
                 detailSteps.value = updatedTestCase.steps;
-                detailLinkedRequirements.value = updatedTestCase.linked_requirements || '';
-                detailLinkedIssues.value = updatedTestCase.linked_issues || '';
                 detailUpdatedAt.value = updatedTestCase.updated_at;
 
                 // Disable edit mode
@@ -110,8 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 detailDescription.setAttribute('readonly', '');
                 detailPrecondition.setAttribute('readonly', '');
                 detailSteps.setAttribute('readonly', '');
-                detailLinkedRequirements.setAttribute('readonly', '');
-                detailLinkedIssues.setAttribute('readonly', '');
+
 
                 // Hide save and cancel buttons
                 editButton.style.display = 'inline-block';
@@ -131,8 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         detailDescription.setAttribute('readonly', '');
         detailPrecondition.setAttribute('readonly', '');
         detailSteps.setAttribute('readonly', '');
-        detailLinkedRequirements.setAttribute('readonly', '');
-        detailLinkedIssues.setAttribute('readonly', '');
+
 
         // Reset the fields to their original values
         const testCaseId = detailId.value;
@@ -146,8 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 detailDescription.value = testcase.description;
                 detailPrecondition.value = testcase.precondition;
                 detailSteps.value = testcase.steps;
-                detailLinkedRequirements.value = testcase.linked_requirements || '';
-                detailLinkedIssues.value = testcase.linked_issues || '';
+
 
                 // Hide save and cancel buttons
                 editButton.style.display = 'inline-block';

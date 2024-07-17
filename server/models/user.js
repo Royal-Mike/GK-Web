@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
             // Define associations if any (e.g., User.hasMany(models.Post))
             //User.hasMany(models.Testcase, { foreignKey: 'created_by_user_id', as: 'TestcasesOfUser' });
             //this.hasMany(models.User_Project, { foreignKey: 'user_id', as: 'UserProjects' });
-
+            User.hasMany(models.Module, {
+                foreignKey: 'created_by',
+                as: 'modules'
+            });
         }
     }
 

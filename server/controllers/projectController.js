@@ -614,27 +614,6 @@ controller.updateRequirementContent = async (req, res) => {
 };
 
 
-controller.releaseView = async (req, res, next) => {
-    try {
-        const userId = req.userid;
-        const projectId = req.params.id;
-
-        const user = await models.User.findByPk(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        const project = await models.Project.findByPk(projectId);
-        if (!project) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-        res.render("tester/release", {
-            user, project
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-
 controller.moduleView = async (req, res, next) => {
     try {
         const userId = req.userid;
@@ -644,17 +623,71 @@ controller.moduleView = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+        const page = isNaN(req.query.page) ? 1 : Math.max(1, parseInt(req.query.page));
+        const pageSize = 10;
+        const offset = (page - 1) * pageSize;
+
         const project = await models.Project.findByPk(projectId);
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
+
+        // Fetch only basic test case info for pagination
+        const modules = await models.Module.findAndCountAll({
+            where: { project_id: project.id },
+            limit: pageSize,
+            offset: offset,
+            order: [["createdAt", "DESC"]],
+            include: [
+                {
+                    model: models.User,
+                    as: 'developer',
+                    attributes: ['username'] 
+                }
+            ]
+        });
+
+        const totalPages = Math.ceil(modules.count / pageSize);
+
+        // Render the view with project, user, and test cases data
         res.render("tester/module", {
-            user, project
+            user,
+            project,
+            modules: modules.rows,
+            currentPage: page,
+            totalPages,
         });
     } catch (error) {
         next(error);
     }
-}
+};
+
+controller.createModule = async (req, res) => {
+    try {
+        const { name, description, language, datacode } = req.body;
+        const projectId = req.params.id;
+        const userId = req.userid;
+
+        const maxModuleId = await models.Module.max("id") || 0;
+
+        const module = await models.Module.create({
+            id: maxModuleId + 1,
+            project_id: projectId,
+            name,
+            description,
+            language,
+            datacode,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            created_by: userId,
+        });
+
+        res.status(201).json({ success: true, module });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
 
 controller.testCaseView = async (req, res, next) => {
     try {

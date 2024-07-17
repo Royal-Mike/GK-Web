@@ -1,24 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const testcasePopup = document.getElementById("customTestrunPopup");
+    const testrunPopup = document.getElementById("customTestrunPopup");
     const createBtn = document.getElementById("save-testrun-btn");
     const cancelBtn = document.getElementById("cancel-testrun-btn");
-    const addTestcaseBtn = document.getElementById("add-testrun-btn");
+    const addTestrunBtn = document.getElementById("add-testrun-btn");
     const successMessage = document.getElementById("successMessage");
 
     cancelBtn.addEventListener("click", function () {
         closePopup();
     });
 
-    addTestcaseBtn.addEventListener("click", function () {
+    addTestrunBtn.addEventListener("click", function () {
         showPopup();
     });
 
     function closePopup() {
-        testcasePopup.style.display = "none";
+        testrunPopup.style.display = "none";
     }
 
     function showPopup() {
-        testcasePopup.style.display = "block";
+        testrunPopup.style.display = "block";
     }
 
     function getProjectIdFromURL() {
@@ -29,15 +29,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     createBtn.addEventListener("click", async function () {
         const name = document.getElementById('test-run-name').value;
+        const testPlanId = document.getElementById('testplan-select').value;
         const testCaseId = document.getElementById('testcase-select').value;
+        const issueId = document.getElementById('issue-select').value;
         const assignedToUserId = document.getElementById('user-select').value;
-        const releaseDescription = document.getElementById('release-description').value;
+        const releaseId = document.getElementById('release-select').value;
 
         const data = {
             name: name,
+            test_plan_id: testPlanId,
             test_case_id: testCaseId,
+            issue_id: issueId,
             assigned_to_user_id: assignedToUserId,
-            release_description: releaseDescription
+            release_id: releaseId
         };
 
         const projectId = getProjectIdFromURL();
@@ -52,20 +56,17 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to create test run');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to create test run');
             }
 
-            successMessage.style.display = "block";
-            setTimeout(function () {
-                successMessage.style.display = "none";
-            }, 3000);
+            showToast('Test run added successfully!');
 
             window.location.reload();
 
-            closePopup(); // Đóng cửa sổ popup sau khi tạo thành công
+            closePopup(); // Close the popup after successful creation
         } catch (error) {
-            console.error('Error creating test run:', error.message);
-            // Xử lý lỗi ở đây
+            showToast('Error creating test run: ' + error.message);
         }
     });
 

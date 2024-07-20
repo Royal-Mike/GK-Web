@@ -1,0 +1,8 @@
+.icon-group i {
+    margin-left: 10px; /* Adjust the value as needed */
+}
+
+    .icon-group i:first-child {
+        margin-left: 0; /* No margin for the first icon */
+    }
+

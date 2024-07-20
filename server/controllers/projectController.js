@@ -703,10 +703,31 @@ controller.testCaseView = async (req, res, next) => {
         const pageSize = 5;
         const offset = (page - 1) * pageSize;
 
-        const project = await models.Project.findByPk(projectId);
+        const project = await models.Project.findByPk(projectId, {
+            include: {
+                model: models.Attachment,
+                attributes: ['id', 'data_link', 'isRequirement'] 
+            }
+        });
+
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
+
+        const modules = await models.Module.findAll({
+            where: { project_id: project.id }
+        });
+
+        
+        const requirements = project.Attachments.filter(attachment => attachment.isRequirement).map(attachment => {
+            const data_link = attachment.data_link;
+            const filename = data_link.split('/').pop();
+            return {
+                id: attachment.id,
+                data_link,
+                filename
+            };
+        });
 
         // Fetch only basic test case info for pagination
         const testcases = await models.Testcase.findAndCountAll({
@@ -732,6 +753,8 @@ controller.testCaseView = async (req, res, next) => {
             testcases: testcases.rows,
             currentPage: page,
             totalPages,
+            modules,
+            requirements,
         });
     } catch (error) {
         next(error);
@@ -768,7 +791,7 @@ controller.fetchTestCaseDetails = async (req, res) => {
 
 controller.createTestCase = async (req, res) => {
     try {
-        const { name, description, module, precondition, steps, linkedRequirements, linkedIssues } = req.body;
+        const { name, description, module, precondition, steps, result, linkedRequirements, linkedIssues} = req.body;
         const projectId = req.params.id;
         const userId = req.userid;
 
@@ -782,6 +805,7 @@ controller.createTestCase = async (req, res) => {
             module,
             precondition,
             steps,
+            expected_result: result,
             linked_requirements: linkedRequirements,
             linked_issues: linkedIssues,
             created_at: new Date(),
@@ -984,6 +1008,13 @@ controller.testRunView = async (req, res, next) => {
                 where: { test_plan_id: testPlanIds },
                 limit: pageSize,
                 offset: offset,
+                include: [
+                    {
+                        model: models.User,
+                        as: "assigned",
+                        attributes: ["id", "username"],
+                    },
+                ],
             });
         }
 
@@ -1041,8 +1072,25 @@ controller.createTestRun = async (req, res) => {
             started_at: new Date(),
         });
 
+        const testcaseUpdated = await models.Testcase.findByPk(test_case_id);
+        if (testcaseUpdated) {
+            testcaseUpdated.linked_issues = issue_id;
+            await testcaseUpdated.save(); // Save the updated testcase
+        } else {
+            return res.status(404).json({ success: false, message: "Test case not found" });
+        }
+
+        const issueUpdated = await models.Issue.findByPk(issue_id);
+        if (issueUpdated) {
+            issueUpdated.linked_testcase = test_case_id;
+            await issueUpdated.save(); // Save the updated issue
+        } else {
+            return res.status(404).json({ success: false, message: "Issue not found" });
+        }
+
         res.status(201).json({ success: true, newTestRun });
     } catch (error) {
+        console.error(error); // Log the error for debugging
         res.status(500).json({ error: "Failed to create test run" });
     }
 };
@@ -1294,13 +1342,33 @@ controller.issuesView = async (req, res, next) => {
               include: [
                   {
                       model: models.User,
-                      as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+                      as: "creator", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+                      attributes: ["id", "username"],
+                  },
+                  {
+                      model: models.User,
+                      as: "developer", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
                       attributes: ["id", "username"],
                   },
               ],
           });
 
-          res.render("developer/issues", { user, projectId, project, issues });
+        const usersWithRole = await models.User_Project.findAll({
+            where: {
+                project_id: projectId,
+                role_id: 2,
+            },
+            include: [
+                {
+                    model: models.User,
+                    attributes: ["id", "username"],
+                },
+            ],
+        });
+
+        const devs = usersWithRole.map((up) => up.User);
+
+          res.render("developer/issues", { user, projectId, project, issues, devs });
     } catch (error) {
         next(error);
     }
@@ -1331,15 +1399,15 @@ controller.issuesView = async (req, res, next) => {
         },
         include: [
           {
-            model: models.TestRun,
-            where: { project_id: projectId },
-            attributes: ["id", "project_id"],
+            model: models.User,
+            as: "developer", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+            attributes: ["id", "username"],
           },
           {
             model: models.User,
-            as: "User", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
+            as: "creator", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
             attributes: ["id", "username"],
-          },
+          }
         ],
       });
   
@@ -1359,12 +1427,12 @@ controller.issuesView = async (req, res, next) => {
 // Thêm issue
 controller.createIssue = async (req, res) => {
     try {
-      const { title, status, priority, description } = req.body;
+      const { title, status, priority, description, dev } = req.body;
       const projectId = req.params.id;
       const userId = req.userid; 
   
       // Validate input data
-      if (!title || !status || !priority || !projectId) {
+      if (!title || !status || !priority || !projectId || !dev) {
         return res.status(400).json({ success: false, message: "Missing required fields" });
       }
   
@@ -1387,7 +1455,8 @@ controller.createIssue = async (req, res) => {
         priority: priority,
         description: description,
         created_at: new Date(),
-        assigned_to_user_id: userId, // Assign the issue to the logged-in user
+        assigned_to_user_id: dev, 
+        created_by_user_id: userId,
       });
   
       // Return the newly created issue to the client
@@ -1427,10 +1496,10 @@ controller.editIssue = async (req, res) => {
   controller.deleteIssue = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { IssueId } = req.body;
+        const { issueId } = req.body;
 
         // Log the testCaseId
-        console.log(`Attempting to delete test case with ID: ${IssueId}`);
+        console.log(`Attempting to delete issue with ID: ${issueId}`);
 
         // Check if the project exists
         const project = await models.Project.findByPk(id);
@@ -1439,16 +1508,16 @@ controller.editIssue = async (req, res) => {
         }
 
         // Find the test case to delete
-        const Issue = await models.Issues.findByPk(IssueId);
-        if (!Issue) {
-            return res.status(404).json({ message: "Test case not found" });
+        const issue = await models.Issue.findByPk(issueId);
+        if (!issue) {
+            return res.status(404).json({ message: "Issue not found" });
         }
 
         // Delete the test case
-        await Issue.destroy();
+        await issue.destroy();
 
         // Send a success response
-        res.status(200).json({ message: "Test case deleted successfully" });
+        res.status(200).json({ message: "Issue deleted successfully" });
     } catch (error) {
         next(error); // Pass any errors to the error handling middleware
     }

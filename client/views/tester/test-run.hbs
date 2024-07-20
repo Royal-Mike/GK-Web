@@ -209,7 +209,7 @@
                                     <tr>
                                         <th scope="row">TR00{{this.id}}</th>
                                         <td>{{this.status}}</td>
-                                        <td>{{this.assigned_to_user_id}}</td>
+                                        <td>{{this.assigned.username}}</td>
 
                                         <td style="max-width: 20%">{{formatDate this.started_at}}</td>
 
@@ -286,6 +286,7 @@
                         <span class="fs-6 font-weight-semibold">Selected test-plan</span>
                         <div class="input-group mb-3 w-100">
                             <select class="form-select" id="testplan-select" aria-label="Select testplan">
+                                <option value="" selected disabled hidden>Select test plan</option>
                                 {{#each testPlans}}
                                 <option value="{{this.id}}">{{this.name}}</option>
                                 {{/each}}
@@ -295,6 +296,7 @@
                         <span class="fs-6 font-weight-semibold">Selected test-case</span>
                         <div class="input-group mb-3 w-100">
                             <select class="form-select" id="testcase-select" aria-label="Select testcase">
+                                <option value="" selected disabled hidden>Select testcase</option>
                                 {{#each testcases}}
                                 <option value="{{this.id}}">{{this.title}}</option>
                                 {{/each}}
@@ -304,6 +306,7 @@
                         <span class="fs-6 font-weight-semibold">Selected issue</span>
                         <div class="input-group mb-3 w-100">
                             <select class="form-select" id="issue-select" aria-label="Select issue">
+                                <option value="" selected disabled hidden>Select issue</option>
                                 {{#each issues}}
                                 <option value="{{this.id}}">{{this.title}}</option>
                                 {{/each}}
@@ -313,6 +316,7 @@
                         <span class="fs-6 font-weight-semibold">Assigned to</span>
                         <div class="input-group mb-3 w-100">
                             <select class="form-select" id="user-select" aria-label="Select user">
+                                <option value="" selected disabled hidden>Select tester</option>
                                 {{#each users}}
                                 <option value="{{this.id}}">{{this.username}}</option>
                                 {{/each}}
@@ -322,6 +326,7 @@
                         <span class="fs-6 font-weight-semibold">Selected Release</span>
                         <div class="input-group mb-3 w-100">
                             <select class="form-select" id="release-select" aria-label="Select release">
+                                <option value="" selected disabled hidden>Select release</option>
                                 {{#each releases}}
                                 <option value="{{this.id}}">{{this.name}}</option>
                                 {{/each}}

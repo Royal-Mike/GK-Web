@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
     createBtn.addEventListener("click", async function () {
         const testcaseName = document.getElementById('testcase-name').value;
         const testcaseDescription = document.getElementById('testcase-description').value;
+        const testcaseModule = document.getElementById('module-select').value;
+        const testcaseRequirement = document.getElementById('requirement-select').value;
+        const testcasePreCondition = document.getElementById('testcase-pre-condition').value;
+        const testcaseSteps = document.getElementById('testcase-steps').value;
+        const testcaseResult = document.getElementById('testcase-result').value;
         const projectId = getProjectIdFromURL();
 
         if (testcaseName === '') {
@@ -46,7 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: testcaseName, description: testcaseDescription })
+                body: JSON.stringify({
+                    name: testcaseName,
+                    description: testcaseDescription,
+                    module: testcaseModule,
+                    precondition: testcasePreCondition,
+                    steps: testcaseSteps,
+                    result: testcaseResult,
+                    linkedRequirements: testcaseRequirement
+                })
             });
 
             if (!response.ok) {

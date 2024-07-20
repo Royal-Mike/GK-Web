@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   class Issue extends Model {
     static associate(models) {
       // Define associations here
-      Issue.belongsTo(models.Project, { foreignKey: 'project_id' });
-      Issue.belongsTo(models.User, { foreignKey: 'assigned_to_user_id' });
+        Issue.belongsTo(models.Project, { foreignKey: 'project_id' });
+        Issue.belongsTo(models.User, { foreignKey: 'assigned_to_user_id', as: 'developer' });
+        Issue.belongsTo(models.User, { foreignKey: 'created_by_user_id', as: 'creator' });
     }
   }
   Issue.init({
@@ -47,19 +48,27 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false
     },
+    created_by_user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'User', // Ensures the reference to the Users table
+            key: 'id'
+        },
+        allowNull: false
+    },
     created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
     linked_testcase: {
         type: DataTypes.INTEGER,
     }
-  }, {
+    }, {
     sequelize,
     modelName: 'Issue',
     tableName: 'Issues', // Ensure the correct table name
     timestamps: false // If you don't use createdAt and updatedAt
-  });
-  return Issue;
+    });
+    return Issue;
 };

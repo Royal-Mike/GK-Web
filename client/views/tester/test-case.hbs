@@ -312,17 +312,43 @@
                                aria-label="Testcase name"
                                id="testcase-name" />
                     </div>
-                    <span class="fs-6 font-weight-semibold">
-                        Description<span class="text-danger"></span>
-                    </span>
-                    <div class="input-group w-100">
-                        <textarea class="form-control"
-                                  aria-label="With textarea"
-                                  id="testcase-description"></textarea>
+                    <span class="fs-6 font-weight-semibold">Selected Module<span class="text-danger">*</span></span>
+                    <div class="input-group mb-3 w-100">
+                        <select class="form-select" id="module-select" aria-label="Select modules">
+                            <option value="" selected disabled hidden>Select module</option>
+                            {{#each modules}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <span class="fs-6 font-weight-semibold">Selected Requirement<span class="text-danger">*</span></span>
+                    <div class="input-group mb-3 w-100">
+                        <select class="form-select" id="requirement-select" aria-label="Select requirement">
+                            <option value="" selected disabled hidden>Select requirement</option>
+                            {{#each requirements}}
+                            <option value="{{this.id}}">{{this.filename}}</option>
+                            {{/each}}
+                        </select>
                     </div>
                 </div>
                 <div class="col d-flex flex-column">
                     <div class="flex-fill flex-column">
+                        <span class="fs-6 font-weight-semibold">
+                            Description<span class="text-danger"></span>
+                        </span>
+                        <div class="input-group w-100">
+                            <textarea class="form-control"
+                                      aria-label="With textarea"
+                                      id="testcase-description"></textarea>
+                        </div>
+                        <span class="fs-6 font-weight-semibold">
+                            Pre-Condition<span class="text-danger"></span>
+                        </span>
+                        <div class="input-group w-100">
+                            <textarea class="form-control"
+                                      aria-label="With textarea"
+                                      id="testcase-pre-condition"></textarea>
+                        </div>
                         <div class="test-step d-flex justify-content-start align-items-center gap-1">
                             <div class="col">
                                 <span>Step Description</span>
@@ -336,12 +362,12 @@
                             <div class="input-group w-50">
                                 <textarea class="form-control"
                                           aria-label="With textarea"
-                                          name="step-description"></textarea>
+                                          id="testcase-steps"></textarea>
                             </div>
                             <div class="input-group w-50">
                                 <textarea class="form-control"
                                           aria-label="With textarea"
-                                          name="expected-result"></textarea>
+                                          id="testcase-result"></textarea>
                             </div>
                         </div>
                     </div>

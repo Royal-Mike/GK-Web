@@ -1,3 +1,6 @@
+
+<link rel="stylesheet" href="/css/issue.css">
+
 <main>
     <!-- Page hiện tại -->
     <div class="container-fluid">
@@ -151,15 +154,16 @@
                         <div class="row">
                             <div class="col">IS00{{this.id}}</div>
                             <div class="col-3">{{this.title}}</div>
-                            <div class="col">Ky Thanh</div>
-                            <div class="col">{{this.User.username}}</div>
+                            <div class="col">{{this.creator.username}}</div>
+                            <div class="col">{{this.developer.username}}</div>
                             <div class="col">{{this.status}}</div>
                             <div class="col">{{this.priority}}</div>
                             <div class="col-2">{{formatDate this.created_at }}</div>
                             <div class="col d-flex">
-                                <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark"><i class="bi bi-eye"></i></a>
-                                <i class="bi bi-pencil mx-3 "></i>
-                                <i class="bi bi-trash"  data-id="{{this.id}}"></i>
+                                <div class="d-flex pointer-cursor p-2 pt-0 pb-0 justify-content-end icon-group">
+                                    <a href="/project/{{../projectId}}/issues/{{this.id}}" class="text-decoration-none text-dark"><i class="bi bi-eye"></i></a>
+                                    <i class="bi bi-trash trash-icon" data-id="{{this.id}}"></i>
+                                </div>
                             </div>
                         </div>
                     <hr />
@@ -188,16 +192,55 @@
 
             <form id="add-issue-form" method="POST" action="/project/{{project.id}}/issues/create">
                 <div class="row p-3">
-                    <div class="col">
-                        <p>Issue title <span class="text-danger">*</span></p>
-                        <input type="text" class="form-control" placeholder="" aria-label="title" name="title" required />
-                        <p>Status <span class="text-danger">*</span></p>
-                        <input type="text" class="form-control" placeholder="" aria-label="status" name="status" required />
-                        <p>Priority <span class="text-danger">*</span></p>
-                        <input type="text" class="form-control" placeholder="" aria-label="priority" name="priority" required />
-                        <input type="hidden" name="test_run_id" value="{{project.id}}" />
+                    <div class="col d-flex flex-column">
+                        <span class="fs-6 font-weight-semibold">
+                            Issue title<span class="text-danger">*</span>
+                        </span>
+                        <div class="input-group mb-3 w-30">
+                            <input type="text"
+                                   class="form-control"
+                                   aria-label="title"
+                                   name="title"
+                                   required />
+                        </div>
+                        <div class="flex-fill flex-column">
+                            <span class="fs-6 font-weight-semibold">Status<span class="text-danger">*</span></span>
+                            <div class="input-group mb-3 w-100">
+                                <select class="form-select" id="status-select" aria-label="status" name="status" required>
+                                    <option value="" selected disabled hidden>Select status</option>
+                                    <option value="Not started">Not started</option>
+                                    <option value="In progress">In progress</option>
+                                    <option value="Staging">Staging</option>
+                                    <option value="Looking good">Looking good</option>
+                                    <option value="Won't fix">Won't fix</option>
+                                    <option value="Blocked">Blocked</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex-fill flex-column">
+                            <span class="fs-6 font-weight-semibold">Priority<span class="text-danger">*</span></span>
+                            <div class="input-group mb-3 w-100">
+                                <select class="form-select" id="status-select" aria-label="priority" name="priority" required>
+                                    <option value="" selected disabled hidden>Select priority</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="col d-flex flex-column">
+                        <span class="fs-6 font-weight-semibold">Assigned to<span class="text-danger">*</span></span>
+                        <div class="input-group mb-3 w-100">
+                            <select class="form-select" id="dev-select" aria-label="dev" name="dev" required>
+                                <option value="" selected disabled hidden>Select developer</option>
+                                {{#each devs}}
+                                <option value="{{this.id}}">{{this.username}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
                         <p>Description</p>
                         <textarea class="form-control flex-grow-1" name="description"></textarea>
                     </div>
@@ -230,48 +273,6 @@
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="/js/toast.js"></script>
 <script src="/js/add-issue.js"></script>
 <script src="/js/delete-issue.js"></script>
-<script>
-    function getProjectIdFromURL() {
-        const pathArray = window.location.pathname.split('/');
-        const projectId = pathArray[2];
-        return projectId;
-    }
-
-    $(document).ready(function() {
-        $('#add-issue-form').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-
-            // Collect form data
-            var formData = $(this).serialize();
-            var projectId = getProjectIdFromURL();
-            var url = '/project/' + projectId + '/issues/create';
-
-            // Send form data via AJAX
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                success: function(response) {
-                    // Handle success response
-                    alert('Issue added successfully!');
-                    location.reload();
-                },
-                error: function(error) {
-                    // Handle error response
-                    alert('Error adding issue. Please try again.');
-                }
-            });
-        });
-
-        $('#cancel-issue-btn').on('click', function() {
-            // Clear form fields and close the form
-            $('#add-issue-form')[0].reset();
-            $('.add-issue-table').hide();
-        });
-
-        // Add event listener for delete buttons
-        
-    });
-</script>

@@ -1,3 +1,9 @@
+function getProjectIdFromURL() {
+    const pathArray = window.location.pathname.split('/');
+    const projectId = pathArray[2];
+    return projectId;
+}
+
 $(document).ready(function () {
     // Function để hiển thị form add issue
     $("#add-issue-btn").click(function () {
@@ -8,7 +14,6 @@ $(document).ready(function () {
     // Function để save issue
     $("#save-issue-btn").click(function () {
         $(".overlay, .add-issue-table").hide(); // ẩn overlay và add issue table
-        showToast("Add issue successfully!!!");
     });
 
     // Function để cancel add issue
@@ -20,40 +25,37 @@ $(document).ready(function () {
     $("#close-issue-btn").click(function () {
         $(".overlay, .add-issue-table").hide(); // ẩn overlay và add issue table
     });
-    
+
+    $('#add-issue-form').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Collect form data
+        var formData = $(this).serialize();
+        var projectId = getProjectIdFromURL();
+        var url = '/project/' + projectId + '/issues/create';
+
+        // Send form data via AJAX
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            success: function (response) {
+                // Handle success response
+                showToast('Issue added successfully!');
+                location.reload();
+            },
+            error: function (error) {
+                // Handle error response
+                showToast('Error adding issue. Please try again.');
+            }
+        });
+    });
+
+    $('#cancel-issue-btn').on('click', function () {
+        // Clear form fields and close the form
+        $('#add-issue-form')[0].reset();
+        $('.add-issue-table').hide();
+    });
 });
 
-function showToast(message) {
-    // Tạo một thẻ div để chứa toast
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add('align-items-center'); // Bootstrap class
-    toast.classList.add('text-white'); // Bootstrap class
-    toast.classList.add('bg-primary'); // Bootstrap class
-    toast.classList.add('fade'); // Bootstrap class
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    // Thêm nội dung của toast
-    toast.innerHTML = `
-        <div class="toast-body">
-            ${message}
-        </div>
-    `;
-
-    // Thêm toast vào body của tài liệu HTML
-    document.body.appendChild(toast);
-
-    // Kích hoạt hiệu ứng fade-in
-    $(toast).toast('show');
-
-    // Xóa toast sau 3 giây
-    setTimeout(function() {
-        $(toast).toast('hide'); // Ẩn toast
-        setTimeout(function() {
-            toast.remove(); // Xóa toast khỏi DOM
-        }, 500); // Đợi 0.5 giây trước khi xóa
-    }, 3000);
-}
 

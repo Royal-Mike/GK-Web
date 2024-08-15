@@ -1344,12 +1344,7 @@ controller.issuesView = async (req, res, next) => {
                       model: models.User,
                       as: "creator", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
                       attributes: ["id", "username"],
-                  },
-                  {
-                      model: models.User,
-                      as: "developer", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
-                      attributes: ["id", "username"],
-                  },
+                  }
               ],
           });
 
@@ -1398,11 +1393,6 @@ controller.issuesView = async (req, res, next) => {
           id: issueId,
         },
         include: [
-          {
-            model: models.User,
-            as: "developer", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ
-            attributes: ["id", "username"],
-          },
           {
             model: models.User,
             as: "creator", // Alias phải trùng với tên đã định nghĩa trong mối quan hệ

@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Project',
-    tableName: 'Project', // Đảm bảo sử dụng đúng tên bảng
-    timestamps: false // nếu bạn không sử dụng createdAt và updatedAt
+    tableName: 'Projects', // Đảm bảo sử dụng đúng tên bảng
+    timestamps: true // nếu bạn không sử dụng createdAt và updatedAt
   });
   return Project;
 };

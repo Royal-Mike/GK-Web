@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'TestPlan',
-        tableName: 'Test_Plan', // Customize table name if needed
+        tableName: 'Test_Plans', // Customize table name if needed
         timestamps: false // Disable the automatic createdAt and updatedAt fields
     });
 

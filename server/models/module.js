@@ -1,66 +1,33 @@
 'use strict';
-const { Model } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Module extends Model {
-        static associate(models) {
-            // Define association with Project
-            Module.belongsTo(models.Project, {
-                foreignKey: 'project_id',
-                as: 'project'
-            });
-            // Define association with User
-            Module.belongsTo(models.User, {
-                foreignKey: 'created_by',
-                as: 'developer'
-            });
-        }
+  class Module extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-
-    Module.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        project_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Project',
-                key: 'id'
-            }
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        language: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        datacode: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        created_by: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Users',
-                key: 'id'
-            }
-        }
-    }, {
-        sequelize,
-        modelName: 'Module',
-        tableName: 'Modules',
-        timestamps: true // Enable timestamps if you want createdAt and updatedAt
-    });
-
-    return Module;
+  }
+  Module.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: DataTypes.STRING,
+    project_id: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
+    language: DataTypes.STRING,
+    datacode: DataTypes.STRING,
+    created_by: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Module',
+  });
+  return Module;
 };

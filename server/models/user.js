@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'created_by',
                 as: 'modules'
             });
+            User.hasMany(models.User_Project, { foreignKey: 'user_id' });
+            User.hasMany(models.Testcase, { foreignKey: 'user_id' });
         }
     }
 

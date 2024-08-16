@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
           Project.hasMany(models.Attachment, {
               foreignKey: 'project_id'
           });
-          Project.hasMany(models.TestPlan, { foreignKey: 'project_id' });
+          Project.hasMany(models.Test_Plan, { foreignKey: 'project_id' });
           Project.hasMany(models.Module, { foreignKey: 'project_id' });
       }
   }

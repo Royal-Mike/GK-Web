@@ -912,7 +912,7 @@ controller.testPlanView = async (req, res, next) => {
             return res.status(404).json({ message: "Project not found" });
         }
 
-        const testPlans = await models.TestPlan.findAll({
+        const testPlans = await models.Test_Plan.findAll({
             where: { project_id: project.id }
         });
 
@@ -929,9 +929,9 @@ controller.createTestPlan = async (req, res) => {
         const { name, description } = req.body;
         const projectId = req.params.id;
 
-        const maxTestPlanId = await models.TestPlan.max("id");
+        const maxTestPlanId = await models.Test_Plan.max("id");
 
-        const testPlan = await models.TestPlan.create({
+        const testPlan = await models.Test_Plan.create({
             id: maxTestPlanId + 1,
             project_id: projectId,
             name,
@@ -980,7 +980,7 @@ controller.testRunView = async (req, res, next) => {
             where: { project_id: project.id },
         });
 
-        const testPlans = await models.TestPlan.findAll({
+        const testPlans = await models.Test_Plan.findAll({
             where: { project_id: project.id }
         });
 
@@ -1004,7 +1004,7 @@ controller.testRunView = async (req, res, next) => {
         testRuns = [];
 
         if (testPlanIds.length != 0) {
-            testRuns = await models.TestRun.findAndCountAll({
+            testRuns = await models.Test_Run.findAndCountAll({
                 where: { test_plan_id: testPlanIds },
                 limit: pageSize,
                 offset: offset,
@@ -1043,7 +1043,7 @@ controller.createTestRun = async (req, res) => {
     try {
         const { name, test_plan_id, test_case_id, issue_id, assigned_to_user_id, release_id } = req.body;
         const projectId = req.params.id;
-        const maxTestRunId = await models.TestRun.max("id");
+        const maxTestRunId = await models.Test_Run.max("id");
 
         if (!test_plan_id) {
             return res.status(401).json({
@@ -1059,7 +1059,7 @@ controller.createTestRun = async (req, res) => {
             });
         }
 
-        const newTestRun = await models.TestRun.create({
+        const newTestRun = await models.Test_Run.create({
             name,
             id: maxTestRunId + 1,
             project_id: projectId,

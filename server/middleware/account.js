@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-    const token = req.cookies.token || req.header('authorization').split(" ")[1]; // Get token from cookie
+    let token;
+    if (req.header('authorization')) token = req.header('authorization').split(" ")[1];
+    else token = req.cookies.token;
+
     if (!token) {
         res.cookie('flash', 'Please log in or register to access this page.', { httpOnly: false });
         return res.redirect('/account/login');
